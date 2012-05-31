@@ -1,0 +1,16 @@
+.eoi div.tset{	
+	float:left;
+	padding:5px 3px 5px 3px;
+	min-width:350px;
+}
+
+.eoi div.tset .intext{	
+	width:200px;
+}
+
+.eoi div.tset .half{	
+	width:80px;
+}
+.center{	
+	text-align:center;
+}

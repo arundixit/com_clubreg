@@ -1,0 +1,114 @@
+#userNav_clubreg {
+	/*background: #AFD5E0 url("bg-nav.gif") repeat-x;
+	border: 1px solid #979797;*/
+	border-bottom: 1px solid #979797;
+	border-width: 1px 0;
+	font-size: 1.0em;
+	margin:0px;
+	padding:0px;
+	/*margin-top: 1em;
+	padding-top: .6em; */
+}
+ 
+#userNav_clubreg ol, #userNav_clubreg ol li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ 
+#userNav_clubreg ol {	
+	padding: 5px 0 1px 0;
+	text-align: right;
+	margin-bottom:1px;
+}
+ 
+#userNav_clubreg ol li {
+	display: inline;
+	margin-right: .5em;
+	
+}
+ 
+#userNav_clubreg ol li.last {
+	margin-right: 0;
+}
+ 
+#userNav_clubreg ol li a {
+	background: url("images/tab-right.gif") no-repeat 100% 0;
+	color: #06C;
+	padding: 5px 0;
+	text-decoration: none;
+}
+ 
+#userNav_clubreg ol li a span {
+	background: url("images/tab-left.gif") no-repeat;
+	padding: 5px 1em;
+}
+ 
+#userNav_clubreg ol li a:hover span {
+	color: #69C;
+	text-decoration: underline;
+}
+#userNav_clubreg ol li a.acts {	
+	padding-bottom:10px; 
+}
+
+#userNav_clubreg ol li a.acts span {	
+	padding-bottom:10px; 	
+}
+ 
+/*\*//*/
+#userNav_clubreg ol li a {
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+ 
+#userNav_clubreg ol {
+	padding-bottom: 0;
+	margin-bottom: -1px;
+}
+/
+*/
+#subNav{
+	border-width: 1px 0;
+	font-size: 0.9em;
+	margin:0px 0px 1px 0px;
+	padding:0px;
+	
+}
+#subNav ol, #subNav ol li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	
+}
+
+#subNav ol {	
+	padding: 5px 0 1px 0;
+	text-align: right;
+}
+ 
+#subNav ol li {
+	display: inline;
+	margin-right: 0em;
+	
+}
+
+#subNav ol li a {
+	background:  url('images/smoke.png') repeat-x;		
+	color: #06C;
+	padding: 5px 5px;
+	text-decoration: none;
+	border:solid 1px #EFEFEE;
+}
+#subNav ol li a:hover {
+	color: #69C;
+	text-decoration: underline;
+}
+
+#subNav ol li a:focus  {
+	color: #FFFFFF;
+	background:  url('images/tagbg.png') repeat-x;		
+	text-decoration: none;
+	background-color:  #69C;		
+}

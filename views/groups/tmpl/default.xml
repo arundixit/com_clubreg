@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="Team Groups Layout">
+    <message>
+      <![CDATA[TEAM GROUPS LAYOUT DESC]]>
+    </message>
+  </layout>
+  <state>
+    <name>Team Groups Layout</name>
+    <description>TEAM GROUPS LAYOUT DESC</description>
+     
+     <url addpath="/administrator/components/com_clubreg/elements">
+      <param name="id" type="groups" default="" label="Select a Group" description="List of Groups" />
+      <param name="reg_year" type="years" default="" label="Select a Season" description="List of Seasons" />      
+      <param name="c" type="hidden" default="groups" label="Controler" description="Group Controller" /> 
+    </url>    
+  </state>
+</metadata>

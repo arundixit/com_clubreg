@@ -1,0 +1,307 @@
+/* Start data tables */
+
+.art-data table, table.art-data
+{
+	/*border-collapse: collapse; width:auto;*/
+	margin: 1px;
+	
+}
+
+.art-data table, table.art-data .art-data tr, .art-data th, .art-data td
+{
+	background-color:Transparent;
+	font-size:11px;
+}
+
+.art-data td
+{
+	padding: 1px 1px 1px 3px;
+	border: solid 1px #758899;
+	vertical-align: top;
+	
+}
+
+.art-data th
+{
+	text-align: center;
+	vertical-align: top;
+	padding: 5px;
+	/*border: solid 1px #999999;*/
+	border: solid 1px #758899;
+	color:#333333;
+
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9BBBE0), color-stop(1, #7A94BF) );
+	background:-moz-linear-gradient( center top, #9BBBE0 5%, #7A94BF 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9BBBE0', endColorstr='#7A94BF');
+
+
+}
+/*d9d9d9 */
+
+table.art-data tbody tr			{ background-color: #fff;  text-align: left; }
+table.art-data tbody tr.row1 	{ background: #EFEFEF;  }
+
+table.art-data tbody tr.row0:hover td,
+table.art-data tbody tr.row1:hover td  { background-color: #ffd ; }
+
+table.art-data tbody tr td 	   { height: 25px; background: #fff;  }
+table.art-data tbody tr.row1 td { background: #EFEFEF;  }f9f9f9
+
+table.art-data tfoot tr { text-align: center;  color: #333; }
+table.art-data tfoot td,
+table.art-data tfoot th { background-color: #f3f3f3; border-top: 1px solid #333; text-align: center; }
+
+
+.st_register td.lb { background-color: #D3D9DE; font-weight:bold; }
+.isReq{ color:red;padding-left:5px;}
+#edit_config{	
+	/*border-collapse:collapse;*/
+}
+form{
+	font-family :Lucida Grande, Lucida Sans Unicode, Tahoma, sans-serif;
+}
+
+#edit_config td.lb{
+font-size : 1.1em;
+font-weight : bold;
+min-width:150px;
+background-color : #e2edf9;
+}
+legend{
+font-size : 1.4em;
+font-weight : bold;
+color : #333300;
+
+}
+fieldset{
+	border:solid #999966 1px;
+}
+.intext{	
+	width:170px;
+	padding:3px 2px 3px 1px;
+	font-size:110%;
+}
+label.lbcls{
+	font-size:1.1em;
+	/*font-weight:bold;*/	
+	display:inline-block;
+	width:130px;
+	margin-left:10px;
+	vertical-align:top;
+}
+p.cl{
+	 clear:left; 
+}
+div.n{
+	padding:5px;
+}
+div.player_address{
+	display:none;
+	visibility:hidden;
+}
+ol.intable{
+	margin:0px;
+	padding:0px;
+}
+
+ol.intable li{
+	margin:0em 0em 0em 1.5em;
+	padding-left:5px;
+	
+}
+.payment{
+	font-weight:normal;
+}
+.invalid {
+    border-color: #FF0000;
+}
+label.invalid {
+    color: #FF0000;
+}
+.loading{
+	background: transparent url(images/bigrotation2.gif ) no-repeat;	
+	padding:10px 15px 10px 10px;
+}
+.fltlbl{ 
+/* filter labels */
+ font-weight:bold; 
+ font-size:90%;
+}
+#filter_table .inputbox, .smallinput{
+	padding:0px;
+	font-size:90%;
+}
+
+/* Incase there are no error message */
+#system-message dd.message ul,
+#system-message dd.error ul,
+#system-message dd.notice ul {
+	padding: 0;
+	margin: 0;
+}
+
+#system-message dd.message ul li,
+#system-message dd.error ul li,
+#system-message dd.notice ul li {
+	background: none;
+	padding: 5px;
+	margin: 0;
+	color: #FFFFFF;
+}
+
+/* System Standard Messages */
+#system-message dd.message ul {
+	background: #006699;
+	border: none;
+}
+
+/* System Error Messages */
+#system-message dd.error ul {
+	background: #BF0000;
+	border: none;
+}
+
+/* System Notice Messages */
+#system-message dd.notice ul {
+	background: #EE9600;
+	border: none;
+}
+
+.updatetbl select, input{
+	padding:0px;
+	font-size:90%;
+}
+table.updatetbl{
+	
+/*	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7C8A99), color-stop(1, #697087) );
+	background:-moz-linear-gradient( center top, #7C8A99 5%, #697087 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#7C8A99', endColorstr='#697087');
+	background-color:#7C8A99;*/
+	
+}
+#update_table{
+	padding-bottom:3px;	
+}
+.shading{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9BB1C7), color-stop(1, #B8C5ED) );
+	background:-moz-linear-gradient( center top, #9BB1C7 5%, #B8C5ED 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9BB1C7', endColorstr='#B8C5ED');
+	background-color:#9BB1C7;
+	
+}
+
+.e_next, .e_prev{	
+	background-color:#D7E5E8;	
+	border:solid 0px #444444;
+	font-weight:bold;
+	color:black;	
+}
+.e_prev{	
+	padding:2px 5px 2px 18px;
+	background: transparent  url('images/prev.gif') no-repeat;	
+	background-position:left center;
+}
+.e_next{
+	padding:2px 18px 2px 5px;
+	background:transparent url(images/next.gif ) no-repeat;	
+	background-position:right center;
+}
+.addtags{	
+	position:absolute;
+	background:white;
+	font-size:10px;
+	color:black;
+	padding:5px;
+	border:solid 1px #444444;
+	display:none;	
+}
+.taghd{
+	font-size:1.2em;
+	font-weight:bold;
+	padding:5px;
+	margin:2px 0px 2px 5px;
+	background:  url('images/smoke.png') repeat-x;	
+	border:1px solid #999999;
+}
+.tagclass{	
+	padding:2px 2px 2px 0px;
+	/*background:#909090;*/
+	margin-right:3px;			
+}
+.tagb4:hover, .tagclass:hover{	
+	
+	cursor:pointer;
+	text-decoration:underline;
+}
+#ntag_divlist{
+	height:300px;
+	overflow:auto;
+}
+.spn_tag{
+	display:inline-block;
+	border:1px solid #AAAAAA;
+	background:#EFEFEF;	
+	padding:2px;
+	background:  url('images/smoke.png') repeat-x;	
+	text-align:top;
+}
+.spn_tag img{
+	vertical-align:bottom;
+}
+.enlarge{
+	dispaly:block;
+	min-height:32px;
+}
+div.top_buttons{
+	padding:3px 1px;
+	display:block;
+}
+div.right_buttons{
+	float:right;
+}
+div.left_buttons{
+	float:left
+}
+
+.gud div.tset{	
+	float:left;
+	padding:5px 3px 5px 3px;
+	min-width:350px;
+}
+
+.gud div.tset .intext{	
+	width:200px;
+}
+
+.gud div.tset .half{	
+	width:80px;
+}
+.center{
+	text-align:center;
+	
+}
+.button { 
+	background: url('images/blueBtn.png') repeat-x 0 0 !important; 
+	border: 1px solid #3581c1; 
+	color: #fff !important; 
+	padding:4px;
+	font-size:1.0em !important; 
+}
+.button:hover { background-position: 0 -25px; }
+.button:active { background-position: 0 -50px; }
+.overflow{
+	min-width:800px;
+	overflow:auto;	
+}
+.center{
+	text-align:center !important;
+}
+#em_medical{
+	width:300px;
+}
+.fleft{
+	float:left;
+}
+#em_address, #em_emailaddress{
+	width:300px;
+}

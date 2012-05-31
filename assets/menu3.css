@@ -1,0 +1,64 @@
+#userNav_clubreg ul, #userNav_clubreg ul li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ol#userNav_clubreg {
+	width: auto;
+	float: right;
+	margin: 0 0 0 0;
+	padding: 0;
+	list-style-type: none;
+/*	background-color: #f2f2f2;
+	border-bottom: 1px solid #ccc; 
+	border-top: 1px solid #ccc; 
+	border-left: 1px solid #ccc;*/
+}
+#userNav_clubreg li {
+	float: left;
+	margin:0px;
+	/*padding:2px 3px 0px 3px;
+	border:1px solid black;*/
+	margin-right: .75em;	
+}
+#userNav_clubreg li.last {	
+	margin-right: 0;	
+}
+#userNav_clubreg li a {
+	display: block;
+	padding: 5px 0px;
+	/*padding:0px 0px 0px 0px;*/
+	text-decoration: underline;
+	font-weight: bold;
+	color: #069;
+	font-size:11px;
+	
+	background: url("images/tab-right.gif") no-repeat 100% 0;
+}
+#userNav_clubreg li:hover {
+	color: #c00;
+	background-color: #f1fafd; 
+}
+
+#userNav_clubreg li a span {
+	background: url("images/tab-left.gif") no-repeat;
+	padding: 5px 1em;
+}
+
+#userNav_clubreg li.acts {
+	
+	border-top:1px solid #333333;
+	border-right:1px solid #333333;
+	border-left:1px solid #333333;	
+	background-color: #c8dff9; 
+	
+	-moz-border-radius: 6px 6px 0px 0px;
+    -webkit-border-radius: 6px 6px 0px 0px;
+    -khtml-border-radius: 6px 6px 0px 0px;
+     
+     border-radius: 6px 6px 0px 0px;    	
+}
+
+
+

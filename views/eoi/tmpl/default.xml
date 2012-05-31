@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="Expression of Interest Layout d-">
+    <message>
+      <![CDATA[EXPRESSION OF INTEREST LAYOUT DESC]]>
+    </message>
+  </layout>
+  <state>
+   <name>Expression of Interest Layout N</name>
+    <description>EXPRESSION OF INTEREST LAYOUT DESC</description>	
+	<url>
+       <param name="c" type="hidden" default="eoi" label="Controler" description="expression of interest" /> 
+	   <param name="view" type="hidden" default="senior" label="View" description="expression of interest" /> 
+	     <param name="view" type="list" default="0" label="Express of Interest Template" description="expression of interest">
+			<option value="">- Select Players - </option>
+			<option value="junior">Junior Players</option>
+			<option value="senior">Senior Players</option>
+       </param>
+	  
+	  
+    </url>
+        
+  </state>
+</metadata>

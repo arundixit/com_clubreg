@@ -1,0 +1,63 @@
+div.row0, div.row1{	
+	border-bottom:solid 1px #B8C5ED;
+	padding:5px 5px 9px 5px;
+	font-size:100%;
+	
+}
+div.row1{
+	/*background: #B8C5ED; */
+	background: #EEEEEE;
+}
+div.reg{
+	font-size:80%;
+	text-align:right;
+	margin:0px;
+}
+
+div.row0 label, div.row1 label{	
+	display:inline-block;
+	font-weight:bold;
+	width:100px;
+	line-height:25px;
+	
+	
+}
+.mv_left{
+	padding-left:20px;
+}
+#filter_table_1 .inputbox, .smallinput{
+	padding:1px;
+	font-size:90%;
+	width:150px;
+}
+span.fltlbl1{
+	font-size:1.0em;
+	font-weight:bold;
+}
+td.listing{
+	border:solid 1px #999999;
+}
+span.fline{
+	font-size:1.2em;
+	font-weight:bold;
+}
+span.filters{
+	display:inline-block;
+	width:120px;	
+	font-weight:bold;
+}
+span.f_label{
+	display:inline-block;
+	width:100px;	
+	font-weight:bold;
+}
+div.f_div{
+	margin:0px;
+	padding:3px;
+	line-height:30px;
+/*	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9BB1C7), color-stop(1, #B8C5ED) );
+	background:-moz-linear-gradient( center top, #9BB1C7 5%, #B8C5ED 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9BB1C7', endColorstr='#B8C5ED');*/
+	background-color:#9BB1C7;
+	
+}

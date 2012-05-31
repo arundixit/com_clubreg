@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="Team Member Profile">
+    <message>
+      <![CDATA[TEAM MEMBER PROFILE DESC]]>
+    </message>
+  </layout>
+  <state>
+   <name>Team Member Profile Layout</name>
+    <description>TEAM MEMBER PROFILE DESC</description>
+    <url addpath="/administrator/components/com_clubreg/elements">
+      <param name="id" type="member" default="" label="Select Team Member" description="The Team Member to Link to" />
+    </url>
+  </state>
+</metadata>

@@ -1,0 +1,15 @@
+29/01/2012
+added a helper class clubTables.
+To help render the eoi and user reg tables
+03/02/2012
+Added the next and previous buttons for iterating through a filtered resultset.
+04/02/2012
+Add a detailed view for rendering filtered result for users viewing on tablets.
+05/02/2012
+Fixed the following errors from joomla review
+Added PH1-PHP Headers missing GPL License Notice to all files
+SE1-Extension is missing index.html file in all folders
+30/05/2012
+Implement fluid layout.
+
+
