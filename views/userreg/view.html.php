@@ -418,6 +418,7 @@ class ClubRegViewuserreg extends JView
 		
 		$lists["year_registered_list"] = ClubregHelper::generate_seasonList();
 		
+		$lists["member_levels"] = ClubregHelper::getMemberLevels();		
 		
 		
 		if($all_headings["member_params"]->get("manageusers") == "yes"){

@@ -162,14 +162,7 @@ class clubTables{
 						<?php	}	?>		
 					</tr>						
 					<?php
-						$a_result->howmany = 0; if($a_result->howmany > 0){
-							?>
-							<tr>
-								<td colspan="<?= $col_count; ?>"><?php $player_row->getChildren($all_headings,$a_result); ?></td>
-							</tr>
-							<?php 
-						}
-							$k = 1 - $k; $i++;
+						$k = 1 - $k; $i++;
 					}	
 					
 					unset($sex_list);

@@ -182,6 +182,7 @@ class ClubRegControllerUserReg extends JController
 					
 					$row->store();
 					JRequest::setVar('member_id', $row->member_id);	
+					
 					$app->enqueueMessage("Details Updated for Registered User");
 				}else{
 					JError::raiseWarning( 500, sprintf("Incomplete Player Details :: %s",implode(", ",$msg)));
@@ -283,6 +284,8 @@ class ClubRegControllerUserReg extends JController
 					
 					$player_row->store();
 					
+					
+					
 				}
 				/**
 				 * 
@@ -346,6 +349,26 @@ class ClubRegControllerUserReg extends JController
 			break;
 			
 		}
+		
+		
+		if($update_em_contact){
+			
+			unset($d_qry);
+			$d_qry = array();
+			$contact_array = ClubContactHelper::getContactArray();
+			foreach($contact_array as $contact_item){
+				$contact_value = JRequest::getVar( $contact_item, '', 'post', 'string' );
+				if($row->member_id > 0){
+					$d_qry[] = sprintf("insert into %s set member_id = %d ,contact_item = %s ,contact_value = %s on duplicate key update 
+						contact_value = values(contact_value);	
+					",CONTACT_TABLES,$row->member_id,$contact_item,$contact_value);
+				}
+			}
+			
+			write_debug($d_qry);
+			unset($d_qry);
+		}
+		
 		$next_action = isset($_POST["saveNnew"])?JRequest::getVar( "saveNnew", null, 'post', 'string' ):null;
 		
 		if(isset($next_action)){

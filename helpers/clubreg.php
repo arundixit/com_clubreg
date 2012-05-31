@@ -404,7 +404,7 @@ class ClubregHelper{
 		$t_array['0'] = $t_object;
 		
 		
-		$d_qry = sprintf("select config_short as value, config_name as text from %s where which_config = 'club_payment_level' and publish = 1 order by ordering",CLUB_TEMPLATE_CONFIG_TABLE);
+		$d_qry = sprintf("select config_short as value, config_name as text from %s where which_config = 'club_player_level' and publish = 1 order by ordering",CLUB_TEMPLATE_CONFIG_TABLE);
 		$t_array = array_merge($t_array,get_a_list($d_qry,'value'));
 		
 		return $t_array;

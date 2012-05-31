@@ -116,7 +116,7 @@ echo $pane->startPanel($title, "detail-page1");
 		</div>
 		<div class="n">
 		<label class="lbcls" for="g_memberlevel">Membership Level</label><?php echo $colon ;
-				$name = "g_memberlevel";	$id= "g_memberlevel";	$t_level = $member_data->member_level;
+				$name = "g_memberlevel";	$id= "g_memberlevel";	$t_level = $member_data->memberlevel;
 				echo JHTML::_('select.genericlist',  $this->lists['member_levels'], $name, 'class="intext" id="'.$id.'"  size="1" ', 'value', 'text', $t_level);?>	
 		</div>
 		<div class="n">
