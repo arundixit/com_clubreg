@@ -173,20 +173,18 @@ echo $pane->startPanel($title, "detail-page1");
 <?php  	
 		$name = $id = "g_parent_id";
 		 $t_prop = " style='width:200px;'";
-		?><label class="lbcls">Guardian List </label><?php echo $colon ;?><?php 
+		?><div class="n"><label class="lbcls">Guardian List </label><?php echo $colon ;?><?php 
 		$current_parent = isset($this->parent_data)?$this->parent_data->member_id:-1;
 		echo JHTML::_('select.genericlist',  $this->parent_list, $name, 'class="intext" id="'.$id.'"  size="1" ', 'value', 'text',$current_parent );
-		?>
-		<span class="" id="loading"> &nbsp; </span>
+		?><span class="" id="loading"> &nbsp; </span>
+		</div>
 		<?php 		
 			foreach($show_key  as $tkey ){
 				if($tkey[0] == "_") continue;
 				?><div class="n">
 					<label class="lbcls"><?php echo ucwords($tkey); ?> </label><?php echo $colon ;?><span id="span_<?php echo $tkey ?>"><?php echo isset($this->parent_data)?trim($this->parent_data->$tkey):""; ?></span>
 				</div>				
-		<?php 	} ?>
-		
-		<br />	
+		<?php 	} ?>		
 	<div class="taghd"><?php echo EMERGENCY; ?> Details</div>
 	<?php 	
 	$this->contact_details->contact_key = "em_" ;
@@ -225,6 +223,8 @@ echo $pane->startPanel($title, "detail-page1");
 	if( isset($member_data->member_id) && $member_data->member_id > 0){
 		global $use_tab;
 		$use_tab = true;
+		
+		$this->_render_extra_details($pane);
 		
 		$title = JText::_('Payment Details');
 		$title = tryUseCookies($title ,0,$tab_id);
