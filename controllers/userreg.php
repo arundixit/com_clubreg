@@ -82,7 +82,7 @@ class ClubRegControllerUserReg extends JController
 		$app = JFactory::getApplication();
 		
 		JRequest::checkToken() or jexit( 'Invalid Token' );
-		$save_junior = false;
+		$save_junior = $update_em_contact = false;
 		$post = JRequest::get('post');
 		
 		$player_type = trim(JRequest::getVar( "g_playertype", '', 'post', 'string' ));
@@ -130,9 +130,10 @@ class ClubRegControllerUserReg extends JController
 					}		
 					$row->store();
 					JRequest::setVar('member_id', $row->member_id);
-					$app->enqueueMessage("Details Updated for Registered User");
+					$app->enqueueMessage("Details Updated for ".PLAYER);
+					$update_em_contact = true;
 				}else{
-					JError::raiseWarning( 500, "Incomplete Player Details :: Player Names Must be more than 2 characters" );
+					JError::raiseWarning( 500, "Incomplete ".PLAYER." Details :: Player Names Must be more than 2 characters" );
 				}			
 				
 			break;
@@ -182,10 +183,11 @@ class ClubRegControllerUserReg extends JController
 					
 					$row->store();
 					JRequest::setVar('member_id', $row->member_id);	
+					$update_em_contact = true;
 					
-					$app->enqueueMessage("Details Updated for Registered User");
+					$app->enqueueMessage("Details Updated for ".PLAYER);
 				}else{
-					JError::raiseWarning( 500, sprintf("Incomplete Player Details :: %s",implode(", ",$msg)));
+					JError::raiseWarning( 500, sprintf("Incomplete ".PLAYER." Details :: %s",implode(", ",$msg)));
 					
 				}			
 				
@@ -236,17 +238,15 @@ class ClubRegControllerUserReg extends JController
 					$row->store();
 					JRequest::setVar('member_id', $row->member_id);
 					$parent_id =  $row->member_id;
-					$app->enqueueMessage("Details Updated for Registered User");
+					$app->enqueueMessage("Details Updated for ".PLAYER);
 				}else{
-					JError::raiseWarning( 500, sprintf("Incomplete Player Details :: %s",implode(", ",$msg)));
+					JError::raiseWarning( 500, sprintf("Incomplete ".PLAYER." Details :: %s",implode(", ",$msg)));
 						
 				}
 				
 				$junior_ids = JRequest::getVar( "junior_id", array(), 'post', 'array' );
 				$junior_contact_array = array('memberid','memberlevel','surname','givenname','dob','group','gender','year_registered','subgroup');
 				$prefix_key = "player_";
-				
-				
 				
 				/**
 				 * 	Save details of Existing Junior Member
@@ -282,9 +282,7 @@ class ClubRegControllerUserReg extends JController
 					$other_details["short_desc"] = "updated g_junior";
 					ClubregHelper::save_old_data($player_row_old,$other_details);
 					
-					$player_row->store();
-					
-					
+					$player_row->store();		
 					
 				}
 				/**
@@ -328,44 +326,43 @@ class ClubRegControllerUserReg extends JController
 						$player_row->playertype = "junior";					
 						
 						$player_row->store();
-					}
-						
+					}	
 				}
-				/*
-				
-				
-				
-				foreach($junior_contact_array as $a_key){
-					
-					
-					$player_contact[$a_key] = JArrayHelper::getValue( $tmp_post, $t_index, '-1', 'string' );
-					
-					
-				}
-				*/
-				
-				//write_debug($_REQUEST);
-				
 			break;
 			
 		}
 		
 		
 		if($update_em_contact){
+			$db		=& JFactory::getDBO();
 			
 			unset($d_qry);
 			$d_qry = array();
-			$contact_array = ClubContactHelper::getContactArray();
-			foreach($contact_array as $contact_item){
-				$contact_value = JRequest::getVar( $contact_item, '', 'post', 'string' );
-				if($row->member_id > 0){
-					$d_qry[] = sprintf("insert into %s set member_id = %d ,contact_item = %s ,contact_value = %s on duplicate key update 
-						contact_value = values(contact_value);	
-					",CONTACT_TABLES,$row->member_id,$contact_item,$contact_value);
+			$tmp_contact_array = ClubContactHelper::getContactArray();			
+			$special_contacts = $tmp_contact_array["special"];
+			$contact_keys = JRequest::getVar( "contact_key", array(), 'post', 'array' );
+			foreach($contact_keys as $con_key){
+				
+				$contact_array = array_merge($tmp_contact_array["contact_items"],$special_contacts[$con_key]);
+				
+				foreach($contact_array as $a_contact_item){
+					$contact_item = $con_key.$a_contact_item;
+					$contact_value = JRequest::getVar( $contact_item, '', 'post', 'string' );
+					if($row->member_id > 0){
+						$d_qry[] = sprintf("insert into %s set `member_id` = %d ,`contact_detail` = %s ,`contact_value` = %s on duplicate key update 
+							contact_value = values(contact_value);	
+						",CLUB_CONTACT_TABLE,$row->member_id,$db->Quote($contact_item),$db->Quote($contact_value));
+					}
 				}
 			}
 			
-			write_debug($d_qry);
+				if(count($d_qry) > 0){
+					$q_string = implode("",$d_qry);
+					$db->setQuery($q_string);
+					if(!$db->queryBatch()){
+						return JError::raiseError(500, $db->getErrorMsg() );
+					}
+				}		
 			unset($d_qry);
 		}
 		

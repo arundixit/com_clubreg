@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 class ClubHiddenHelper{
 	
-	function renderButtons($edit_url){
+	static function renderButtons($edit_url){
 		?><div class="right_buttons"><?php 
 		if(isset($edit_url["prev"]) || isset($edit_url["next"]) ){ ?>
 		
@@ -26,8 +26,14 @@ class ClubHiddenHelper{
 		
 	<?php }else { echo "&nbsp;"; } ?></div><?php 
 	}
-	
-	function renderUser(&$a_result,&$sex_list){
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown_type $a_result
+	 * @param unknown_type $sex_list
+	 * @return unknown
+	 */
+	static function renderUser(&$a_result,&$sex_list){
 		global $option,$Itemid;
 		ob_start();
 		$edit_url = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=",$option,$Itemid);

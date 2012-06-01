@@ -187,7 +187,9 @@ echo $pane->startPanel($title, "detail-page1");
 		<?php 	} ?>
 		
 		<br />	
+	<div class="taghd"><?php echo EMERGENCY; ?> Details</div>
 	<?php 	
+	$this->contact_details->contact_key = "em_" ;
 	echo $this->loadTemplate("emcontact");
 	if( isset($member_data->member_id) && $member_data->member_id > 0){
 		ClubTagsHelper::renderTagList($member_data);

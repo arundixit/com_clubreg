@@ -13,7 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 class ClubNotesHelper{
 
 
-	function getNoteList($player_data){
+	static function getNoteList($player_data){
 		$db		=& JFactory::getDBO();
 		$user		= &JFactory::getUser();
 		
@@ -37,7 +37,7 @@ class ClubNotesHelper{
 	}
 
 
-	function renderNoteList($all_notes,&$player_data){
+	static function renderNoteList($all_notes,&$player_data){
 		global $option,$Itemid;	?>
 				<table class="smaller_table" width="100%" border=0 cellspacing=2  cellpadding=2>
 				<tr>

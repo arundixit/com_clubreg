@@ -101,7 +101,7 @@ echo $pane->startPanel($title, "detail-page1");
 		<label class="lbcls" for="g_phoneno">Phone </label><?php echo $colon ;?><input type="text"  class="intext" name="g_phoneno" id="g_phoneno" value="<?php echo $member_data->phoneno;	?>"/>
 		</div>
 		<div class="n">
-		<label class="lbcls" for="g_mobile">Mobile</label><?php echo $colon ;?><input type="text"  class="intext" style="width:150px;" name="g_mobile" id="g_mobile" value="<?php echo $member_data->mobile;	?>"/>
+		<label class="lbcls" for="g_mobile">Mobile</label><?php echo $colon ;?><input type="text"  class="intext"  name="g_mobile" id="g_mobile" value="<?php echo $member_data->mobile;	?>"/>
 		</div>	
 		<div class="n">
 		<label class="lbcls" for="g_address">Address</label><?php echo $colon ;?><input class="intext" type="text" name="g_address" id="g_address" value="<?php echo $member_data->address;	?>"/>
@@ -110,7 +110,7 @@ echo $pane->startPanel($title, "detail-page1");
 		<label class="lbcls" for="g_suburb">Suburb / Town</label><?php echo $colon ;?><input type="text"  class="intext" name="g_suburb" id="g_suburb" value="<?php echo $member_data->suburb;	?>"/>
 		</div>
 		<div class="n">
-		<label class="lbcls" for="g_postcode">Postcode</label><?php echo $colon ;?><input type="text" style="width:100px;" name="g_postcode" id="g_postcode" value="<?php echo $member_data->postcode;	?>"/>
+		<label class="lbcls" for="g_postcode">Postcode</label><?php echo $colon ;?><input type="text" class="intext half" name="g_postcode" id="g_postcode" value="<?php echo $member_data->postcode;	?>"/>
 		</div>		
 		<div class="n">&nbsp;&nbsp;<input type="checkbox" name="g_send_news" id="g_send_news" value="1" <?php echo $t_sendnews; ?>/>Do not send me promotional emails
 		</div>	
@@ -137,8 +137,11 @@ echo $pane->startPanel($title, "detail-page1");
 			echo JHTML::_('select.genericlist',  $this->lists['year_registered_list'], $name, 'class="inputbox" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $t_value);
 		?>
 		</div>	
-	<?php 	
-		echo $this->loadTemplate("emcontact");
+	
+		<div class="taghd"><?php echo NEXTOFKIN; ?></div>
+		<?php $this->contact_details->contact_key = "next_" ; echo $this->loadTemplate("emcontact");?>
+		<div class="taghd"><?php echo EMERGENCY; ?> Details</div>
+		<?php $this->contact_details->contact_key = "em_" ; echo $this->loadTemplate("emcontact");
 	
 		if($member_data->member_id){
 			ClubTagsHelper::renderTagList($member_data);			
@@ -165,7 +168,9 @@ echo $pane->startPanel($title, "detail-page1");
 	<input type="<?= $in_type ?>" name="task" value="save_details" />	
 	<input type="<?= $in_type ?>" name="c" value="userreg" />
 	<input type="<?= $in_type ?>" name="ordinal" value="<?php echo $this->ordinal; ?>" />	
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo JHTML::_( 'form.token' ); 
+	echo $pane->endPanel();
+	?>
 	
 	<?php 
 	if($member_data->member_id){

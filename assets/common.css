@@ -273,9 +273,10 @@ div.left_buttons{
 	width:200px;
 }
 
-.gud div.tset .half{	
+.gud div.tset .half, div.n .half{	
 	width:80px;
 }
+
 .center{
 	text-align:center;
 	

@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 class ClubTagsHelper{	
 	
-	function renderAddTag($member_id){ global $colon;
+	static function renderAddTag($member_id){ global $colon;
 		if($member_id > 0){
 		?>
 		<div style="font-size:10px;float:right;"><a href="javascript:void(0)" class="" id="tag_link" rel="<?php echo $member_id ?>">Add <?php echo TAGS ;?></a>
@@ -28,7 +28,7 @@ class ClubTagsHelper{
 		<?php }
 	}
 	
-	function renderTagList($member_data){
+	static function renderTagList($member_data){
 		$tagModel	=& JModel::getInstance('tags', 'ClubRegModel');
 		?>
 		
@@ -45,9 +45,13 @@ class ClubTagsHelper{
 
 class ClubContactHelper{
 	
-	function getContactArray(){		
+	static function getContactArray(){		
 		
-		$control_array = array("em_surname","em_givenname","em_emailaddress","em_phoneno","em_mobile","em_address","em_suburb","em_postcode","em_medical");
+		$control_array["contact_items"] =  array("surname","givenname","emailaddress","phoneno","mobile","address","suburb","postcode");
+		$special["em_"] = array("medical");
+		$special["next_"] = array();
+		$control_array["special"] = $special;
+		return $control_array;
 	}
 }
 

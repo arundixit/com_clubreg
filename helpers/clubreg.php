@@ -14,13 +14,13 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 		
 class ClubregHelper{
 	
-	function generateMenuItems(){
+	static function generateMenuItems(){
 		
 		$tmp_array = array();
 		return $tmp_array;		
 	}	
 	
-	function write_footer(){
+	static function write_footer(){
 		?>
 		<small><?php echo JText::_("Designed By ")?><a href="http://<?php echo  OUR_WEBSITE; ?>">http://<?phP echo DESIGNED_BY ?></a></small>
 		<?php 
@@ -66,7 +66,7 @@ class ClubregHelper{
 		<?php 		
 	}
 	
-	function generate_menu_tabs($member_params,$page_title){
+	static function generate_menu_tabs($member_params,$page_title){
 		global $option,$Itemid;
 		$c= trim(JRequest::getVar('c','', 'request', 'string'));
 		?>
@@ -105,7 +105,7 @@ class ClubregHelper{
 	 * 	generate the headings to be rendered on the table
 	 * @return string
 	 */
-	function return_headings(){	
+	static function return_headings(){	
 			
 		$db		=& JFactory::getDBO();
 		
@@ -180,7 +180,7 @@ class ClubregHelper{
 	 *  get headings for registered users page
 	 * @return string
 	 */
-	function return_headings_reg($member_data){
+	static function return_headings_reg($member_data){
 			
 		$db		=& JFactory::getDBO();
 	
@@ -266,7 +266,7 @@ class ClubregHelper{
 		return $all_data;
 	
 	}
-	function get_filters_headings($input_data){
+	static function get_filters_headings($input_data){
 		
 		$filter_heading = array();
 		
@@ -355,7 +355,7 @@ class ClubregHelper{
 		
 	}
 	
-	function save_old_data($old_data,$other_details){
+	static function save_old_data($old_data,$other_details){
 		
 		$db		=& JFactory::getDBO();
 		$user		= &JFactory::getUser();
@@ -377,7 +377,7 @@ class ClubregHelper{
 		$db->query();
 		
 	}
-	function renderLastUpdate($last_update){
+	static function renderLastUpdate($last_update){
 		if($last_update){
 			?>
 			<div align=right style="color:#006699;font-size:11px;">
@@ -386,7 +386,7 @@ class ClubregHelper{
 		<?php 					
 		}		
 	}
-	function generate_seasonList(){
+	static function generate_seasonList(){
 		$cy = date('Y');$t_array = array();
 		$t_object = new stdClass() ; $t_object->value = '0'; $t_object->text = '-'.SEASON.'-';
 		$t_array[] = $t_object;
@@ -397,7 +397,7 @@ class ClubregHelper{
 		return $t_array;
 		
 	}
-	function getMemberLevels(){
+	static function getMemberLevels(){
 		$t_array = array();
 		
 		$t_object = new stdClass() ; $t_object->value = '0'; $t_object->text = ' - '.PLAYER.' Level - ';
@@ -414,7 +414,7 @@ class ClubregHelper{
 } 
 class ClubPaymentsHelper{
 	
-	function getPaymentMethods(){		
+	static function getPaymentMethods(){		
 		
 		$t_array = array();
 		
@@ -428,7 +428,7 @@ class ClubPaymentsHelper{
 		return $t_array;
 		
 	}
-	function getPaymentStatus(){
+	static function getPaymentStatus(){
 		
 		$t_array = array();
 		
@@ -443,7 +443,7 @@ class ClubPaymentsHelper{
 		
 	}
 	
-	function getPaymentDescription(){
+	static function getPaymentDescription(){
 		
 		$t_array = array();
 		
@@ -456,7 +456,7 @@ class ClubPaymentsHelper{
 		
 		return $t_array;
 	}
-	function getPaymentList($player_data){
+	static function getPaymentList($player_data){
 		$db		=& JFactory::getDBO();
 		
 		$d_qry = sprintf("select a.*,
@@ -469,7 +469,7 @@ class ClubPaymentsHelper{
 		return $all_payments;
 		
 	}
-	function renderPaymentList($all_payments,&$player_data){
+	static function renderPaymentList($all_payments,&$player_data){
 		global $option,$Itemid;
 		?>
 		<table class="art-data" width="100%" border=1 cellspacing=0 style="border-collapse:collapse;">
@@ -521,7 +521,7 @@ class ClubPaymentsHelper{
 		
 		<?php 
 	}
-	function write_money($d_value){
+	static function write_money($d_value){
 		return number_format($d_value, 2, '.', ',');
 	}	
 	

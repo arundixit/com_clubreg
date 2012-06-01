@@ -301,15 +301,9 @@ class ClubRegViewuserreg extends JView
 		
 		$this->assign("edit_url",array());
 		$return_data['ordinal'] = intval(JRequest::getVar('ordinal','0', 'request', 'int'));
-		
-		//write_debug($_REQUEST);
-		
-		//write_debug($d_sql_);
-		
+			
 		if($d_sql_ && $return_data['member_id'] > 0){	
-			
 				
-			
 			$howmany = 3; 
 			$offset = 0;
 			
@@ -331,7 +325,6 @@ class ClubRegViewuserreg extends JView
 			
 			$db->setQuery( $d_sql_, $lm_start, $howmany  );
 			$recordset = $db->loadObjectList();			
-			
 			
 			if($check_counter){
 				if(count($recordset) == 2){
@@ -360,11 +353,15 @@ class ClubRegViewuserreg extends JView
 		
 		
 		$row	=& JTable::getInstance('clubregmembers', 'Table');	
-		$this->assign('last_update',null);
-		
+		$this->assign('last_update',null);		
 		
 		if($return_data['member_id'] > 0){
 			$row->load($return_data['member_id']);
+			
+			$contact_details 	=& JModel::getInstance('contact', 'ClubRegModel');
+			$contact_details->getData($return_data['member_id']); // get the member data for current user
+			$this->assign("contact_details",$contact_details);	
+			
 			
 			$d_qry = sprintf("select a.*, b.name from %s as a left join #__users as b on 
 			(a.createdby = b.id) where a.primary_id = %d and a.short_desc = 'updated %s' order by a.id desc limit 1; ", CLUB_AUDIT_TABLE,
@@ -414,7 +411,8 @@ class ClubRegViewuserreg extends JView
 		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );		
 		
 		$this->assign("all_headings",$all_headings);
-		$this->assign("member_data",$row);			
+		$this->assign("member_data",$row);	
+			
 		
 		$lists["year_registered_list"] = ClubregHelper::generate_seasonList();
 		
@@ -487,8 +485,7 @@ class ClubRegViewuserreg extends JView
 			$this->assign("lists",$lists);		
 			
 			if(isset($row->member_id) && intval($row->member_id) > 0){
-				$this->assign("payment_list", ClubPaymentsHelper::getPaymentList($row));
-				
+				$this->assign("payment_list", ClubPaymentsHelper::getPaymentList($row));				
 				$this->assign("note_list", ClubNotesHelper::getNoteList($row));
 			}
 			
@@ -500,4 +497,9 @@ class ClubRegViewuserreg extends JView
 		return;
 	}
 	
+}
+
+function wContact(&$conact_array,$contact_key,$index){	
+	$index = $contact_key.$index;
+	return isset($conact_array[$index])?$conact_array[$index]->contact_value:"";	
 }
