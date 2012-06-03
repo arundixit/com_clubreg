@@ -39,7 +39,10 @@ class ClubRegViewmembers extends JView
 		
 		$member	=  $this->getModel('member');		  
 		$member->getData($member_id);	
-		$lists["member"]  = $member;			
+		$lists["member"]  = $member;	
+
+		
+		$this->assignRef('headings', $member->getHeadings());
 		
 		
 		
@@ -86,7 +89,7 @@ class ClubRegViewmembers extends JView
 		
 		$db		=& JFactory::getDBO();
 		
-		$d_qry = sprintf("select config_short,config_name,params from %s 
+		$d_qry = sprintf("select config_short,config_name,params,config_text from %s 
 					where which_config = '%s' and publish = 1 order by ordering",
 					CLUB_TEMPLATE_CONFIG_TABLE,	CLUB_MEMBER_WHICH);
 					$db->setQuery($d_qry);

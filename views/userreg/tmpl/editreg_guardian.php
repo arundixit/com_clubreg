@@ -144,7 +144,12 @@ if(count($this->lists["children"]) > 0){
 					echo JHTML::_('select.genericlist',  $this->lists['year_registered_list'], $name, 'class="intext half" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $t_value);
 				?>
 		</div>
-		<p class="cl"></p>		
+		<p class="cl"></p>	
+		<div class="tset">
+		<span class="spn_tag">
+		<?php $edit_url = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=%s",$option,$Itemid,$a_child->member_id); ?>
+		<a href="<?php echo $edit_url; ?>" target="_blank">Edit Details</a></span></div>
+		<p class="cl"></p>
 	</div>
 	
 	<?php 		

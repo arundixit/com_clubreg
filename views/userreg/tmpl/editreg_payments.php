@@ -25,4 +25,3 @@ $payment_url = sprintf("index2.php?option=%s&c=userreg&task=editpayment&Itemid=%
 <?php ClubPaymentsHelper::renderPaymentList($this->payment_list,$this->member_data ); ?>
 </div>
 </div>
-<?php

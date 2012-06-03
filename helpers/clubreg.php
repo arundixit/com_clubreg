@@ -70,8 +70,8 @@ class ClubregHelper{
 		global $option,$Itemid;
 		$c= trim(JRequest::getVar('c','', 'request', 'string'));
 		?>
-		<div  id="userNav_clubreg">
-		<div style="font-weight:bold;font-size:1.5em;padding-left:4px;float:left;"><?php echo $page_title; ?></div>
+		<div style="font-weight:bold;font-size:1.5em;padding-left:4px;float:left;"><?php echo $page_title; ?></div><p class="cl"></p>
+		<div  id="userNav_clubreg">		
 			<ol>
 			<?php 
 				 if( $member_params->get( 'vieweoi' ) == "yes" ){ ?>
@@ -184,6 +184,7 @@ class ClubregHelper{
 			
 		$db		=& JFactory::getDBO();
 	
+		$all_headings["memberid"] = "Member Id";
 		$all_headings["surname"] = "Name";
 	
 		$player_type = trim(JRequest::getVar('playertype','junior', 'request', 'string'));
@@ -409,6 +410,20 @@ class ClubregHelper{
 		
 		return $t_array;
 		
+	}
+	static function getPlayerExtraDetails(){
+		$t_array = array();
+	
+		$t_object = new stdClass() ; $t_object->value = '0'; $t_object->text = ' - '.PLAYER.' Level - ';
+		$t_array['0'] = $t_object;
+	
+	
+		$d_qry = sprintf("select * from %s where which_config = 'club_player_details' and publish = 1 order by ordering",CLUB_TEMPLATE_CONFIG_TABLE);
+		
+		$t_array = get_a_list($d_qry,'config_short');//array_merge($t_array,get_a_list($d_qry,'value'));
+	
+		return $t_array;
+	
 	}
 	
 } 

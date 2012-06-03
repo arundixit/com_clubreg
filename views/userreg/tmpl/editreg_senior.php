@@ -82,6 +82,11 @@ echo $pane->startPanel($title, "detail-page1");
 		<label class="lbcls" for="g_memberid">Member Id</label><?php echo $colon ;?><input type="text" class="intext" name="g_memberid" id="g_memberid" value="<?php echo $member_data->memberid;	?>"/>
 		</div>
 		<div class="n">
+		<label class="lbcls" for="g_memberlevel">Membership Level</label><?php echo $colon ;
+				$name = "g_memberlevel";	$id= "g_memberlevel";	$t_level = $member_data->memberlevel;
+				echo JHTML::_('select.genericlist',  $this->lists['member_levels'], $name, 'class="intext" id="'.$id.'"  size="1" ', 'value', 'text', $t_level);?>	
+		</div>
+		<div class="n">
 		<label class="lbcls" for="g_surname">Surname<span class="isReq">*</span></label><?php echo $colon ;?><input type="text" class="intext required" name="g_surname" id="g_surname" value="<?php echo $member_data->surname;	?>"/>
 		</div>
 		<div class="n">
@@ -168,7 +173,8 @@ echo $pane->startPanel($title, "detail-page1");
 	<input type="<?= $in_type ?>" name="task" value="save_details" />	
 	<input type="<?= $in_type ?>" name="c" value="userreg" />
 	<input type="<?= $in_type ?>" name="ordinal" value="<?php echo $this->ordinal; ?>" />	
-	<?php echo JHTML::_( 'form.token' ); 
+	<?php echo JHTML::_( 'form.token' ); ?>
+</form><?php 
 	echo $pane->endPanel();
 	?>
 	
@@ -178,23 +184,20 @@ echo $pane->startPanel($title, "detail-page1");
 		global $use_tab;
 		$use_tab = true;
 		
+		$this->_render_extra_details($pane,$tab_id);
 		$title = JText::_('Payment Details');
-		$title = tryUseCookies($title ,0,$tab_id);
+		$title = tryUseCookies($title ,2,$tab_id);
 		echo $pane->startPanel($title, "detail-page1");
 		 echo $this->loadTemplate("payments")	;
 		 echo $pane->endPanel();
 		
 		$title = JText::_('Notes');
-		$title = tryUseCookies($title ,0,$tab_id);
+		$title = tryUseCookies($title ,3,$tab_id);
 		echo $pane->startPanel($title, "detail-page1");
 		 
 		echo $this->loadTemplate("notes")	;
 		echo $pane->endPanel();
 		
 	}
-	?>
-
-</form>
-<?php
 echo $pane->endPane();
 ClubregHelper::write_footer();

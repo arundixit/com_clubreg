@@ -11,5 +11,7 @@ Added PH1-PHP Headers missing GPL License Notice to all files
 SE1-Extension is missing index.html file in all folders
 30/05/2012
 Implement fluid layout.
-
+03/06/2012
+Modify the details pages to use tab rather than accordians.
+Added an extra tab for extra player details.
 

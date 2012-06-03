@@ -231,3 +231,13 @@ function process_tag(rel_value,ttoken){
 	}
 	
 }
+
+function renderRotating(){
+	
+	var tsloading="<img src='components/com_clubreg/assets/images/bigrotation2.gif' valign='middle'/>Saving.."
+	
+	$('adminFormExtradetails_span').set('html',tsloading);
+}
+function tryUseCookies(t_offset,s_id){
+	Cookie.set("pl_tabs_"+s_id, t_offset, {duration: 1});
+}

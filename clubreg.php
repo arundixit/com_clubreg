@@ -126,3 +126,27 @@ jexit();
 function tryUseCookies($t_title,$tab_offset,$tab_id){
 	return sprintf("<span onclick=\"tryUseCookies(%d,%d)\">%s</span>",$tab_offset,$tab_id ,$t_title);
 }
+function getMonths(){
+	$months = array(
+			1 => 'january',
+			2 => 'february',
+			3 => 'march',
+			4 => 'april',
+			5 => 'may',
+			6 => 'june',
+			7 => 'july',
+			8 => 'august',
+			9 => 'september',
+			10 => 'october',
+			11 => 'november',
+			12 => 'december');
+	$t_object = new stdClass() ; $t_object->value = '-1'; $t_object->text = '-Month-';$t_array[] = $t_object;
+	foreach($months as $t_key => $a_month){
+		$t_object = new stdClass() ; $t_object->value = $t_key; $t_object->text = ucwords($a_month);
+		$t_array[] = $t_object;
+	}
+		
+	return $t_array;
+
+
+}

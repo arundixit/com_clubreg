@@ -43,7 +43,7 @@ class ClubRegControllerComms extends JController
 	function display(){	
 
 		JRequest::setVar('view','comms');		
-		parent::display(&$tpl);		
+		parent::display($tpl);		
 	}
 	
 	function listcomms(){		

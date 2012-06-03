@@ -35,26 +35,66 @@ if(count($this->headings)> 0){?>
 <form action="index.php" method="post" name="adminForm"  class="form-validate">
 <div class="h3">Personal Details</div>
 <div class="fieldset">
-<?php $i =0; $is_date = "/date/"; 
+<?php $i =0; 
+
 	foreach($this->headings as $hd_key => $hd_value){
 		$t_value = isset($my_details[$hd_key])?$my_details[$hd_key]->member_value:"";
-		
-		$t_width = (preg_match($is_date, $hd_key))?"120px":"300px";		
 		
 		$control_params = new JParameter( $hd_value->params );
 		$ctrlname =sprintf("user_details[%s]",$hd_key);
 		
+		$t_style = $control_params->get('control_width');
+		
+		if(preg_match("/px/",$t_style)){
+			$t_style =" style='".$t_style."'";
+		}else{
+			if(isset($t_style) && strlen($t_style) > 0){
+				$t_style =" class='".$t_style."'";
+			}else{
+				$t_style =" style='width:300px;'";
+			}
+		}
 		
 		?><div class="n">
 			<label class="lbcls" for="<?php echo $ctrlname; ?>"><?php echo  $hd_value->config_name; ?></label><?php echo $colon ;?>			
 			
-			<?php switch($control_params->get("control_type")){				
-				case "textarea": $t_width =($control_params->get("control_width"))?$control_params->get("control_width"):$t_width;	?>
-					<textarea style="width:<?php echo $t_width; ?>" rows=5 name="<?php echo $ctrlname; ?>" ><?php echo $t_value; ?></textarea>					
+			<?php switch($control_params->get("control_type")){	
+				case "select":
+					$t_values = explode("\n",$hd_value->config_text);
+					$t_array= array();
+					$t_object = new stdClass() ; $t_object->value = '-1'; $t_object->text = '- Select- ';$t_array[] = $t_object;
+					foreach($t_values as $a_value){
+						$a_value = trim($a_value);
+							
+						if(strlen($a_value) > 0){
+							$t_object = new stdClass() ; $t_object->value = $a_value; $t_object->text = ucwords($a_value);
+							$t_array[] = $t_object;
+						}
+					}
+					echo JHTML::_('select.genericlist',  $t_array, $ctrlname, $t_style.' id="'.$ctrlname.'"  size="1" ', 'value', 'text', $t_value);
+					break;
+				case "textarea":?>
+					<textarea <?php echo $t_style; ?> rows=5 name="<?php echo $ctrlname; ?>" ><?php echo $t_value; ?></textarea>					
 			<?php 
 				break;
+				case "date":
+				$format = '%d/%m/%Y';
+				echo JHTML::_('calendar', $t_value, $ctrlname, $ctrlname, $format, array('class' => 'intext half','readonly'=>'readonly'));
+				break;
+				case "monthyear":
+					$t_array = getMonths();$t_style ="class='intext half'";					
+					$ctrlname =sprintf("user_details[%s_month]",$hd_key);					
+					$t_value = isset($my_details[$hd_key."_month"])?$my_details[$hd_key."_month"]->member_value:"";
+					echo JHTML::_('select.genericlist',  $t_array, $ctrlname, $t_style.' id="'.$ctrlname.'"  size="1" ', 'value', 'text', $t_value);
+					$tcontrol_name = $control_name."_year"; $tcontrol_id = $control_id."_year";
+					$ctrlname =sprintf("user_details[%s_year]",$hd_key);
+					$t_value = isset($my_details[$hd_key."_year"])?$my_details[$hd_key."_year"]->member_value:""; ?>
+					<input type="text" <?php echo $t_style ;?> name="<?php echo $ctrlname?>" id="<?php echo $ctrlname; ?>" value="<?php echo $t_value; ?>"/><?php
+				break;
+
+				case "email":
 				default:?>				
-				<input type="text" style="width:<?php echo $t_width; ?>;padding:1px;" value="<?php echo $t_value; ?>" name="<?php echo $ctrlname ;?>" />
+				<input type="text" <?php echo $t_style; ?> value="<?php echo $t_value; ?>" name="<?php echo $ctrlname ;?>" />
 				<?php 					
 				break;				
 			}?>			

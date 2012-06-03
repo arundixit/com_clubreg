@@ -53,6 +53,7 @@ class ClubRegControllerUserReg extends JController
 		$this->registerTask("deletetag","deletetag");
 		$this->registerTask("gettags","gettags");
 		
+		$this->registerTask("save_extradetails", "save_extradetails");
 		
 		
 		
@@ -920,6 +921,56 @@ class ClubRegControllerUserReg extends JController
 			}
 		}
 		
+		function save_extradetails(){		
+			
+			JRequest::checkToken() or jexit( 'Invalid Token' );
+				
+			$post = JRequest::get('post');			
+			$db		=& JFactory::getDBO();
+			
+			$member_id = intval(JRequest::getVar('member_id','0', 'request', 'int'));
+				
+			unset($d_qry);
+			$d_qry = array();
+			$key_pattern = "/extra_/";	
+			
+				foreach($post as $t_key =>$t_value ){
+					
+					if(preg_match($key_pattern, $t_key)){
+					
+						$contact_value = JRequest::getVar( $t_key, '', 'post', 'string' );
+						
+						if($member_id > 0){
+							$d_qry[] = sprintf("insert into %s set `member_id` = %d ,`contact_detail` = %s ,`contact_value` = %s on duplicate key update
+									contact_value = values(contact_value);
+									",CLUB_CONTACT_TABLE,$member_id,$db->Quote($t_key),$db->Quote($contact_value));
+						}
+					}
+				}
+			
+
+			if(count($d_qry) > 0){
+				$q_string = implode("",$d_qry);
+				$db->setQuery($q_string);
+				if(!$db->queryBatch()){
+					return JError::raiseError(500, $db->getErrorMsg() );
+				}
+			}
+			unset($d_qry);
+			
+			?>
+			<script type="text/javascript">
+			<!--				
+				if(window.parent.document.getElementById('adminFormExtradetails_span')){
+					window.parent.document.getElementById('adminFormExtradetails_span').innerHTML = "Saved";
+				};
+				
+			//-->
+			</script>
+				<?php 	
+			
+		}
+	
 		
 		
 	

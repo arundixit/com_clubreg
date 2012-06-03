@@ -107,7 +107,6 @@ echo $pane->startPanel($title, "detail-page1");
 ?>
 <div class="h3">Junior <?= PLAYER ?> Details</div>	
 <form action="index.php" method="post" name="adminForm"   id="adminForm"  class="form-validate">
-
 <div class="fieldset">
 	<?php ClubTagsHelper::renderAddTag($member_data->member_id); ?>
 	
@@ -200,7 +199,7 @@ echo $pane->startPanel($title, "detail-page1");
 	
 	
 	?>	
-</div>
+</div> <!-- field set -->
 <br />
 <div class="center">
 <input class="button" name='back_' id="back_url" type="button" onclick="document.location='<?php echo $this->back_url; ?>'"  value='<?php echo JText::_('Back To List'); ?>' />
@@ -219,28 +218,31 @@ echo $pane->startPanel($title, "detail-page1");
 	<input type="<?= $in_type ?>" name="ordinal" value="<?php echo $this->ordinal; ?>" />
 	<?php 	
 	echo JHTML::_( 'form.token' );
+?>
+</form>
+<?php 
 	echo $pane->endPanel();
 	if( isset($member_data->member_id) && $member_data->member_id > 0){
 		global $use_tab;
 		$use_tab = true;
 		
-		$this->_render_extra_details($pane);
+		$this->_render_extra_details($pane,$tab_id);
 		
 		$title = JText::_('Payment Details');
-		$title = tryUseCookies($title ,0,$tab_id);
-		echo $pane->startPanel($title, "detail-page1");
+		$title = tryUseCookies($title ,2,$tab_id);
+		echo $pane->startPanel($title, "detail-page3");
 		echo $this->loadTemplate("payments")	;
 		echo $pane->endPanel();
 		
 		$title = JText::_('Notes');
-		$title = tryUseCookies($title ,0,$tab_id);
-		echo $pane->startPanel($title, "detail-page1");
+		$title = tryUseCookies($title ,3,$tab_id);
+		echo $pane->startPanel($title, "detail-page4");
 		echo $this->loadTemplate("notes")	;
 		echo $pane->endPanel();
 		
 	}	
 	 ?>
-</form>
+
 <?php 
 echo $pane->endPane();
 

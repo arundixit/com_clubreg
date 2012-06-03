@@ -31,21 +31,44 @@ if(count($my_details)> 0){ //$contact->email_to = JHTML::_('email.cloak', $conta
 <div  class="fieldset">
 <table>
 <?php $i =0; $t_email = "/email/";
-	foreach($my_details as $a_details){		
-		?><tr class="n">
-			<td valign=top><label class="lbcls"><?php echo  $a_details->config_name; ?></label></td><td valign=top><?php echo $colon ;?></td>
-			<td valign=top>						
-			<?php if(preg_match($t_email,$a_details->member_detail)){
-						$a_details->member_value = JHTML::_('email.cloak', $a_details->member_value);
-						echo $a_details->member_value;
-					}else{
-						//write_debug($a_details);
-						echo nl2br($a_details->member_value);
-					} ?>
+
+	foreach($this->headings as $hd_key => $hd_value){
+		$t_value = isset($my_details[$hd_key])?$my_details[$hd_key]->member_value:"";
+		?>
+		<tr class="n">
+			<td valign=top><label class="lbcls"><?php echo  $hd_value->config_name; ?></label></td><td valign=top><?php echo $colon ;?></td>
+			<td valign=top>
+				<?php $control_params = new JParameter( $hd_value->params );
+					switch($control_params->get("control_type")){
+						
+						case "monthyear":
+							$month_key = $hd_key."_month"; $year_key = $hd_key."_year";
+							$t_array = getMonths();							
+							$month_value = $t_value = isset($my_details[$month_key])?$my_details[$month_key]->member_value:"";
+							$year_value = $t_value = isset($my_details[$year_key])?$my_details[$year_key]->member_value:"";
+							echo sprintf("%s %s",$t_array[$month_value-1]->text,$year_value);
+						break;
+						case "email":
+							echo JHTML::_('email.cloak', $t_value);
+						break;
+						default:
+							if(preg_match($t_email,$t_value)){
+								echo JHTML::_('email.cloak', $t_value);
+							}else {
+								echo $t_value;
+							}
+								
+						break;
+					}
+					
+				?>
+			
 			</td>
-				
-		</tr>
-<?php  $i= 1- $i;	}
+		</tr>		
+		<?php 
+		
+	}
+	
 ?>
 	</table>
 </div>

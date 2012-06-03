@@ -81,6 +81,10 @@ fieldset{
 	padding:3px 2px 3px 1px;
 	font-size:110%;
 }
+.wide{	
+	width:400px;
+	height:150px;
+}
 label.lbcls{
 	font-size:1.1em;
 	/*font-weight:bold;*/	

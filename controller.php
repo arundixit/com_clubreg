@@ -123,7 +123,7 @@ class ClubRegController extends JController
 				
 			} // loop	
 		} // user id
-		
+			
 		if(count($d_qry) > 0){
 			$q_string = implode("",$d_qry);
 			$db->setQuery($q_string);

@@ -497,12 +497,15 @@ class ClubRegViewuserreg extends JView
 		return;
 	}
 	
-function _render_extra_details(&$pane){
+function _render_extra_details(&$pane,$tab_id){
 	
-	$title = JText::_('Extra '.PLAYER.'Details');
-	$title = tryUseCookies($title ,0,$tab_id);
-	echo $pane->startPanel($title, "detail-page1");
-	//echo $this->loadTemplate("extradetails")	;
+	$extra_details = ClubregHelper::getPlayerExtraDetails();
+	
+	$this->assign("extra_details",$extra_details);
+	$title = JText::_('Extra '.PLAYER.' Details');
+	$title = tryUseCookies($title ,1,$tab_id);
+	echo $pane->startPanel($title, "detail-page2");
+	echo $this->loadTemplate("extradetails");	
 	echo $pane->endPanel();
 	
 }

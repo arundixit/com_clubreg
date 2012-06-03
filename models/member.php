@@ -59,10 +59,10 @@ class ClubRegModelMember extends JModel
 		
 		$d_qry = sprintf("select a.`joomla_id`, a.`member_detail`, a.`member_value`,b.config_name ,b.config_short
 		from %s as a
-		inner join %s as b on (a.`member_detail` = b.`config_short`)
+		left join %s as b on (a.`member_detail` = b.`config_short`)
 		where joomla_id = %d order by b.ordering",CLUB_MEMBERSDETAILS_TABLE,CLUB_TEMPLATE_CONFIG_TABLE,$joomla_id);
 		$db->setQuery( $d_qry );
-		$member_details = $db->loadObjectList('config_short');
+		$member_details = $db->loadObjectList('member_detail');	
 		
 		$all_allowed_groups= @array_merge(@array_keys($group_members),@array_keys($group_leaders));
 
@@ -91,6 +91,15 @@ class ClubRegModelMember extends JModel
 		
 		return $this;
 		
+	}
+	function getHeadings(){
+		
+		$db		=& JFactory::getDBO();
+		$d_qry = sprintf("select config_short,config_name,params,config_text from %s
+				where which_config = '%s' and publish = 1 order by ordering",
+				CLUB_TEMPLATE_CONFIG_TABLE,	CLUB_MEMBER_WHICH);
+		$db->setQuery($d_qry);
+		return  $db->loadObjectList('config_short');
 	}
 	
 	
