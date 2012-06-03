@@ -25,46 +25,7 @@ class ClubregHelper{
 		<small><?php echo JText::_("Designed By ")?><a href="http://<?php echo  OUR_WEBSITE; ?>">http://<?phP echo DESIGNED_BY ?></a></small>
 		<?php 
 	}
-	function generate_menu_tabs1($member_params,$page_title){
-		global $option,$Itemid;	
-		$c= trim(JRequest::getVar('c','', 'request', 'string'));
-	?>
-		<table width="100%" style="background1-color:#e2edf9;border-bottom:solid 0px #999;" cellpadding="0" cellspacing="0">
-			<tr>
-				<td style="font-weight:bold;font-size:1.5em;padding-left:4px;"><?php echo $page_title; ?></td>
-				<td valign="bottom">
-				<div  id="userNav_clubreg">
-				<div></div>
-					<ol>
-					<?php 
-						 if( $member_params->get( 'vieweoi' ) == "yes" ){ ?>
-						 <li >
-						 	<a href="index.php?option=<?php echo $option; ?>&view=eoi&layout=loadeoi&c=eoi&task=loadeoi&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="eoi")?"class=\"acts\"":""; ?>><span>Manage Expression of Interest</span></a>
-						</li>	
-						<?php } 
-							if( $member_params->get( 'manageusers' ) == "yes" ){ ?>					
-							 <li>	
-							 	<a href="index.php?option=<?php echo $option; ?>&c=userreg&task=loadregistered&Itemid=<?php echo $Itemid; ?>&limit=20" <?php echo  ($c=="userreg")?"class=\"acts\"":""; ?>><span>Manage Registered Users</span></a>
-							 </li>
-							<?php } 
-							if( $member_params->get( 'manageusers1' ) == "yes" ){ ?>
-							 <li >
-							 	<a href="index.php?option=<?php echo $option; ?>&c=workflow&task=loadworkflow&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="workflow")?"class=\"acts\"":""; ?>><span>Manage Workflow</span></a>
-							</li>	
-							<?php } 
-							if( $member_params->get( 'sendcommunication' ) == "yes" ){ ?>
-							 <li class="last">	
-							 	<a href="index.php?option=<?php echo $option; ?>&c=comms&task=listcomms&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="comms")?"class=\"acts\"":""; ?>><span>Send Communications</span></a>
-							 </li>
-							<?php }  ?>			
-					
-					</ol>	
-					</div>			
-				</td>
-			</tr>
-		</table>
-		<?php 		
-	}
+	
 	
 	static function generate_menu_tabs($member_params,$page_title){
 		global $option,$Itemid;

@@ -26,15 +26,10 @@ class ClubRegViewcomms extends JView
 		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
 		$member_data->getData($user->id); // get the member data for current user
 		
-		//$all_headings = ClubregHelper::return_headings_reg($member_data);
-		
-		$all_headings = ClubCommsHelper::return_headings_comms();
-		
+		$all_headings = ClubCommsHelper::return_headings_comms();		
 		
 		$all_headings["member_data"] = $member_data;
-		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );	
-
-		
+		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );			
 		
 		if($all_headings["member_params"]->get("sendcommunication") == "yes"){	
 
@@ -57,14 +52,7 @@ class ClubRegViewcomms extends JView
 			$all_string["t_created_date"] = "date_format(a.created,'%d/%m/%Y') as t_created_date";
 			$all_string["t_created_by"] = "e.name as t_created_by";
 			$all_string["t_group"] = "b.group_name as `group`";
-			
-			$all_headings["sentto"] = "Sent To";
-			$all_headings["comm_subject"] = "Subject";
-			$all_headings["comm_message"] = "Message";
-			$all_headings["created"] = "Created On";
-			$all_headings["created_by"] = "Created By";
-			$all_headings["senton"] = "Sent On";
-			
+					
 			
 			
 			$tpl = "listcomms" ;		

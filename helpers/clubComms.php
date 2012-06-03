@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 class ClubCommsHelper{
 	
-	function return_headings_comms(){
+	static function return_headings_comms(){
 		
 		$all_headings["sentto"] = "Sent To";
 		$all_headings["comm_subject"] = "Subject";
@@ -22,6 +22,9 @@ class ClubCommsHelper{
 		$all_headings["senton"] = "Sent On";
 		
 		$all_headings["status"] = "Status";
+		
+		$all_data["headings"] = $all_headings;
+		return  $all_data;
 		
 		
 		

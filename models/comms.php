@@ -41,11 +41,14 @@ class ClubRegModelComms extends JModel
 		$db->setQuery($d_qry);
 		$this->template_list = $db->loadObjectList();	
 		
+		write_debug($this->template_list);
+		
 		if(count($this->template_list) > 0 && $write_text){
 			
 			$loc_url = sprintf("index.php?option=%s&Itemid=%s&c=comms&task=editcomms&tmp_id=",$option,Itemid);
 			ob_start();
 			?><select id="template_list" class="shading1" onchange="document.location='<?php echo $loc_url;?>'+this.value">
+			
 			<?php 
 			foreach($this->template_list as $a_template){
 				$d_url = sprintf("index.php?option=%s&Itemid=%s&c=comms&task=editcomms&tmp_id=%d",$option,Itemid,$a_template->template_id);
@@ -67,6 +70,9 @@ class ClubRegModelComms extends JModel
 	function getCommDetails($comm_id){
 		
 		$db		=& JFactory::getDBO();
+		/**
+		 * the sql var names have to be template_subject and template_text
+		 */
 		
 		if($comm_id > 0){
 			/*$where_[] = " b.template_access = 'everyone'";

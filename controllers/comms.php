@@ -22,7 +22,7 @@ jimport('joomla.application.component.controller');
  * @since		1.5
  */
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubComms.php');
-require_once (JPATH_COMPONENT.DS.'assets'.DS.'recaptcha'.DS.'recaptchalib.php');
+
 class ClubRegControllerComms extends JController
 {
 	

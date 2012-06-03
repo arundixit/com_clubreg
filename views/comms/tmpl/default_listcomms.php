@@ -13,6 +13,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 global $colon;
 
+
 $document =& JFactory::getDocument();
 
 $in_type = "hidden";
@@ -23,6 +24,9 @@ $member_params = $this->all_headings["member_params"];
 $filter_heading = $this->all_headings["filters"];
 ClubregHelper::generate_menu_tabs($member_params,$page_title );
 $template_list_text = $this->templates->template_list_text;
+
+$headings = $this->all_headings["headings"];
+
 ?>
 <div  id="subNav">
 <ol>
@@ -32,5 +36,8 @@ $template_list_text = $this->templates->template_list_text;
 	</li>	
 	
 </ol>
-
 </div>
+<?php 
+
+write_debug($headings);
+?>

@@ -46,6 +46,7 @@ class ClubRegModelTemplates extends JModel
 			$loc_url = sprintf("index.php?option=%s&Itemid=%s&c=comms&task=editcomms&tmp_id=",$option,Itemid);
 			ob_start();
 			?><select id="template_list" class="shading1" onchange="document.location='<?php echo $loc_url;?>'+this.value">
+			<option value="-1">- Select -</option>
 			<?php 
 			foreach($this->template_list as $a_template){
 				$d_url = sprintf("index.php?option=%s&Itemid=%s&c=comms&task=editcomms&tmp_id=%d",$option,Itemid,$a_template->template_id);
