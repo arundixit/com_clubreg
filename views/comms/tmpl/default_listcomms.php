@@ -27,6 +27,7 @@ $template_list_text = $this->templates->template_list_text;
 
 $headings = $this->all_headings["headings"];
 
+error_reporting(0);
 ?>
 <div  id="subNav">
 <ol>
@@ -38,6 +39,8 @@ $headings = $this->all_headings["headings"];
 </ol>
 </div>
 <?php 
+
+clubTables::renderTables_comms($this->all_results,$this->all_headings);
 
 write_debug($headings);
 ?>

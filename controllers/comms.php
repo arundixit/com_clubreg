@@ -22,6 +22,7 @@ jimport('joomla.application.component.controller');
  * @since		1.5
  */
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubComms.php');
+require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubTables.php');
 
 class ClubRegControllerComms extends JController
 {

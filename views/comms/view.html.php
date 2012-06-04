@@ -21,7 +21,8 @@ class ClubRegViewcomms extends JView
 		JHTML::_('script', 'comms.js?'.time(), 'components/com_clubreg/assets/js/');
 		JHTML::_('stylesheet', 'comms.css', $append .'components/com_clubreg/assets/css/');
 		
-		$user		= &JFactory::getUser();		
+		$db		=& JFactory::getDBO();
+		$user		= &JFactory::getUser();
 		
 		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
 		$member_data->getData($user->id); // get the member data for current user
@@ -44,14 +45,81 @@ class ClubRegViewcomms extends JView
 				return;
 			}
 			
+			$where_ = array();
+			
+			$limit 		= $mainframe->getUserStateFromRequest( $option.'.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
+			$limitstart 		= $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
+			
+			$filter_order		= $mainframe->getUserStateFromRequest( $option.'.filter_order',		'filter_order',		'a.created ',	'cmd' );
+			$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.filter_order_Dir',	'filter_order_Dir',	'',				'word' );
+			$filter_state		= $mainframe->getUserStateFromRequest( $option.'.filter_state',		'filter_state',		'',				'word' );
+			
+			$return_data['playertype'] = trim(JRequest::getVar('playertype','junior', 'request', 'string'));
+			$return_data['vtype'] = trim(JRequest::getVar('vtype','table', 'request', 'string'));
+			
+			
 			
 			
 			$all_string["n"] = 'a.*';
-			$all_string["playertype"] = "ucase(a.playertype) as playertype";
-			$all_string["member_name"] = "concat(a.`surname`,' ' ,a.`givenname`) as surname";
-			$all_string["t_created_date"] = "date_format(a.created,'%d/%m/%Y') as t_created_date";
-			$all_string["t_created_by"] = "e.name as t_created_by";
-			$all_string["t_group"] = "b.group_name as `group`";
+			$all_string["sentto"] = "Sent To";
+			$all_string["comm_subject"] = "a.comm_subject";
+			$all_string["comm_message"] = "a.comm_message";
+			$all_string["created"] = "date_format(a.created,'%d/%m/%Y') as created";
+			$all_string["created_by"] = "b.name";
+			$all_string["senton"] = "date_format(a.sent_date,'%d/%m/%Y') as senton";
+			
+			$all_string["status"] = "Status";
+			
+			$session =& JFactory::getSession();
+			$session->set("com_clubreg.back_url", $d_url_);// save the back url
+			
+			
+			if (!in_array(strtoupper($filter_order_Dir), array('ASC', 'DESC'))) {
+				$filter_order_Dir = 'DESC';
+			}
+			
+			$orderby 	= ' ORDER BY '.$filter_order.' '. $filter_order_Dir ;
+			
+			$where_str = "";
+			
+			if(count($where_) > 0){
+				$where_str = " where ".implode(" and ",$where_ );
+			}
+			
+			
+			$d_qry = sprintf("select count(comm_id) as howmany from %s as a %s",CLUB_SAVEDCOMMS_TABLE, $where_str );
+			$db->setQuery( $d_qry );
+			$howmany = $db->loadResult();
+			
+			require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubPagination.php');
+			$pageNav = new clubPagination( $howmany, $limitstart, $limit );
+			
+			
+			$var_str = implode(" , ", $all_string);
+			
+			$group_by = "GROUP BY a.member_id"; // count howmany are registered
+			
+			$d_qry = sprintf("select %s from %s as a
+					left join %s as b on (a.comm_groups = b.group_id)					
+					left join #__users as e on (a.created_by = e.id)
+					%s
+					%s
+					%s %s %s",
+					$var_str,
+					CLUB_SAVEDCOMMS_TABLE,
+					CLUB_GROUPS_TABLE,			
+					$table_join,					
+					$where_str,$group_by,$orderby );
+			
+			$db->setQuery( $d_qry, $pageNav->limitstart, $pageNav->limit  );
+			$all_results = $db->loadObjectList();
+			
+			if($db->getErrorNum() > 0){
+				write_debug($db);
+			}
+			
+			$all_headings["variable_string"] = $all_string;
+			$this->assign('all_results',$all_results);
 					
 			
 			
