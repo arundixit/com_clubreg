@@ -18,6 +18,8 @@ class ClubRegViewcomms extends JView
 {
 	function display($tpl = null){
 		
+		global $mainframe,$append,$option,$Itemid;
+		
 		JHTML::_('script', 'comms.js?'.time(), 'components/com_clubreg/assets/js/');
 		JHTML::_('stylesheet', 'comms.css', $append .'components/com_clubreg/assets/css/');
 		
@@ -53,25 +55,21 @@ class ClubRegViewcomms extends JView
 			$filter_order		= $mainframe->getUserStateFromRequest( $option.'.filter_order',		'filter_order',		'a.created ',	'cmd' );
 			$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.filter_order_Dir',	'filter_order_Dir',	'',				'word' );
 			$filter_state		= $mainframe->getUserStateFromRequest( $option.'.filter_state',		'filter_state',		'',				'word' );
-			
-			$return_data['playertype'] = trim(JRequest::getVar('playertype','junior', 'request', 'string'));
-			$return_data['vtype'] = trim(JRequest::getVar('vtype','table', 'request', 'string'));
-			
-			
-			
-			
+								
 			$all_string["n"] = 'a.*';
-			$all_string["sentto"] = "Sent To";
+			$all_string["sentto"] = "group_concat(b.group_name) as sentto";
 			$all_string["comm_subject"] = "a.comm_subject";
 			$all_string["comm_message"] = "a.comm_message";
 			$all_string["created"] = "date_format(a.created,'%d/%m/%Y') as created";
-			$all_string["created_by"] = "b.name";
+			$all_string["created_by"] = "c.name as created_by";
 			$all_string["senton"] = "date_format(a.sent_date,'%d/%m/%Y') as senton";
 			
-			$all_string["status"] = "Status";
+			$all_string["comm_status"] = "a.comm_status";
 			
 			$session =& JFactory::getSession();
 			$session->set("com_clubreg.back_url", $d_url_);// save the back url
+			
+			$table_join = sprintf(" left join %s as b on find_in_set(b.group_id,a.comm_groups) ",CLUB_GROUPS_TABLE);
 			
 			
 			if (!in_array(strtoupper($filter_order_Dir), array('ASC', 'DESC'))) {
@@ -97,31 +95,32 @@ class ClubRegViewcomms extends JView
 			
 			$var_str = implode(" , ", $all_string);
 			
-			$group_by = "GROUP BY a.member_id"; // count howmany are registered
+			$group_by = "GROUP BY a.comm_id"; // count howmany are registered
 			
-			$d_qry = sprintf("select %s from %s as a
-					left join %s as b on (a.comm_groups = b.group_id)					
-					left join #__users as e on (a.created_by = e.id)
-					%s
-					%s
+			$d_qry = sprintf("select %s from %s as a								
+					left join #__users as c on (a.created_by = c.id)
+					%s					
 					%s %s %s",
 					$var_str,
-					CLUB_SAVEDCOMMS_TABLE,
-					CLUB_GROUPS_TABLE,			
+					CLUB_SAVEDCOMMS_TABLE,						
 					$table_join,					
 					$where_str,$group_by,$orderby );
 			
 			$db->setQuery( $d_qry, $pageNav->limitstart, $pageNav->limit  );
-			$all_results = $db->loadObjectList();
+			$all_results = $db->loadObjectList();			
 			
 			if($db->getErrorNum() > 0){
 				write_debug($db);
 			}
 			
-			$all_headings["variable_string"] = $all_string;
-			$this->assign('all_results',$all_results);
-					
 			
+			$all_headings["pageNav"] =  $pageNav;
+			$all_headings["variable_string"] = $all_string;
+			
+			$all_headings["filter_order_Dir"] =  $filter_order_Dir;
+			$all_headings["filter_order"] =  $filter_order;			
+			
+			$this->assign('all_results',$all_results);
 			
 			$tpl = "listcomms" ;		
 			
@@ -129,11 +128,7 @@ class ClubRegViewcomms extends JView
 			$templates->getTemplates(true);
 			
 			$this->assign("all_headings",$all_headings); // get all the headings
-			$this->assign("templates",$templates);
-			
-			
-			
-			
+			$this->assign("templates",$templates);		
 			
 			
 			parent::display($tpl);
@@ -150,6 +145,8 @@ class ClubRegViewcomms extends JView
 	}
 	function _editcomms($tpl){
 		
+		global $option,$Itemid;
+		
 		$user		= &JFactory::getUser();
 		$db		=& JFactory::getDBO();
 		
@@ -158,8 +155,13 @@ class ClubRegViewcomms extends JView
 		
 		$all_headings = ClubregHelper::return_headings_reg($member_data);
 		$all_headings["member_data"] = $member_data;
-		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );		
+		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );	
+
+		$session =& JFactory::getSession();
+		$d_url_ = $session->get("com_clubreg.back_url");
 		
+		$back_url = sprintf("index.php?option=%s&c=comms&task=listcomms&Itemid=%d&%s",$option,$Itemid,@implode("&",$d_url_));
+		$this->assign("back_url",$back_url);
 		
 		if($all_headings["member_params"]->get("sendcommunication") == "yes"){		
 

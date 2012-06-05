@@ -93,6 +93,8 @@ class ClubRegControllerComms extends JController
 		$comm_row	=& JTable::getInstance('clubcomms', 'Table');
 		$comm_row->bind( $post );
 		
+		$comm_row->comm_id = intval($comm_row->comm_id);
+		
 		$comm_row->comm_message = JRequest::getVar( 'comm_message', '', 'post', 'string', JREQUEST_ALLOWRAW );  		
 		$comm_row->template_id = intval(JRequest::getVar('tmp_id','0', 'post', 'int'));		
 		$comm_row->comm_groups = implode(",",$comm_row->comm_groups);

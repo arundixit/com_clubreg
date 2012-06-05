@@ -332,9 +332,9 @@ class clubTables{
 		
 		$col_count = count($list_headings)+1;
 		
-		$show_check = false;
+		$show_check = true;
 		?>
-<table class="flttbl" width=100% id="filter_table">
+		<table class="flttbl" width=100% id="filter_table">
 				<tr>
 				<?php 
 					foreach($list_headings as $t_key => $t_value){ 
@@ -399,10 +399,50 @@ class clubTables{
 				<tfoot>
 					<tr>
 						<td colspan="<?= $col_count;?>">
-							<?php //echo $page->getListFooter(); ?>
+							<?php echo $page->getListFooter(); ?>
 						</td>
 					</tr>				
 				</tfoot>
+						<?php
+			if($howmany > 0){		
+				
+					$k = 0;$i = 0;
+					$cl_ = array("","row1");					
+					$primary_key = "comm_id";				
+					
+					$edit_url = sprintf("index.php?option=%s&c=comms&task=editcomms&Itemid=%s&comm_id=",$option,$Itemid);
+					foreach($all_results as $a_result){ ?>
+					<tr class="<?= $cl_[$k]; ?>">
+						<td><? $t_offset =  $page->getRowOffset( $i ); echo $t_offset; ?></td>
+						<?php if($show_check){ ?><td><?php echo JHTML::_('grid.id', $i, $a_result->comm_id,false,$primary_key );  ?></td><?php }					
+						foreach($list_headings as $t_key => $t_value){ 
+	
+							$td_class = isset($style_class[$t_key])?$style_class[$t_key]:"";
+						?>
+							<td <?php echo $td_class; ?>>
+								<?php switch($t_key){																			
+									case "comm_subject": ?>
+											<a href="<?php echo $edit_url.$a_result->comm_id ; ?>&ordinal=<?php echo $t_offset; ?>"><?php echo ($a_result->$t_key == -1)?"-":$a_result->$t_key ;?></a>
+									<?php											
+									break;
+									default:																				
+										echo ($a_result->$t_key == -1)?"-":$a_result->$t_key;
+									break;
+									}?>
+							</td>				
+						<?php	}	?>		
+					</tr>						
+					<?php
+						$k = 1 - $k; $i++;
+					}					
+					unset($status_list);
+				}else{ ?>
+					<tr>
+						<td align="center" colspan="<?= $col_count; ?>">No Results</td>
+					</tr>
+					
+				<?php } ?>		
+					</tbody>	
 				</table>
 				<?php 		
 	}

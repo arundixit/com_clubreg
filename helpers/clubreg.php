@@ -152,6 +152,7 @@ class ClubregHelper{
 		$group_where =  $style_heading =  $style_class = array(); //used to store restrictions on the where clause
 		switch($player_type){
 			case "guardian":
+				unset($all_headings["memberid"]);
 				$all_headings["address"] = "Address";
 				$all_headings["suburb"] = "Suburb";
 				$all_headings["postcode"] = "Postcode";

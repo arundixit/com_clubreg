@@ -40,6 +40,7 @@ ob_start();
 				
 				if(recipient_count == 0){
 					alert("No Recipients Selected");
+					return false;
 				}
 			}
 			
@@ -90,6 +91,7 @@ ob_start();
 ?>
 <form action="index.php" method="post" name="adminForm"   id="adminForm"  class="form-validate">
 <div class="top_buttons">
+<div class="left_buttons"><input class="button" name='back_' id="back_url" type="button" onclick="document.location='<?php echo $this->back_url; ?>'"  value='<?php echo JText::_('Back To Messages'); ?>' />&nbsp;&nbsp;</div>
 <?php echo str_replace('class="center"', 'class="left_buttons"', $button_div)?>
 <div class="right_buttons">&nbsp;</div>
 </div><p class="cl"></p>
@@ -111,7 +113,7 @@ ob_start();
 			<label class="lbcls" for="comm_subject">Subject <span class="isReq">*</span></label><?php echo $colon ;?>
 		</td>
 		<td>
-			<input type="text" value="<?php echo stripslashes($templateDetails->template_subject); ?>" id="comm_subject" name="comm_subject" style="width:590px;"/></td>
+			<input type="text" value="<?php echo isset($templateDetails->template_subject)?stripslashes($templateDetails->template_subject):""; ?>" id="comm_subject" name="comm_subject" class="intext" style="width:590px;"/></td>
 	</tr>
 	<tr>
 		<td valign="top">		
@@ -119,7 +121,7 @@ ob_start();
 			</td>
 			<td>
 		<?php
-		       $editor =& JFactory::getEditor();
+		       $editor =& JFactory::getEditor(); $templateDetails->template_text = isset($templateDetails->template_text)?$templateDetails->template_text:"";
 		       echo $editor->display('comm_message', $templateDetails->template_text, '600', '600', '80', '40', false);
 		?>		
 		</td>
@@ -131,8 +133,8 @@ ob_start();
 	</tr>
 </table>
 </div>
-	<input type="<?= $in_type ?>" name="comm_id" id="comm_id" value="<?php echo $templateDetails->comm_id ?>" />	
-	<input type="<?= $in_type ?>" name="tmp_id" value="<?php echo $templateDetails->template_id; ?>" />		
+	<input type="<?= $in_type ?>" name="comm_id" id="comm_id" value="<?php echo isset($templateDetails->comm_id)?$templateDetails->comm_id:0 ?>" />	
+	<input type="<?= $in_type ?>" name="tmp_id" value="<?php echo isset($templateDetails->template_id)?$templateDetails->template_id:0; ?>" />		
 	<input type="<?= $in_type ?>" name="option" id="option" value="<?php echo $option ?>" />	
 	<input type="<?= $in_type ?>" name="Itemid" id="Itemid" value="<?php echo $Itemid ?>" />
 	<input type="<?= $in_type ?>" name="task" value="savecomms" />	
