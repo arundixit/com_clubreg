@@ -222,7 +222,17 @@ class ClubRegViewcomms extends JView
 			$all_headings['comm_id'] = intval(JRequest::getVar('comm_id','0', 'post', 'int'));		
 			$all_headings['tmp_id'] = intval(JRequest::getVar('tmp_id','0', 'post', 'int'));
 			$all_headings['message_subject'] = JRequest::getVar('comm_subject','', 'post', 'string');
-			$all_headings['message_body'] = JRequest::getVar('comm_message','', 'post', 'string',4);				
+			$all_headings['message_body'] = JRequest::getVar('comm_message','', 'post', 'string',4);	
+			
+			$all_headings['comm_groups'] = JRequest::getVar('comm_groups',array(), 'post', 'array');
+			
+			$d_qry = sprintf("select group_name from %s where group_id in (%s)",CLUB_GROUPS_TABLE,
+					implode(",",$all_headings['comm_groups']));
+			
+			$db->setQuery($d_qry);
+			$all_headings['message_groups']  = $db->loadResultArray();
+			
+			
 			$tpl = "emails";	
 			
 				

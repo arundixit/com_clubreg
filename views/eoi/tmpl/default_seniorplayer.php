@@ -101,6 +101,7 @@ ob_start();
 	<input type="<?= $in_type ?>" name="task" value="send_request" />	
 	<input type="<?= $in_type ?>" name="c" value="eoi" />
 	<input type="<?= $in_type ?>" name="view" value="senior" />
+	<input type="<?= $in_type ?>" name="check" value="check" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php

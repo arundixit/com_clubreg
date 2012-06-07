@@ -38,6 +38,8 @@ Window.onDomReady(function(){
 	$$(".recipients_check").each(function(e){
 		
 		e.addEvent('click',function(){	
+			
+			
 			var rspan = $('recipients_span_'+e.value);
 			var rspan_clone = rspan.clone();
 			if(e.checked){	

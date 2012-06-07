@@ -138,6 +138,7 @@ for($i = 1 ; $i <= $div_counter; $i++,$j++){
 	<input type="<?= $in_type ?>" name="Itemid" value="<?= $Itemid ?>" />
 	<input type="<?= $in_type ?>" name="task" value="send_request" />	
 	<input type="<?= $in_type ?>" name="c" value="eoi" />
+	<input type="<?= $in_type ?>" name="check" value="check" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php

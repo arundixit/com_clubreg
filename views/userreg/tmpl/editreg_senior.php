@@ -172,7 +172,8 @@ echo $pane->startPanel($title, "detail-page1");
 	<input type="<?= $in_type ?>" name="Itemid" id="Itemid" value="<?php echo $Itemid ?>" />
 	<input type="<?= $in_type ?>" name="task" value="save_details" />	
 	<input type="<?= $in_type ?>" name="c" value="userreg" />
-	<input type="<?= $in_type ?>" name="ordinal" value="<?php echo $this->ordinal; ?>" />	
+	<input type="<?= $in_type ?>" name="ordinal" value="<?php echo $this->ordinal; ?>" />
+	<input type="<?= $in_type ?>" name="check" value="check" />	
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form><?php 
 	echo $pane->endPanel();

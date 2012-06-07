@@ -35,7 +35,7 @@ $all_headings = $this->all_headings;
 				<td valign="top">		
 					<label class="lbcls" for="subject">To </label><?php echo $colon ;?>
 				</td>
-				<td align="left">&nbsp;</td>
+				<td align="left">&nbsp;<?php echo implode(",",$all_headings["message_groups"]);?></td>
 			</tr>	
 			<tr>
 				<td valign="top">		

@@ -232,6 +232,7 @@ for($i = 1 ; $i <= $div_counter; $i++,$j++){
 	<input type="<?= $in_type ?>" name="task" value="save_details" />
 	<input type="<?= $in_type ?>" name="c" value="userreg" />
 	<input type="<?= $in_type ?>" name="ordinal" value="<?php echo $this->ordinal; ?>" />
+	<input type="<?= $in_type ?>" name="check" value="check" />
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>
 <?php

@@ -19,43 +19,69 @@ $in_type = "hidden";
 $page_title = "Manage Communications";
 $document->setTitle($page_title );
 
+JHTML::_('behavior.formvalidation');
+
+
 $member_params = $this->all_headings["member_params"];
 $filter_heading = $this->all_headings["filters"];
 ClubregHelper::generate_menu_tabs($member_params,$page_title );
 $templateDetails = $this->templates->templateDetails;
 
+$comm_groups = array();
+$templateDetails->comm_groups = trim($templateDetails->comm_groups);
+if(isset($templateDetails->comm_groups) && strlen($templateDetails->comm_groups) >0){
+	$comm_groups = explode(",",$templateDetails->comm_groups);
+}
 
 ob_start();
 ?>
-	var recipient_count = 0;
+	var recipient_count = <?php echo intval(count($comm_groups)); ?>;
 	
-	function simpleValidate(action){
+	function simpleValidate(){
+	
+		$$('.validate').addEvent('click',function(){
+		
+			var action = $(this).get('rel');
 			
-			if(action == "previewcomms"){
-				document.adminForm.task.value='previewcomms';
-				document.adminForm.target='_blank'
-			}else{
-				document.adminForm.task.value= action;
-				document.adminForm.target='';
-				
-				if(recipient_count == 0){
-					alert("No Recipients Selected");
-					return false;
-				}
-			}
-			
-			
+			f = this.form;
+					
+			if (document.formvalidator.isValid(f) && recipient_count > 0) {
+				 	f.check.value='<?php echo JUtility::getToken(); ?>'; //send token
+				 	
+				 	
+				 	if(action == "previewcomms"){
+						document.adminForm.task.value='previewcomms';
+						document.adminForm.target='_blank'
+					}else{
+						document.adminForm.task.value= action;
+						document.adminForm.target='';
+					}				 	
+				 	
+     	 			return true;				 
+			 }else{			
+				var msg = 'Some values are not acceptable.  Please retry.';	
+				if($('comm_subject').hasClass('invalid')){msg += '\n\t* Invalid Subject';}
+				if(recipient_count == 0){msg += '\n\t* At least one recipient group required.';}
+		
+				alert(msg);
+				return false;
+			}			
+		
+		});			
 	};
 	
 	
 	
-	//Window.onDomReady(simpleValidate);
+	Window.onDomReady(simpleValidate);
 <?php 
 		$t_script = ob_get_contents();
 		ob_end_clean();
 	 	$document->addScriptDeclaration($t_script);
 
- ob_start(); ?>
+ ob_start();
+ 
+$comm_groups_str = array();
+ ?>
 
 <div class="toggler" id="toggler_div" style="background-color:#95C5DE;padding:5px;">
 <div style="font-weight:bold;font-size:1.3em;">Recipients</div>
@@ -64,7 +90,10 @@ ob_start();
 		if(count($this->all_headings["templategroups"])> 0){
 			echo "<ol>";
 			foreach($this->all_headings["templategroups"] as $a_group){
-				echo "<li>"	?><input type="checkbox" name="comm_groups[]" value="<?php echo $a_group->value?>" class='recipients_check'/><?php echo sprintf("<span id=\"recipients_span_%d\">",$a_group->value);echo $a_group->text; echo "</span></li>";
+				if(in_array($a_group->value, $comm_groups)){
+					$comm_groups_str[] = sprintf("<span class='recipients_span' id='recipients_span_c%s'>%s</span>",$a_group->value,$a_group->text);
+				}
+				echo "<li>"	?><input type="checkbox" name="comm_groups[]" value="<?php echo $a_group->value?>" <?php echo in_array($a_group->value,$comm_groups)?"checked":""; ?> class='recipients_check'/><?php echo sprintf("<span id=\"recipients_span_%d\">",$a_group->value);echo $a_group->text; echo "</span></li>";
 			}
 			echo "</ol>";		
 		}
@@ -79,9 +108,9 @@ ob_start();
 		ob_start(); ?>
 
 		<div class="center">
-			<input type="submit" class="button" value="Save For Later" onclick="simpleValidate('savecomms')"/>
-			<input type="submit" class="button" value="Send Now" onclick="simpleValidate('sendcomms')"/>
-			<input type="submit"  value="Preview" class="button" onclick="simpleValidate('previewcomms')"/>		
+			<input type="submit" class="button validate" value="Save For Later"  rel='savecomms' />
+			<input type="submit" class="button validate" value="Send Now" rel='sendcomms' />
+			<input type="submit" class="button validate" value="Preview"  rel='previewcomms' />		
 		</div>
 		
 <?php 
@@ -102,7 +131,7 @@ ob_start();
 		<td valign="top">		
 			<label class="lbcls" for="comm_groups"><input type="button" style="padding:0px 2px 0px 2px;;background:#EFEFEF;font-size:0.9em" value="To" id="toButton"> <span class="isReq">*</span></label><?php echo $colon ;?>
 		</td>
-		<td id="to_content">&nbsp;</td>
+		<td id="to_content"><?php echo implode("",$comm_groups_str); ?></td>
 	</tr>
 	<tr>
 		<td></td>
@@ -113,7 +142,7 @@ ob_start();
 			<label class="lbcls" for="comm_subject">Subject <span class="isReq">*</span></label><?php echo $colon ;?>
 		</td>
 		<td>
-			<input type="text" value="<?php echo isset($templateDetails->template_subject)?stripslashes($templateDetails->template_subject):""; ?>" id="comm_subject" name="comm_subject" class="intext" style="width:590px;"/></td>
+			<input type="text" value="<?php echo isset($templateDetails->template_subject)?stripslashes($templateDetails->template_subject):""; ?>" id="comm_subject" name="comm_subject" class="intext required" style="width:590px;"/></td>
 	</tr>
 	<tr>
 		<td valign="top">		
@@ -139,5 +168,6 @@ ob_start();
 	<input type="<?= $in_type ?>" name="Itemid" id="Itemid" value="<?php echo $Itemid ?>" />
 	<input type="<?= $in_type ?>" name="task" value="savecomms" />	
 	<input type="<?= $in_type ?>" name="c" value="comms" />	
+	<input type="<?= $in_type ?>" name="check" id="check" value="" />	
 	<?php echo JHTML::_( 'form.token' ); ?>
 </form>

@@ -68,16 +68,75 @@ class ClubRegControllerComms extends JController
 		
 	}
 	function sendcomms(){
+		global $mainframe;
 		
-		$comm_groups = JRequest::getVar('comm_groups',array(), 'post', 'array');
+		$user		= &JFactory::getUser();
+		$db		=& JFactory::getDBO();
 		
-		if(count($comm_groups) > 0){
+		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
+		$member_data->getData($user->id); // get the member data for current user
+		
+		$all_headings = ClubregHelper::return_headings_reg($member_data);
+		$all_headings["member_data"] = $member_data;
+		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );
+		
+		
+		if($all_headings["member_params"]->get("sendcommunication") == "yes"){
+		
+		
+		$all_headings['comm_groups'] = JRequest::getVar('comm_groups',array(), 'post', 'array');
+		
+		if(count($all_headings['comm_groups']) > 0){
+			
+			$SiteName 	= $mainframe->getCfg('sitename');
+			$MailFrom 	= $mainframe->getCfg('mailfrom');
+			$FromName 	= $mainframe->getCfg('fromname');
+			
+			jimport( 'joomla.mail.helper' );
+			
+			$all_headings['comm_id'] = intval(JRequest::getVar('comm_id','0', 'post', 'int'));
+			$all_headings['tmp_id'] = intval(JRequest::getVar('tmp_id','0', 'post', 'int'));
+			$all_headings['message_subject'] = JMailHelper::cleanSubject(JRequest::getVar('comm_subject','', 'post', 'string'));
+			$all_headings['message_body'] = JMailHelper::cleanBody(JRequest::getVar('comm_message','', 'post', 'string',4));
+						
+			$d_qry = sprintf("select group_name from %s where group_id in (%s)",CLUB_GROUPS_TABLE,
+					implode(",",$all_headings['comm_groups']));
+			
+			$db->setQuery($d_qry);
+			$all_headings['message_groups']  = $db->loadResultArray();
+			
+			$group_str = implode(",",$all_headings['comm_groups']);
+			
+			$d_qry = sprintf("select a.emailaddress,concat(a.surname,' ',a.givenname) as sending_name,a.parent_id,a.playertype,
+					if(a.parent_id > 0,b.emailaddress ,a.emailaddress) as sending_email
+					from %s as a  
+					left join %s as b on (a.parent_id = b.member_id)
+					where a.`group` in (%s) or a.`subgroup` in (%s);",
+			CLUB_REGISTEREDMEMBERS_TABLE,CLUB_REGISTEREDMEMBERS_TABLE, $group_str,$group_str);
+			$db->setQuery($d_qry);
+			$all_recipients = $db->loadObjectList();
+			write_debug($all_recipients);
+			
+			//write_debug($db);
+			
+			
+			foreach($all_recipients as $a_recp){
+				if(JMailHelper::isEmailAddress($a_recp->sending_email)){
+					$valid_address[] = $a_recp->sending_email;
+				}else{
+					$msg_log[] = sprintf("%s %s",$a_recp->sending_name,$a_recp->sending_email);
+				}
+			}			
 			
 		}else{
 			JError::raiseWarning( 500, sprintf("No Recipients "));
 		}
 		
 		$this->editcomms();
+		}else{
+			JError::raiseWarning( 500, "You are not authorised to send communications" );
+			return;
+		}
 		
 		
 		
@@ -109,8 +168,14 @@ class ClubRegControllerComms extends JController
 			
 		}
 		
-		$comm_row->store();
-		
+		if(strlen($comm_row->comm_subject) > 0){
+			$comm_row->store();
+		}else{
+			$msg[] = "";
+			JError::raiseWarning( 500, sprintf("Incomplete Communication Details :: %s",implode(", ",$msg)));
+					
+			
+		}
 		$_REQUEST["comm_id"] = $comm_row->comm_id;
 		
 		$this->editcomms();
