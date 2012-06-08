@@ -85,8 +85,9 @@ class ClubRegControllerComms extends JController
 		
 		
 		$all_headings['comm_groups'] = JRequest::getVar('comm_groups',array(), 'post', 'array');
+		$all_headings['comm_id'] = intval(JRequest::getVar('comm_id','0', 'post', 'int'));
 		
-		if(count($all_headings['comm_groups']) > 0){
+		if(count($all_headings['comm_groups']) > 0 && ($all_headings['comm_id']) > 0){
 			
 			$SiteName 	= $mainframe->getCfg('sitename');
 			$MailFrom 	= $mainframe->getCfg('mailfrom');
@@ -94,7 +95,7 @@ class ClubRegControllerComms extends JController
 			
 			jimport( 'joomla.mail.helper' );
 			
-			$all_headings['comm_id'] = intval(JRequest::getVar('comm_id','0', 'post', 'int'));
+			
 			$all_headings['tmp_id'] = intval(JRequest::getVar('tmp_id','0', 'post', 'int'));
 			$all_headings['message_subject'] = JMailHelper::cleanSubject(JRequest::getVar('comm_subject','', 'post', 'string'));
 			$all_headings['message_body'] = JMailHelper::cleanBody(JRequest::getVar('comm_message','', 'post', 'string',4));
@@ -115,9 +116,6 @@ class ClubRegControllerComms extends JController
 			CLUB_REGISTEREDMEMBERS_TABLE,CLUB_REGISTEREDMEMBERS_TABLE, $group_str,$group_str);
 			$db->setQuery($d_qry);
 			$all_recipients = $db->loadObjectList();
-			write_debug($all_recipients);
-			
-			//write_debug($db);
 			
 			
 			foreach($all_recipients as $a_recp){
@@ -126,10 +124,30 @@ class ClubRegControllerComms extends JController
 				}else{
 					$msg_log[] = sprintf("%s %s",$a_recp->sending_name,$a_recp->sending_email);
 				}
-			}			
+			}
+
+			if(count($valid_address) > 0){
+				if ( JUtility::sendMail($MailFrom, $SiteName, $user->email, $all_headings['message_subject'], $all_headings['message_body'],1,null,$valid_address) !== true )
+				{
+					JError::raiseNotice( 500, JText:: _ ('Email Not Sent' ));
+					$this->editcomms();
+				}else{
+					$d_qry = sprintf("update %s set sent_date = now(), comm_status = '1', sent_by = '%s' where
+							comm_id = %d ", CLUB_SAVEDCOMMS_TABLE,$user->id,$all_headings["comm_id"]);
+					$db->setQuery($d_qry);
+					$db->query();
+				}
+			}
 			
 		}else{
-			JError::raiseWarning( 500, sprintf("No Recipients "));
+			if(count($all_headings["comm_groups"]) == 0)
+					$msg = "No Recipients.\n";
+				
+			
+			if(!isset($all_headings["comm_id"]) || $all_headings["comm_id"] <= 0)
+					$msg .= "\nEmail needs to be saved at least once.";
+				
+				JError::raiseWarning( 500, $msg);
 		}
 		
 		$this->editcomms();
@@ -158,7 +176,7 @@ class ClubRegControllerComms extends JController
 		$comm_row->template_id = intval(JRequest::getVar('tmp_id','0', 'post', 'int'));		
 		$comm_row->comm_groups = implode(",",$comm_row->comm_groups);
 		
-		if(isset($note_row->note_id) && intval($note_row->note_id) > 0){
+		if(isset($comm_row->comm_id) && intval($comm_row->comm_id) > 0){
 			
 		}else{
 			$comm_row->created = date("Y-m-d H:i:s");
