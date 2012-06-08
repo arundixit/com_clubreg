@@ -136,6 +136,7 @@ class ClubRegControllerComms extends JController
 							comm_id = %d ", CLUB_SAVEDCOMMS_TABLE,$user->id,$all_headings["comm_id"]);
 					$db->setQuery($d_qry);
 					$db->query();
+					
 				}
 			}
 			
