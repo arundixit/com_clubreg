@@ -215,8 +215,7 @@ class ClubregHelper{
 		$sorting_heading["surname"]  	= array("control"=>"grid.sort","sort_col"=>"a.surname");
 		$sorting_heading["t_created_date"]  = array("control"=>"grid.sort","sort_col"=>"a.created");
 		$sorting_heading["playertype"]  = array("control"=>"grid.sort","sort_col"=>"a.playertype");		
-		$sorting_heading["guardian"]  = array("control"=>"grid.sort","sort_col"=>"d.surname");
-		
+		$sorting_heading["guardian"]  = array("control"=>"grid.sort","sort_col"=>"d.surname");		
 	
 		$all_data["headings"] = $all_headings;
 		$all_data["sorting"] = $sorting_heading;
@@ -327,10 +326,9 @@ class ClubregHelper{
 			if($t_key[0] == "_") continue;
 			$new_data->$t_key = $old_data->$t_key;
 		}
-		$audit_data = serialize($new_data);
+		$audit_data = serialize($new_data);		
 		
 		$created = date("Y-m-d H:i:s");
-		
 		
 		$d_qry = sprintf("insert into %s set primary_id = '%d', short_desc=%s, audit_details = %s, 
 		created_date ='%s',created_time= '%s',createdby = '%d'",CLUB_AUDIT_TABLE,

@@ -37,6 +37,8 @@ class ClubRegControllerComms extends JController
 			$this->registerTask("sendcomms","sendcomms");
 			
 			$this->registerTask("savecomms","savecomms");
+			
+			$this->registerTask("deletecomms","deletecomms");
 		
 	}
 	
@@ -72,6 +74,7 @@ class ClubRegControllerComms extends JController
 		
 		$user		= &JFactory::getUser();
 		$db		=& JFactory::getDBO();
+		$app = JFactory::getApplication();
 		
 		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
 		$member_data->getData($user->id); // get the member data for current user
@@ -135,7 +138,21 @@ class ClubRegControllerComms extends JController
 					$d_qry = sprintf("update %s set sent_date = now(), comm_status = '1', sent_by = '%s' where
 							comm_id = %d ", CLUB_SAVEDCOMMS_TABLE,$user->id,$all_headings["comm_id"]);
 					$db->setQuery($d_qry);
-					$db->query();
+					$db->query();					
+					
+					$email['message_by'] = $user->name;
+					$email['message_from'] = $user->email;
+					$email['message_subject'] = $all_headings['message_subject'];
+					$email['message_body'] = $all_headings['message_body'];
+					$email['message_addresses'] = $valid_address;	
+
+					$final_email = (object)$email;
+					
+					$other_details["primary_id"] = $all_headings["comm_id"];
+					$other_details["short_desc"] = "Email_Sent_".time();
+					ClubregHelper::save_old_data($final_email,$other_details);	
+
+					$app->enqueueMessage("Communication Sent. ");
 					
 				}
 			}
@@ -197,11 +214,41 @@ class ClubRegControllerComms extends JController
 		}
 		$_REQUEST["comm_id"] = $comm_row->comm_id;
 		
-		$this->editcomms();
-		
-		
-		
+		$this->editcomms();		
 	}
+	function deletecomms(){
+		
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+			
+		$db		=& JFactory::getDBO();
+		$user		= &JFactory::getUser();
+	
+		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
+		$member_data->getData($user->id); // get the member data for current user
+		$member_params =  new JParameter( $member_data->user_data->params );
+	
+		$comm_ids = JRequest::getVar( "comm_id", array(), 'post', 'array' );
+	
+		if($member_params->get('deletecomms' ) == "yes" || true){
+	
+			if(count($comm_ids) > 0 ){
+				$comm_ids_str = implode(",",$comm_ids);
+				$d_qry = sprintf("update %s set comm_status = '99' where comm_id in (%s) ;",CLUB_SAVEDCOMMS_TABLE,$comm_ids_str);
+				$db->setQuery( $d_qry );
+				$db->query();
+				JError::raiseWarning( 500, "Communications Deleted" );
+			}else{
+				JError::raiseWarning( 500, "Please Select at least one communication" );
+			}
+	
+		}else{
+			JError::raiseWarning( 500, "You are not authorised to delete a Communication" );
+		}
+		
+		JRequest::setVar('view','comms');
+		parent::display();
+	}
+	
 	
 
 }

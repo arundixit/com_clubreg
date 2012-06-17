@@ -111,10 +111,10 @@ echo $pane->startPanel($title, "detail-page1");
 	<?php ClubTagsHelper::renderAddTag($member_data->member_id); ?>
 	
 		<div class="n">
-		<label class="lbcls" for="g_memberid">Member Id</label><?php echo $colon ;?><input type="text" class="intext" name="g_memberid" id="g_memberid" value="<?php echo $member_data->memberid;	?>"/>
+		<label class="lbcls" for="g_memberid"><?= PLAYER ?> Id</label><?php echo $colon ;?><input type="text" class="intext" name="g_memberid" id="g_memberid" value="<?php echo $member_data->memberid;	?>"/>
 		</div>
 		<div class="n">
-		<label class="lbcls" for="g_memberlevel">Membership Level</label><?php echo $colon ;
+		<label class="lbcls" for="g_memberlevel"><?= PLAYER ?> Level</label><?php echo $colon ;
 				$name = "g_memberlevel";	$id= "g_memberlevel";	$t_level = $member_data->memberlevel;
 				echo JHTML::_('select.genericlist',  $this->lists['member_levels'], $name, 'class="intext" id="'.$id.'"  size="1" ', 'value', 'text', $t_level);?>	
 		</div>

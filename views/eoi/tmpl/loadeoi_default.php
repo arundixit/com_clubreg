@@ -27,7 +27,7 @@ ClubregHelper::generate_menu_tabs($member_params,$page_title );
 		<td><input type="submit" name="bt_search" value="Register" class="button" onclick='this.form.task.value="registereoi"'/></td>
 		<?php } 
 		if($member_params->get('deleteeoi' ) == "yes"){?>
-		<td><input type="submit" name="bt_search" value="Delete" class="button" onclick='this.form.task.value="deleteeoi"'/></td>
+		<td><input type="submit" name="bt_delete" value="Delete" class="button" onclick='this.form.task.value="deleteeoi"'/></td>
 		
 		<?php } ?>
 	</tr>

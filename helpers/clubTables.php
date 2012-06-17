@@ -398,7 +398,7 @@ class clubTables{
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="<?= $col_count;?>">
+						<td colspan="<?= $col_count+1;?>">
 							<?php echo $page->getListFooter(); ?>
 						</td>
 					</tr>				
@@ -438,7 +438,7 @@ class clubTables{
 					unset($status_list);
 				}else{ ?>
 					<tr>
-						<td align="center" colspan="<?= $col_count; ?>">No Results</td>
+						<td align="center" colspan="<?= $col_count+1; ?>">No Results</td>
 					</tr>
 					
 				<?php } ?>		

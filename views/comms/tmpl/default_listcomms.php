@@ -24,15 +24,25 @@ ClubregHelper::generate_menu_tabs($member_params,$page_title );
 $template_list_text = $this->templates->template_list_text;
 $headings = $this->all_headings["headings"];
 ?>
-<div  id="subNav">
-<ol>
-	<li ><a href="">Messages Sent</a></li>
-	<li class="last"><a href="javascript:void(0)" id="newMessages">Send New Messages</a><br />
-	<?php echo $template_list_text; ?>
-	</li>	
-</ol>
-</div>
 <form action="index.php?option=<?= $option; ?>&Itemid=<?=$Itemid ?>" method="post" name="adminForm">
+<table width=100%>
+	<tr>		
+		<td style="vertical-align:top">
+			<input type="submit" value="Filter" name="bt_search" onclick='this.form.task.value="listcomms"' class="button">	
+			<input type="submit" value="Delete Comm" name="bt_delete" onclick='this.form.task.value="deletecomms"' class="button">
+		</td>	
+	<td style="text-align:right;vertical-align:top">
+	<div  id="subNav">
+		<ol>			
+			<li class="last"><a href="javascript:void(0)" id="newMessages">Send New Messages</a><br />
+			<?php echo $template_list_text; ?>
+			</li>	
+		</ol>
+	</div>	
+	</td>
+	</tr>
+</table>
+
 		<?php 
 			clubTables::renderTables_comms($this->all_results,$this->all_headings);
 		?>

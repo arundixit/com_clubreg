@@ -47,7 +47,7 @@ class ClubRegViewcomms extends JView
 				return;
 			}
 			
-			$where_ = array();
+			$where_ = $ngroup_where = array();
 			
 			$limit 		= $mainframe->getUserStateFromRequest( $option.'.limit', 'limit', $mainframe->getCfg('list_limit'), 'int' );
 			$limitstart 		= $mainframe->getUserStateFromRequest( $option.'.limitstart', 'limitstart', 0, 'int' );
@@ -55,7 +55,9 @@ class ClubRegViewcomms extends JView
 			$filter_order		= $mainframe->getUserStateFromRequest( $option.'.filter_order',		'filter_order',		'a.created ',	'cmd' );
 			$filter_order_Dir	= $mainframe->getUserStateFromRequest( $option.'.filter_order_Dir',	'filter_order_Dir',	'',				'word' );
 			$filter_state		= $mainframe->getUserStateFromRequest( $option.'.filter_state',		'filter_state',		'',				'word' );
-								
+			
+			$comm_groups = JRequest::getVar( "comm_groups", array(), 'post', 'array' );
+					
 			$all_string["n"] = 'a.*';
 			$all_string["sentto"] = "group_concat(b.group_name) as sentto";
 			$all_string["comm_subject"] = "a.comm_subject";
@@ -63,14 +65,13 @@ class ClubRegViewcomms extends JView
 			$all_string["created"] = "date_format(a.created,'%d/%m/%Y') as created";
 			$all_string["created_by"] = "c.name as created_by";
 			$all_string["senton"] = "date_format(a.sent_date,'%d/%m/%Y') as senton";
-			
+								
 			$all_string["comm_status"] = "a.comm_status";
 			
 			$session =& JFactory::getSession();
 			$session->set("com_clubreg.back_url", $d_url_);// save the back url
 			
-			$table_join = sprintf(" left join %s as b on find_in_set(b.group_id,a.comm_groups) ",CLUB_GROUPS_TABLE);
-			
+			$table_join = sprintf(" left join %s as b on find_in_set(b.group_id,a.comm_groups) ",CLUB_GROUPS_TABLE);			
 			
 			if (!in_array(strtoupper($filter_order_Dir), array('ASC', 'DESC'))) {
 				$filter_order_Dir = 'DESC';
@@ -79,6 +80,58 @@ class ClubRegViewcomms extends JView
 			$orderby 	= ' ORDER BY '.$filter_order.' '. $filter_order_Dir ;
 			
 			$where_str = "";
+			
+			$where_[] = " a.comm_status in (0,1)";			
+			
+			$filters = $all_headings["filters"];
+			$filters_keys = array_keys($all_headings["filters"]);
+			
+			foreach($filters_keys as $a_filter){
+				$t_key = "filter_".$a_filter;
+				$return_data[$t_key] = trim(JRequest::getVar($t_key,null, 'request', 'string'));
+					
+				if($return_data[$t_key]){
+			
+					switch($filters[$a_filter]["control"]){
+						case "text":
+							$t_value = sprintf('%%%s%%',$return_data[$t_key]);
+							$where_[] =  sprintf("%s like %s", $filters[$a_filter]["filter_col"],$db->Quote( $t_value));
+							$d_url_[] = sprintf("%s=%s",$t_key,$return_data[$t_key]);
+							break;
+						case "select.genericlist":
+							if(intval($return_data[$t_key]) != -1){
+								if($t_key == "filter_t_created_date"){
+			
+									switch($return_data[$t_key]){
+										case "today":
+											$where_[] = sprintf("date_format(a.created,'%%Y-%%m-%%d') = '%s'",date('Y-m-d'));
+											break;
+										case "7days":
+											$where_[] = " a.created >= DATE_ADD(CURDATE(), INTERVAL -7 DAY) ";
+											$where_[] = " a.created <= CURDATE() ";
+											break;
+										case "month":
+											$where_[] = sprintf("date_format(a.created,'%%Y-%%m') = '%s'",date('Y-m'));
+											break;
+										case "lastmonth":
+											$where_[] = " date_format(a.created, '%Y-%m') = date_format(CURDATE() - INTERVAL 1 MONTH, '%Y-%m') ";
+											break;
+									}
+										
+										
+								}if($t_key == "filter_sentto"){
+									$where_[] = sprintf(" find_in_set(%s, %s )",$db->Quote( $return_data[$t_key]),$filters[$a_filter]["filter_col"]);
+									
+								}else{
+									$where_[] = sprintf("%s = %s", $filters[$a_filter]["filter_col"],$db->Quote( $return_data[$t_key]));
+								}
+								$d_url_[] = sprintf("%s=%s",$t_key,$return_data[$t_key]);
+							}
+			
+							break;
+					}
+				}
+			}		
 			
 			if(count($where_) > 0){
 				$where_str = " where ".implode(" and ",$where_ );
@@ -114,6 +167,7 @@ class ClubRegViewcomms extends JView
 			}
 			
 			
+			$all_headings["return_data"] = $return_data;
 			$all_headings["pageNav"] =  $pageNav;
 			$all_headings["variable_string"] = $all_string;
 			
