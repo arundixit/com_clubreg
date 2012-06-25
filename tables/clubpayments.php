@@ -38,6 +38,8 @@ class TableClubPayments extends JTable
 	var $created = null;
 	var $created_by = null;	
 	
+	var $payment_season = null;
+	
 	function __construct( &$db )
 	{
 		parent::__construct( CLUB_PAYMENTS_TABLE, 'payment_id', $db );

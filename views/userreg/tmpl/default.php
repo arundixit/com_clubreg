@@ -15,7 +15,7 @@ global $Itemid,$option;
 $document =& JFactory::getDocument();
 
 $in_type = "hidden";
-$page_title = "Registered Members";
+$page_title = "Registered ".PLAYERS;
 $document->setTitle($page_title );
 
 $member_params = $this->all_headings["member_params"];
@@ -73,8 +73,8 @@ ob_start();
 				<li><a href="javascript:void(0)" id="batch_updater"><span>Batch Update</span></a></li>
 				<?php } ?>
 				<li><a href="index.php?option=<?php echo $option; ?>&c=userreg&task=editreg&Itemid=<?php echo $Itemid; ?>&member_id=0&playertype=guardian" style="font-weight:normal"><span>Register Guardian</span></a></li>
-				<li><a href="index.php?option=<?php echo $option; ?>&c=userreg&task=editreg&Itemid=<?php echo $Itemid; ?>&member_id=0&playertype=junior" style="font-weight:normal"><span>Register Junior Player</span></a></li>
-				<li class="last"><a href="index.php?option=<?php echo $option; ?>&c=userreg&task=editreg&Itemid=<?php echo $Itemid; ?>&member_id=0&playertype=senior" style="font-weight:normal"><span>Register Senior Player</span></a></li>
+				<li><a href="index.php?option=<?php echo $option; ?>&c=userreg&task=editreg&Itemid=<?php echo $Itemid; ?>&member_id=0&playertype=junior" style="font-weight:normal"><span>Register Junior <?php echo PLAYER; ?></span></a></li>
+				<li class="last"><a href="index.php?option=<?php echo $option; ?>&c=userreg&task=editreg&Itemid=<?php echo $Itemid; ?>&member_id=0&playertype=senior" style="font-weight:normal"><span>Register Senior <?php echo PLAYER; ?></span></a></li>
 			</ol>
 		</div>
 		</td>

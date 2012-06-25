@@ -97,7 +97,7 @@ for($i = 1 ; $i <= $div_counter; $i++,$j++){
 ?>
 <input type="<?php echo $in_type; ?>" name="div_counter" value="<?php echo $div_counter; ?>" />
 <fieldset>
-	<legend>Junior Player Details <?php echo $i;?></legend>
+	<legend>Junior <?php echo PLAYER;  ?> Details <?php echo $i;?></legend>
 	<div class="tset">
 		<label class="lbcls" for="p_surname[player_<?php echo $j; ?>]">Surname : </label><input type="text" class="intext" name="p_surname[player_<?php echo $j; ?>]" value="<?php echo JArrayHelper::getValue($t_request['p_surname'], $t_index, '', 'string' );?>"/>
 	</div>

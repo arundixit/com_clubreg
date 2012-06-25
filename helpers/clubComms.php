@@ -83,4 +83,26 @@ class ClubCommsHelper{
 		return $filter_heading;
 		
 	}
+	function fillplaceholders(&$text){
+	
+		
+		global $mainframe;
+		
+		$date =& JFactory::getDate();
+		$user		= &JFactory::getUser();
+		
+		$holders['sitename']	= $mainframe->getCfg('sitename');
+		$holders['today']	= $date->toFormat();
+		$holders['sender']	= $user->name;
+
+		
+		foreach($holders as $a_key => $a_value){
+			$t_key = sprintf("{%s}",$a_key);
+			$text = str_ireplace($t_key, $a_value, $text);		
+			
+			$t_key = sprintf("%%%s%%",$a_key);
+			$text = str_ireplace($t_key, $a_value, $text);
+		}	
+		
+	}
 }

@@ -340,11 +340,11 @@ class ClubRegControllerUserReg extends JController
 			unset($d_qry);
 			$d_qry = array();
 			$tmp_contact_array = ClubContactHelper::getContactArray();			
-			$special_contacts = $tmp_contact_array["special"];
+			$special_contacts = $tmp_contact_array["special"]; // get the special s
 			$contact_keys = JRequest::getVar( "contact_key", array(), 'post', 'array' );
 			foreach($contact_keys as $con_key){
 				
-				$contact_array = array_merge($tmp_contact_array["contact_items"],$special_contacts[$con_key]);
+				$contact_array = array_merge($tmp_contact_array["contact_items"],$special_contacts[$con_key]); // merge special based in contact key
 				
 				foreach($contact_array as $a_contact_item){
 					$contact_item = $con_key.$a_contact_item;
@@ -468,6 +468,7 @@ class ClubRegControllerUserReg extends JController
 			$payment_row->load($return_data['payment_id']);
 			
 		}else{
+			$payment_row->payment_season = date("Y");
 			//JError::raiseWarning( 500, "Invalid Payment Process" );
 			//return;
 		}		
@@ -480,15 +481,16 @@ class ClubRegControllerUserReg extends JController
 		$id= "payment_method";	
 		
 		JHTML::_('script', 'payments.js?'.time(), 'components/com_clubreg/assets/js/');	
+		
+		$year_registered_list = ClubregHelper::generate_seasonList();		
 	?>
-		<form action="index2.php" method="post"  style="text-align:left;" name="payment_admin" id="payment_admin" class="form-validate">
-			
+		<form action="index2.php" method="post"  style="text-align:left;" name="payment_admin" id="payment_admin" class="form-validate">			
 			<div class="h3">Payment Details :: <?php echo $row->surname," ",$row->givenname ?></div>
 			<div class="fieldset">
+			<div class="n"><label class="lbcls" for="payment_season"><?php echo SEASON ?> <span class="isReq">*</span></label><?php echo $colon; 	echo JHTML::_('select.genericlist',  $year_registered_list, "payment_season", 'class="intext required" id="payment_season"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_season);?></div>			
 			<div class="n"><label class="lbcls" for="payment_method">Payment Method <span class="isReq">*</span></label><?php echo $colon; 	echo JHTML::_('select.genericlist',  $t_array, $name, 'class="intext required" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_method);?></div>
 			<div class="n"><label class="lbcls" for="payment_transact_no" >Transaction # <span class="isReq">*</span></label><?php echo $colon; ?><input type="text" name="payment_transact_no" id="payment_transact_no" value="<?php echo $payment_row->payment_transact_no; ?>" class="intext required"/></div>
-			<?php 			
-			
+			<?php 		
 			$t_array = array();
 			$t_array = ClubPaymentsHelper::getPaymentStatus();
 			$t_prop=" required validate-paymentselect";
@@ -521,8 +523,8 @@ class ClubRegControllerUserReg extends JController
 			?>		
 			<div class="n"><label class="lbcls" for="payment_desc">Description <span class="isReq">*</span></label><?php echo $colon; echo JHTML::_('select.genericlist',  $t_array, $name, 'class="intext" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_desc); ?></div>
 			<div class="n" style="vertical-align:top"><label class="lbcls" style="vertical-align:top" for="payment_notes">Notes</label><?php echo $colon; ?><textarea class="intext" rows=3 id="payment_notes" name="payment_notes" style="width:200px"><?php echo stripslashes($payment_row->payment_notes); ?></textarea></div>
-			<div class="n"><label class="lbcls" for="payment_amount">Amount($) <span class="isReq">*</span></label><?php echo $colon; ?>
-			<input type="text" name="payment_amount" value="<?php echo sprintf("%.2f",($payment_row->payment_amount* 0.01)); ?>" id="payment_amount" class="required validate-numeric" style="text-align:right;width:70px;"/></div>
+			<div class="n"><label class="lbcls" for="payment_amount">Amount(<?php echo CURRENCY; ?>) <span class="isReq">*</span></label><?php echo $colon; ?>
+			<input type="text" name="payment_amount" value="<?php echo sprintf("%.2f",($payment_row->payment_amount* 0.01)); ?>" id="payment_amount" class="intext required validate-numeric" style="text-align:right;width:70px;"/></div>
 			
 			<div style="text-align:center;padding:3px;">
 			<input class="button validate" name='normal_save' id="normal_save" type="submit" value='Save Details' />
@@ -561,7 +563,7 @@ class ClubRegControllerUserReg extends JController
 			
 			if(isset($payment_row->payment_id) && intval($payment_row->payment_id) > 0){
 				
-			}else{			
+			}else{
 				$payment_row->created = date('Y-m-d H:i:s');
 				$payment_row->created_by = $user->id;
 			}
@@ -572,6 +574,10 @@ class ClubRegControllerUserReg extends JController
 			$payment_row->payment_amount = intval(100 * $payment_row->payment_amount);
 			$not_in = array();
 			$msg = array();
+			
+			if(strval(trim($payment_row->payment_season)) == "0" ){
+				$not_in[] = false;
+			}		
 			
 			if(strval(trim($payment_row->payment_method)) == "0" ){
 				$not_in[] = false;

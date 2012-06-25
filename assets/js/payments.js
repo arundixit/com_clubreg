@@ -9,6 +9,12 @@ Window.onDomReady(function(){
 			
 			var fstate = true;
 			
+			var t_value = $('payment_season').get('value');
+			if(t_value == 0){				
+				after_check($('payment_season'));
+				fstate = false;
+			}
+			
 			var t_value = $('payment_method').get('value');
 			if(t_value == 0){				
 				after_check($('payment_method'));
@@ -56,6 +62,7 @@ Window.onDomReady(function(){
 		}else{
 			
 			var msg = 'Some values are not acceptable.  Please retry.';	
+			if($('payment_season').hasClass('invalid')){msg += '\n\t* Invalid Season';}
 			if($('payment_method').hasClass('invalid')){msg += '\n\t* Invalid Payment Method';} 
 			if($('payment_transact_no').hasClass('invalid')){msg += '\n\t* Invalid Transaction Number';}
 			if($('payment_status').hasClass('invalid')){msg += '\n\t* Invalid Payment Status';}

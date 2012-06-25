@@ -55,7 +55,7 @@ ob_start();
 ?>
 <form action="index.php" method="post" name="adminForm"   id="adminForm"  class="form-validate eoi">
 <fieldset>
-	<legend>Senior Player Details</legend>	
+	<legend>Senior <?php echo PLAYER;  ?> Details</legend>	
 	<div class="tset">
 		<label class="lbcls" for="g_surname">Surname :<span class="isReq">*</span></label><input type="text" class="intext required" name="g_surname" id="g_surname" value="<?php echo JRequest::getVar( 'g_surname', '', 'post', 'string' );	?>"/>
 	</div>

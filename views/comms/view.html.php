@@ -199,6 +199,7 @@ class ClubRegViewcomms extends JView
 	}
 	function _editcomms($tpl){
 		
+		jimport( 'joomla.utilities.date');
 		global $option,$Itemid;
 		
 		$user		= &JFactory::getUser();
@@ -231,6 +232,10 @@ class ClubRegViewcomms extends JView
 				$templates->getTemplateDetails($return_data['tmp_id']);
 			}
 			
+		
+			ClubCommsHelper::fillplaceholders($templates->templateDetails->template_text);			
+			ClubCommsHelper::fillplaceholders($templates->templateDetails->template_subject);
+			
 			
 			$tpl = "emails";
 			
@@ -250,6 +255,8 @@ class ClubRegViewcomms extends JView
 			
 			$this->assign("all_headings",$all_headings); // get all the headings
 			$this->assign("templates",$templates);			
+			
+			$this->assign("season",ClubregHelper::generate_seasonList());
 			
 			parent::display($tpl);
 			

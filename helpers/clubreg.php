@@ -42,7 +42,7 @@ class ClubregHelper{
 				<?php } 
 					if( $member_params->get( 'manageusers' ) == "yes" ){ ?>					
 					 <li>	
-					 	<a href="index.php?option=<?php echo $option; ?>&c=userreg&task=loadregistered&Itemid=<?php echo $Itemid; ?>&limit=20" <?php echo  ($c=="userreg")?"class=\"acts\"":""; ?>><span>Manage Registered Users</span></a>
+					 	<a href="index.php?option=<?php echo $option; ?>&c=userreg&task=loadregistered&Itemid=<?php echo $Itemid; ?>&limit=20" <?php echo  ($c=="userreg")?"class=\"acts\"":""; ?>><span>Registered <?php echo PLAYERS?></span></a>
 					 </li>
 					<?php } 
 					if( $member_params->get( 'manageusers1' ) == "yes" ){ ?>
@@ -110,7 +110,7 @@ class ClubregHelper{
 				$group_where[] = "params  like '%senior%'";
 			break;
 			default:
-				$all_headings["playertype"] = "PlayerType";
+				$all_headings["playertype"] = PLAYER." Type";
 				$all_headings["group"] = GROUPS;
 			break;
 			
@@ -145,7 +145,7 @@ class ClubregHelper{
 			
 		$db		=& JFactory::getDBO();
 	
-		$all_headings["memberid"] = "Member Id";
+		$all_headings["memberid"] = PLAYER." Id";
 		$all_headings["surname"] = "Name";
 	
 		$player_type = trim(JRequest::getVar('playertype','junior', 'request', 'string'));
@@ -197,7 +197,7 @@ class ClubregHelper{
 				$group_where[] = "params  like '%senior%'";
 				break;
 			default:
-				$all_headings["playertype"] = "PlayerType";
+				$all_headings["playertype"] = PLAYER." Type";
 				$all_headings["group"] = GROUPS;
 			break;				
 		}		
@@ -206,7 +206,7 @@ class ClubregHelper{
 		
 		$input_data["group_where"] = $group_where; //
 		
-		$all_headings["year_registered"] = "Season";
+		$all_headings["year_registered"] = SEASON;
 	
 		$all_headings["t_created_date"] = "Date Registered";
 		$all_headings["t_created_by"] = "Registered By";
@@ -256,7 +256,7 @@ class ClubregHelper{
 		
 		
 		$filter_heading["t_created_date"] = array("label"=>"Date Rng","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`created`");
-		$filter_heading["year_registered"] = array("label"=>"Season","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`year_registered`");
+		$filter_heading["year_registered"] = array("label"=>SEASON,"control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`year_registered`");
 		
 		
 		$tmp_list = array();$group_where_str = "";
@@ -452,13 +452,13 @@ class ClubPaymentsHelper{
 		<th width=10>#</th>
 		<th>Payment method</th>
 		<th>Transaction #</th>
+		<th><?php echo SEASON; ?></th>
 		<th>Status</th>
 		<th>Payment Date</th>
 		<th>Item Desc</th>
 		<th>Notes</th>
 		<th>Amount</th>
-		<th>Created </th>
-		<th>Created By</th>
+		<th>Created </th>		
 		</tr>
 		<tr>
 		<?php $k= $i = 1;
@@ -469,8 +469,8 @@ class ClubPaymentsHelper{
 			
 			
 			$payment_url = sprintf("index2.php?option=%s&c=userreg&task=editpayment&Itemid=%s&member_id=%s&no_html=0&path=&%s=1&payment_id=",$option,$Itemid,$player_data->member_id,JUtility::getToken());
-				
-			foreach($all_payments as $a_payment){ ?>
+				if(count($all_payments) > 0 ){
+			foreach($all_payments as $a_payment){ $ttotal += $a_payment->payment_amount; ?>
 		<tr class="<?php echo $cl_[$k];?>">
 			<td><?php echo $i ; ?></td>
 			<td>
@@ -479,17 +479,25 @@ class ClubPaymentsHelper{
 				</a>
 			</td>
 			<td><?php echo $a_payment->payment_transact_no;  ?></td>
+			<td><?php echo $a_payment->payment_season;  ?></td>
 			<td><?php echo isset($payment_status[$a_payment->payment_status])?$payment_status[$a_payment->payment_status]->text:""; ?></td>
 			<td><?php echo $a_payment->payment_date; ?></td>
 			<td><?php echo isset($payment_desc[$a_payment->payment_desc])?$payment_desc[$a_payment->payment_desc]->text:""; ?></td>
 			<td><?php echo nl2br(stripslashes($a_payment->payment_notes)); ?></td>
-			<td align=right><?php echo self::write_money($a_payment->payment_amount * 0.01); ?></td>			
-			<td><?php echo $a_payment->created; ?></td>
-			<td><?php echo $a_payment->name; ?></td>
-		
+			<td align=right><?php echo self::write_money($a_payment->payment_amount * 0.01); ?> </td>			
+			<td><?php echo $a_payment->name; ?> On<br /> <?php echo $a_payment->created; ?></td>	
 		</tr>
 		
-		<?php $i++; $k= 1- $k; }?>
+		<?php $i++; $k= 1- $k; } 
+				}else{
+				?>
+				<tr>
+					<td colspan="10" class="center isReq"><h3>No Payments Yet</h3></td>
+				</tr>
+				<?php 	
+				}
+		
+		?>
 		
 		</table>
 		<br />
@@ -500,5 +508,16 @@ class ClubPaymentsHelper{
 		return number_format($d_value, 2, '.', ',');
 	}	
 	
+}
+class ClubContactHelper{
+
+	static function getContactArray(){
+
+		$control_array["contact_items"] =  array("surname","givenname","emailaddress","phoneno","mobile","address","suburb","postcode");
+		$special["em_"] = array("medical");
+		$special["next_"] = array();
+		$control_array["special"] = $special;
+		return $control_array;
+	}
 }
 ?>

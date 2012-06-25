@@ -125,8 +125,8 @@ if(count($this->headings)> 0){?>
 		<div class="h3"><img alt="" src="components/<?php echo $option; ?>/assets/images/groups.png" align=middle hspace=2 width="24">Unapproved EOIs</div>
 		<div class="fieldset">
 			<ul>
-				<li><a href="<?php echo $d_url ;?>guardian">Guardian of Junior Players (<?php echo $this->howmany_guardian; ?>)</a></li>
-				<li><a href="<?php echo $d_url ;?>senior">Senior Players (<?php echo $this->howmany_senior; ?>)</a></li>
+				<li><a href="<?php echo $d_url ;?>guardian">Guardian of Junior <?php echo PLAYERS?> (<?php echo $this->howmany_guardian; ?>)</a></li>
+				<li><a href="<?php echo $d_url ;?>senior">Senior <?php echo PLAYERS?> (<?php echo $this->howmany_senior; ?>)</a></li>
 			</ul>
 		
 		</div>

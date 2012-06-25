@@ -42,17 +42,4 @@ class ClubTagsHelper{
 	
 	
 }
-
-class ClubContactHelper{
-	
-	static function getContactArray(){		
-		
-		$control_array["contact_items"] =  array("surname","givenname","emailaddress","phoneno","mobile","address","suburb","postcode");
-		$special["em_"] = array("medical");
-		$special["next_"] = array();
-		$control_array["special"] = $special;
-		return $control_array;
-	}
-}
-
 ?>

@@ -138,6 +138,10 @@ $comm_groups_str = array();
 		<td><?php echo $recp_div; ?></td>
 	</tr>
 	<tr>
+		<td><label class="lbcls" for="comm_season">Season</label><?php echo $colon ;?></td>
+		<td><?php 	echo JHTML::_('select.genericlist',  $this->season, "comm_season", 'class="inputbox"', 'value', 'text', date("Y"));	?></td>
+	</tr>
+	<tr>
 		<td valign="top">		
 			<label class="lbcls" for="comm_subject">Subject <span class="isReq">*</span></label><?php echo $colon ;?>
 		</td>

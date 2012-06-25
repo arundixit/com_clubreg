@@ -227,13 +227,13 @@ class ClubRegViewuserreg extends JView
 		unset($t_object);
 		
 		$t_array = array();
-		$t_object = new stdClass() ; $t_object->value = ''; $t_object->text = '<b>Player Type</b>';
+		$t_object = new stdClass() ; $t_object->value = ''; $t_object->text = '<b>'.PLAYER.' Type</b>';
 		$t_array[] = $t_object;
-		$t_object = new stdClass() ; $t_object->value = 'junior'; $t_object->text = 'Junior Players';
+		$t_object = new stdClass() ; $t_object->value = 'junior'; $t_object->text = 'Junior '.PLAYER;
 		$t_array[] = $t_object;
-		$t_object = new stdClass() ; $t_object->value = 'senior'; $t_object->text = 'Senior Players';
+		$t_object = new stdClass() ; $t_object->value = 'senior'; $t_object->text = 'Senior '.PLAYER;
 		$t_array[] = $t_object;
-		$t_object = new stdClass() ; $t_object->value = 'guardian'; $t_object->text = 'Guardian of Junior Players';
+		$t_object = new stdClass() ; $t_object->value = 'guardian'; $t_object->text = 'Guardian of Junior '.PLAYER;
 		$t_array[] = $t_object;
 		$this->assign('playertype_list',$t_array );
 		unset($t_object);
@@ -339,13 +339,7 @@ class ClubRegViewuserreg extends JView
 			}else{
 				$a_record = $recordset[1]; // there is no previous
 				$edit_url["next"] = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=%d&ordinal=%d",$option,$Itemid,$a_record->member_id,$a_record->ordinal);				
-			}	
-			
-			
-			foreach($recordset as $a_record){
-				//echo $a_record->ordinal," - ",$a_record->surname,"<br />";
-			}
-			
+			}			
 			
 		}
 		$this->assign("edit_url",$edit_url);
@@ -414,8 +408,7 @@ class ClubRegViewuserreg extends JView
 		$this->assign("member_data",$row);	
 			
 		
-		$lists["year_registered_list"] = ClubregHelper::generate_seasonList();
-		
+		$lists["year_registered_list"] = ClubregHelper::generate_seasonList();		
 		$lists["member_levels"] = ClubregHelper::getMemberLevels();		
 		
 		
