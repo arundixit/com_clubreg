@@ -289,7 +289,7 @@ div.left_buttons{
 	background: url('images/blueBtn.png') repeat-x 0 0 !important; 
 	border: 1px solid #3581c1; 
 	color: #fff !important; 
-	padding:2px;
+	padding:4px;
 	font-size:0.9em !important; 
 }
 .button:hover { background-position: 0 -25px; }
