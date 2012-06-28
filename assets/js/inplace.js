@@ -27,6 +27,14 @@ Window.onDomReady(function(){
 				var fstate = false;
 				var $msg = "";
 				
+				var t_value = $('update_memberlevel').get('value');			
+				
+				if(t_value == -1){					
+					
+				}else{
+					fstate = fstate || true;
+				}
+				
 				var t_value = $('update_group').get('value');			
 				
 				if(t_value == -1){					

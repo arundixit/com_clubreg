@@ -163,6 +163,7 @@ class ClubRegViewuserreg extends JView
 		
 		
 		$all_string["n"] = 'a.*';
+		$all_string["memberlevel"] = "a.memberlevel";
 		$all_string["playertype"] = "ucase(a.playertype) as playertype";
 		$all_string["member_name"] = "concat(a.`surname`,' ' ,a.`givenname`) as surname";		
 		$all_string["t_created_date"] = "date_format(a.created,'%d/%m/%Y') as t_created_date";
@@ -215,6 +216,7 @@ class ClubRegViewuserreg extends JView
 		if($db->getErrorNum() > 0){
 			write_debug($db);
 		}		
+	
 		
 		$all_headings["variable_string"] = $all_string;
 		$this->assign('all_results',$all_results);		

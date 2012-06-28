@@ -146,10 +146,14 @@ class ClubregHelper{
 		$db		=& JFactory::getDBO();
 	
 		$all_headings["memberid"] = PLAYER." Id";
-		$all_headings["surname"] = "Name";
+		$all_headings["memberlevel"] = PLAYER." Level";
+		
+		$all_headings["surname"] = PLAYER." Name";
 	
 		$player_type = trim(JRequest::getVar('playertype','junior', 'request', 'string'));
 		$group_where =  $style_heading =  $style_class = array(); //used to store restrictions on the where clause
+		
+		$style_class["surname"] = "style='white-space:nowrap;'";
 		switch($player_type){
 			case "guardian":
 				unset($all_headings["memberid"]);
@@ -165,6 +169,7 @@ class ClubregHelper{
 				
 				break;
 			case "junior":
+				
 				$all_headings["guardian"] = "Guardian";
 				
 				$all_headings["gaddress"] = "Address";
@@ -175,13 +180,12 @@ class ClubregHelper{
 				$all_headings["gender"] = "Gender";
 				$all_headings["dob"] = "DOB";
 				$all_headings["group"] = GROUPS;
-				$all_headings["sgroup"] = SUBGROUPS;
-				
-				//$style_class["group"] = " class='inplace'";
+				$all_headings["sgroup"] = SUBGROUPS;			
 	
 				$group_where[] = "params  like '%junior%'";	
 				break;
 			case "senior":
+				
 				$all_headings["address"] = "Address";
 				$all_headings["suburb"] = "Suburb";
 				$all_headings["postcode"] = "Postcode";
@@ -247,18 +251,27 @@ class ClubregHelper{
 		$filter_heading["gpostcode"] = array("label"=>"PostCode","control"=>"text","other"=>"style='width:40px'","filter_col"=>"d.`postcode`");
 		
 		$filter_heading["emailaddress"] = array("label"=>"Email","control"=>"text","other"=>"style='width:100px'","filter_col"=>"a.`emailaddress`");
+		$filter_heading["memberlevel"] = array("label"=>PLAYER." Level","control"=>"select.genericlist","other"=>"style='width:90px'","filter_col"=>"a.`memberlevel`");
+		
 		
 		$filter_heading["group"] = array("label"=>GROUP,"control"=>"select.genericlist","other"=>"style='width:90px'","filter_col"=>"a.`group`");
 		
 		$filter_heading["sgroup"] = array("label"=>SUBGROUPS,"control"=>"select.genericlist","other"=>"style='width:90px'","filter_col"=>"a.`subgroup`");
 		
 		$filter_heading["gender"] = array("label"=>"Gender","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`gender`");
-		
-		
+				
 		$filter_heading["t_created_date"] = array("label"=>"Date Rng","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`created`");
 		$filter_heading["year_registered"] = array("label"=>SEASON,"control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`year_registered`");
+				
+		$query = sprintf("select -1 as value, '-".PLAYER." Level -' as text union  (select  `config_short` as value,`config_name` as text
+				from %s as a where which_config = '%s' and publish = 1 order by text asc ) order by text asc ",
+				CLUB_TEMPLATE_CONFIG_TABLE,CLUB_PLAYER_LEVEL);
 		
+		$db->setQuery( $query );
+		$tmp_list = $db->loadObjectList('value');
+		$filter_heading["memberlevel"]["values"] = $tmp_list;
 		
+		unset($tmp_list);
 		$tmp_list = array();$group_where_str = "";
 		$group_where[] = "publish=1";
 		$group_where[] = "group_parent = 0";
@@ -365,7 +378,7 @@ class ClubregHelper{
 		$t_array['0'] = $t_object;
 		
 		
-		$d_qry = sprintf("select config_short as value, config_name as text from %s where which_config = 'club_player_level' and publish = 1 order by ordering",CLUB_TEMPLATE_CONFIG_TABLE);
+		$d_qry = sprintf("select config_short as value, config_name as text from %s where which_config = '%s' and publish = 1 order by config_name",CLUB_TEMPLATE_CONFIG_TABLE,CLUB_PLAYER_LEVEL);
 		$t_array = array_merge($t_array,get_a_list($d_qry,'value'));
 		
 		return $t_array;
@@ -378,7 +391,8 @@ class ClubregHelper{
 		$t_array['0'] = $t_object;
 	
 	
-		$d_qry = sprintf("select * from %s where which_config = 'club_player_details' and publish = 1 order by ordering",CLUB_TEMPLATE_CONFIG_TABLE);
+		$d_qry = sprintf("select * from %s where which_config = '%s' and publish = 1 order by ordering",
+				CLUB_TEMPLATE_CONFIG_TABLE,CLUB_PLAYER_DETAILS);
 		
 		$t_array = get_a_list($d_qry,'config_short');//array_merge($t_array,get_a_list($d_qry,'value'));
 	

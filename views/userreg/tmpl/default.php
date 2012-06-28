@@ -85,13 +85,14 @@ ob_start();
 <div id="update_table">
 <table class="updatetbl shading" width=100% cellpadding=0 cellspacing=0>
 	<tr>
+	<td style="padding-left:5px"><label for="" class="fltlbl"><?php echo PLAYER ?> Level</label><br />
+	<?php echo JHTML::_('select.genericlist',  $filter_heading["memberlevel"]["values"], "update_memberlevel", 'class="inputbox" id="update_memberlevel"', 'value', 'text', $filter_value); ?>
+	</td>
 	<td style="padding-left:5px"><label for="" class="fltlbl"><?php echo GROUPS ?></label><br />
 	<?php echo JHTML::_('select.genericlist',  $filter_heading["group"]["values"], "update_group", 'class="inputbox" id="update_group"', 'value', 'text', $filter_value); ?>
-	
 	</td>
 	<td><label for="" class="fltlbl"><?php echo SUBGROUPS ?></label><br />
 	<?php echo JHTML::_('select.genericlist',  $filter_heading["sgroup"]["values"], "update_sgroup", 'class="inputbox" id="update_sgroup"', 'value', 'text', $filter_value); ?>
-	
 	</td>
 	<td><label for="" class="fltlbl"><?php echo SEASON ?></label><br />
 	<?php echo JHTML::_('select.genericlist',  $filter_heading["year_registered"]["values"], "update_season", 'class="inputbox" id="update_season"', 'value', 'text', $filter_value); ?>

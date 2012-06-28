@@ -28,7 +28,7 @@ class clubTables{
 			$style_class = $all_headings["tdstyles"]  ;
 			
 			
-			$sex_list = $all_headings["filters"]["gender"]["values"];
+			$values_list = $all_headings["filters"];
 			
 			$lists['order_Dir']	=  $all_headings["filter_order_Dir"];
 			$lists['order']		=  $all_headings["filter_order"];		
@@ -139,8 +139,9 @@ class clubTables{
 						?>
 							<td <?php echo $td_class; ?>>
 								<?php switch($t_key){
-										case "gender":
-											echo isset($sex_list[$a_result->$t_key])?$sex_list[$a_result->$t_key]->text:"<b>-</b>";
+										case "gender":											
+										case "memberlevel":
+											echo (isset($values_list[$t_key]) && isset($values_list[$t_key]["values"][$a_result->$t_key]))?$values_list[$t_key]["values"][$a_result->$t_key]->text:"<b>-</b>";
 										break;
 										case "send_news":
 												echo (intval($a_result->$t_key) == 1)?"<b>X</b>":"&#10004;";
@@ -155,7 +156,7 @@ class clubTables{
 											}
 										break;
 										default:																				
-											echo ($a_result->$t_key == -1)?"-":$a_result->$t_key;
+											echo ($a_result->$t_key == -1)?"-":$a_result->$t_key;											
 										break;
 										}?>
 							</td>				

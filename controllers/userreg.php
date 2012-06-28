@@ -750,6 +750,7 @@ class ClubRegControllerUserReg extends JController
 			$batch_controls["update_sgroup"] = array("default"=>-1, "label"=>SUBGROUP);
 			$batch_controls["update_gender"] = array("default"=>-1, "label"=>"Gender");
 			$batch_controls["update_season"] = array("default"=>0, "label"=>SEASON);
+			$batch_controls["update_memberlevel"] = array("default"=>-1, "label"=>PLAYER.' level');
 			
 			$registered_users = JRequest::getVar( "reg_members", array(), 'post', 'array' ); // get the whole array from the post
 			
@@ -758,6 +759,7 @@ class ClubRegControllerUserReg extends JController
 			$update_season = intval(JRequest::getVar( "update_season", 0, 'post', 'int' ));
 			
 			$update_gender = trim(JRequest::getVar( "update_gender", -1, 'post', 'string' ));
+			$update_memberlevel = trim(JRequest::getVar( "update_memberlevel", -1, 'post', 'string' ));
 			
 			$app = JFactory::getApplication();
 			
@@ -802,6 +804,10 @@ class ClubRegControllerUserReg extends JController
 
 				if($update_gender != $batch_controls["update_gender"]["default"]){
 					$row->gender = $update_gender;
+				}
+				
+				if($update_memberlevel != $batch_controls["update_memberlevel"]["default"]){
+					$row->memberlevel = $update_memberlevel;
 				}
 				
 				// render changes notes
