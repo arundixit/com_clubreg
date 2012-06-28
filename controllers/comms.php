@@ -74,7 +74,8 @@ class ClubRegControllerComms extends JController
 		
 		$user		= &JFactory::getUser();
 		$db		=& JFactory::getDBO();
-		$app = JFactory::getApplication();
+		$app = JFactory::getApplication();		
+		
 		
 		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
 		$member_data->getData($user->id); // get the member data for current user
