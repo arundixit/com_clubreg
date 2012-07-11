@@ -74,8 +74,8 @@ $title = tryUseCookies($title ,0,$tab_id);
 echo $pane->startPane("player-pane");
 echo $pane->startPanel($title, "detail-page1");
 ?>
-<div class="h3">Senior <?= PLAYER ?> Details</div>	
 <form action="index.php" method="post" name="adminForm"   id="adminForm"  class="form-validate">
+<div class="h3">Senior <?= PLAYER ?> Details</div>	
 <div class="fieldset">
 	<?php ClubTagsHelper::renderAddTag($member_data->member_id); ?>
 		<div class="n">

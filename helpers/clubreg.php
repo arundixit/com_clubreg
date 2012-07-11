@@ -12,13 +12,7 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 		
-class ClubregHelper{
-	
-	static function generateMenuItems(){
-		
-		$tmp_array = array();
-		return $tmp_array;		
-	}	
+class ClubregHelper{	
 	
 	static function write_footer(){
 		?>
@@ -45,9 +39,9 @@ class ClubregHelper{
 					 	<a href="index.php?option=<?php echo $option; ?>&c=userreg&task=loadregistered&Itemid=<?php echo $Itemid; ?>&limit=20" <?php echo  ($c=="userreg")?"class=\"acts\"":""; ?>><span>Registered <?php echo PLAYERS?></span></a>
 					 </li>
 					<?php } 
-					if( $member_params->get( 'manageusers1' ) == "yes" ){ ?>
+					if( $member_params->get( 'manageusers' ) == "yes" ){ ?>
 					 <li >
-					 	<a href="index.php?option=<?php echo $option; ?>&c=workflow&task=loadworkflow&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="workflow")?"class=\"acts\"":""; ?>><span>Manage Workflow</span></a>
+					 	<a href="index.php?option=<?php echo $option; ?>&c=stats&task=loadstats&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="stats")?"class=\"acts\"":""; ?>><span>Manage Stats</span></a>
 					</li>	
 					<?php } 
 					if( $member_params->get( 'sendcommunication' ) == "yes" ){ ?>

@@ -18,9 +18,10 @@ class ClubRegViewgroups extends JView
 	function display($tpl = null)
 	{		
 		
+		$t_year = date('Y');
 		
 		$return_data['group_id'] = intval(JRequest::getVar('id','0', 'request', 'string'));
-		$return_data['reg_year'] = trim(JRequest::getVar('reg_year','2011', 'request', 'string'));
+		$return_data['reg_year'] = trim(JRequest::getVar('reg_year',$t_year, 'request', 'string'));
 		
 		$menus	= &JSite::getMenu();
 		$menu    = $menus->getActive();	

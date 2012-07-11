@@ -17,8 +17,8 @@ $in_type = "hidden";
 
 $extra_details_values = $this->contact_details->contact_details;
 ?>
-<div class="h3">Extra <?= PLAYER ?> Details</div>	
 <form action="index2.php" method="post" name="adminFormExtradetails"   id="adminFormExtradetails"  class="form-validate" target="_extraframe" onsubmit="return renderRotating();">
+<div class="h3">Extra <?= PLAYER ?> Details</div>	
 <div class="fieldset">
 <?php $extra_details = $this->extra_details; 
 	foreach($extra_details as $a_detail){

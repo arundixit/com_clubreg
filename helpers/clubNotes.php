@@ -70,12 +70,17 @@ class ClubNotesHelper{
 							<?php echo nl2br(stripslashes($a_note->notes)); ?>
 							</a>
 					</td>					
-					<td style="white-space:nowrap"><?php echo $a_note->name; ?></td>
-				
+					<td style="white-space:nowrap"><?php echo $a_note->name; ?></td>				
 				</tr>
 				
 				<?php $i++; $k= 1- $k; } // end for each
 				
+				}else{
+				?>
+				<tr>
+					<td colspan="3" class="center isReq"><h3>No Notes Yet</h3></td>
+				</tr>
+				<?php 	
 				}// end if count
 				?>
 				
