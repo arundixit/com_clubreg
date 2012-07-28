@@ -26,6 +26,7 @@ require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubNotes.php');
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubTables.php');
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubHidden.php');
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubTags.php');
+require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubStats.php');
 class ClubRegControllerUserReg extends JController
 {
 	

@@ -341,9 +341,14 @@ class ClubRegViewuserreg extends JView
 			}else{
 				$a_record = $recordset[1]; // there is no previous
 				$edit_url["next"] = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=%d&ordinal=%d",$option,$Itemid,$a_record->member_id,$a_record->ordinal);				
-			}			
+			}		
+
+			
 			
 		}
+		
+		
+		
 		$this->assign("edit_url",$edit_url);
 		$this->assign("ordinal", $return_data['ordinal']);
 		
@@ -376,7 +381,10 @@ class ClubRegViewuserreg extends JView
 			where member_id = %d order by a.tag_text asc",
 			CLUB_TAG_TABLE,CLUB_TAGPLAYER_TABLE,$return_data['member_id']);
 			$db->setQuery($d_qry);
-			$tag_list = $db->loadObjectList();			
+			$tag_list = $db->loadObjectList();	
+
+			
+			
 		}else{
 			$next_action = isset($_REQUEST["next_action"])?trim(JRequest::getVar( "next_action", null, 'post', 'string' )):null;
 			if($next_action){
@@ -482,6 +490,9 @@ class ClubRegViewuserreg extends JView
 			if(isset($row->member_id) && intval($row->member_id) > 0){
 				$this->assign("payment_list", ClubPaymentsHelper::getPaymentList($row));				
 				$this->assign("note_list", ClubNotesHelper::getNoteList($row));
+				
+				$stats_list	=  & JModel::getInstance('stats', 'ClubRegModel');
+				$this->assign("stats_list", $stats_list->getPlayerStatsList($row));			
 			}
 			
 			parent::display($tpl);

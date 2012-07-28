@@ -41,7 +41,7 @@ class ClubregHelper{
 					<?php } 
 					if( $member_params->get( 'manageusers' ) == "yes" ){ ?>
 					 <li >
-					 	<a href="index.php?option=<?php echo $option; ?>&c=stats&task=loadstats&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="stats")?"class=\"acts\"":""; ?>><span>Manage Stats</span></a>
+					 	<a href="index.php?option=<?php echo $option; ?>&c=stats&task=loadstats&Itemid=<?php echo $Itemid; ?>" <?php echo  ($c=="stats")?"class=\"acts\"":""; ?>><span>Manage <?php echo STATS; ?></span></a>
 					</li>	
 					<?php } 
 					if( $member_params->get( 'sendcommunication' ) == "yes" ){ ?>

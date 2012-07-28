@@ -126,6 +126,11 @@ label.invalid {
 	background: transparent url(images/bigrotation2.gif ) no-repeat;	
 	padding:10px 15px 10px 10px;
 }
+.loading1{
+	background: transparent url(images/bigrotation5.gif ) no-repeat;
+	background-repeat:no-repeat;
+ 	background-position:right center; 
+}
 .fltlbl{ 
 /* filter labels */
  font-weight:bold; 
@@ -134,6 +139,9 @@ label.invalid {
 #filter_table .inputbox, .smallinput{
 	padding:0px;
 	font-size:90%;
+}
+#filter_table .half{
+	width:50% !important;
 }
 
 /* Incase there are no error message */
@@ -278,6 +286,9 @@ div.left_buttons{
 }
 
 .gud div.tset .half, div.n .half{	
+	width:80px;
+}
+.calendarHalf{
 	width:80px;
 }
 

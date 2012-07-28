@@ -188,15 +188,22 @@ echo $pane->startPanel($title, "detail-page1");
 		$this->_render_extra_details($pane,$tab_id);
 		$title = JText::_('Payment Details');
 		$title = tryUseCookies($title ,2,$tab_id);
-		echo $pane->startPanel($title, "detail-page1");
+		echo $pane->startPanel($title, "detail-page3");
 		 echo $this->loadTemplate("payments")	;
 		 echo $pane->endPanel();
 		
 		$title = JText::_('Notes');
 		$title = tryUseCookies($title ,3,$tab_id);
-		echo $pane->startPanel($title, "detail-page1");
+		echo $pane->startPanel($title, "detail-page4");
 		 
 		echo $this->loadTemplate("notes")	;
+		echo $pane->endPanel();
+		
+		$title = JText::_(STATS);
+		$title = tryUseCookies($title ,4,$tab_id);
+		echo $pane->startPanel($title, "detail-page5");
+		
+		echo $this->loadTemplate("stats")	;
 		echo $pane->endPanel();
 		
 	}

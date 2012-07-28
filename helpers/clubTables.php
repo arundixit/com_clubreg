@@ -318,8 +318,6 @@ class clubTables{
 	
 		global $option,$Itemid;
 		
-		
-		
 		$howmany = count($all_results);
 		$page = $all_headings["pageNav"];
 		$return_data = $all_headings["return_data"];
@@ -373,14 +371,12 @@ class clubTables{
 			<table class="art-data" width="100%" border=1 cellspacing=0 style="border-collapse:collapse;">
 			<thead>
 			<tr>
-						<th width="10">
-							<?php echo JText::_( 'NUM' ); ?>
-						</th>
-						<?php if($show_check){ ?>
-						<th width="10" class="title">
-							<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo $howmany; ?>);" />						
-						</th>
-						<?php } 
+				<th width="10"><?php echo JText::_( 'NUM' ); ?></th>
+			<?php if($show_check){ ?>
+				<th width="10" class="title">
+					<input type="checkbox" name="toggle" value="" onclick="checkAll(<?php echo $howmany; ?>);" />						
+				</th>
+			<?php } 
 						
 						$sorting_heading =  $all_headings["sorting"];		//$col_count = count($all_headings)+1;	
 						foreach($list_headings as $t_key => $t_value){ 
@@ -447,5 +443,55 @@ class clubTables{
 				</table>
 				<?php 		
 	}
+	function renderfilters(&$all_headings){
+	
+		global $option,$Itemid;
+		
+		$page = $all_headings["pageNav"];
+		$return_data = $all_headings["return_data"];
+		$list_headings = $all_headings["headings"];
+		$filter_heading = $all_headings["filters"];
+		$style_heading = $all_headings["styles"]  ;
+		$style_class = $all_headings["tdstyles"]  ;
+		
+		$lists['order_Dir']	=  $all_headings["filter_order_Dir"];
+		$lists['order']		=  $all_headings["filter_order"];
+		
+		?>
+		<table class="flttbl" width=100% id="filter_table">
+		<tr>
+		<?php
+	foreach($list_headings as $t_key => $t_value){
+		$filter_name = "";
+		
+		if(isset($filter_heading[$t_key])){	?>		
+		<td class="title">
+		<?php
+			if(isset($filter_heading[$t_key]["label"])){
+				echo "<span class=\"fltlbl\">",$filter_heading[$t_key]["label"],"</span><br />";
+			}else{
+				echo "<br />";
+			}
+		$filter_name = "filter_".$t_key;
+		switch($filter_heading[$t_key]["control"]){
+			case "text":
+				$filter_value = isset($return_data[$filter_name])?$return_data[$filter_name]:'';?>
+				<input type="text" name="<?php echo $filter_name ;?>"  <?php echo isset($filter_heading[$t_key]["other"])?$filter_heading[$t_key]["other"]:""; ?> value="<?php echo $filter_value;?>" class="smallinput"/>
+		<?php
+			break;
+			case "select.genericlist":
+				$filter_value = isset($return_data[$filter_name])?$return_data[$filter_name]:'-1';
+				echo JHTML::_('select.genericlist',  $filter_heading[$t_key]["values"], $filter_name, 'class="inputbox"', 'value', 'text', $filter_value);
+			break;
+			}		
+		?>
+	</td>
+	<?php }
+	}	?>
+	</tr>		
+</table>
+	<?php 		
+	}
+	
 }
 ?>

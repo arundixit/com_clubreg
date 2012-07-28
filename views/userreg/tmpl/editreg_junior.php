@@ -241,6 +241,13 @@ echo $pane->startPanel($title, "detail-page1");
 		echo $this->loadTemplate("notes")	;
 		echo $pane->endPanel();
 		
+		$title = JText::_(STATS);
+		$title = tryUseCookies($title ,4,$tab_id);
+		echo $pane->startPanel($title, "detail-page5");
+		
+		echo $this->loadTemplate("stats")	;
+		echo $pane->endPanel();
+		
 	}	
 	 ?>
 
