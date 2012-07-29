@@ -48,19 +48,29 @@ Window.onDomReady(function(){
 		});			
 		
 	}
-	 new Fx.Accordion($('accordion'), '#accordion .h3', '#accordion .fieldset' ,			 
-			 {
-		    	display: 0,
-		    	alwaysHide: true,
-		    	onActive: function(toggler, element){
-		    		toggler.setStyle('color', '#ff3300');
-		    	},
-		     
-		    	onBackground: function(toggler, element){
-		    		toggler.setStyle('color', '#222');
-		    	}
-			 }	
-	 );
+	if($("stats_div")){
+		$("stats_div").addEvents({
+			
+			'click':function(event){		
+				
+				if(event.target.className ){
+					
+					if(event.target.className == 'modal-button'){
+						event.stop();
+						var t_target = event.target;
+						SqueezeBox.fromElement(t_target);
+					}					
+				}else if((event.target) && (event.target.get('class'))  && (event.target.get('class') == 'modal-button')){				
+					event.stop();
+					var t_target = event.target;
+					SqueezeBox.fromElement(t_target);
+					
+				}
+			}	
+		});			
+		
+	}
+	 
 	
 	 if($("tag_link")){
 		 

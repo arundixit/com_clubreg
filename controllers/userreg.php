@@ -486,7 +486,7 @@ class ClubRegControllerUserReg extends JController
 		$year_registered_list = ClubregHelper::generate_seasonList();		
 	?>
 		<form action="index2.php" method="post"  style="text-align:left;" name="payment_admin" id="payment_admin" class="form-validate">			
-			<div class="h3">Payment Details :: <?php echo $row->surname," ",$row->givenname ?></div>
+			<div class="h3">Payment Details :: <?php echo ucwords($row->surname." ".$row->givenname); ?></div>
 			<div class="fieldset">
 			<div class="n"><label class="lbcls" for="payment_season"><?php echo SEASON ?> <span class="isReq">*</span></label><?php echo $colon; 	echo JHTML::_('select.genericlist',  $year_registered_list, "payment_season", 'class="intext required" id="payment_season"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_season);?></div>			
 			<div class="n"><label class="lbcls" for="payment_method">Payment Method <span class="isReq">*</span></label><?php echo $colon; 	echo JHTML::_('select.genericlist',  $t_array, $name, 'class="intext required" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_method);?></div>
@@ -648,7 +648,7 @@ class ClubRegControllerUserReg extends JController
 		
 		?>
 			<form action="index2.php" method="post"  style="margin:2px;text-align:left;" name="note_admin" id="note_admin" class="form-validate">				
-				<div class="h3">Notes <?php echo $row->surname," ",$row->givenname ?></div>
+				<div class="h3">Notes :: <?php echo ucwords($row->surname." ".$row->givenname); ?></div>
 				<div class="fieldset">				
 				<div class="n"><label class="lbcls" for="note_status">Make Private </label><?php echo $colon; ?><input type="checkbox" name="note_status" id="note_status" <?php echo isset($note_row->note_status) && ($note_row->note_status == 1)?"checked":""?> value="1" /></div>				
 				

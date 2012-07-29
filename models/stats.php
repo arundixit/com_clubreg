@@ -20,11 +20,20 @@ jimport('joomla.application.component.model');
 class ClubRegModelStats extends JModel
 {
 	
-	
+	private  $_stats_date  = NULL;
 	
 	function __construct()
 	{		
 		parent::__construct();
+	}
+	function setDate($stats_date){
+		$t_explode = explode('/',$stats_date);
+		if($stats_date && count($t_explode) == 3){
+			$stats_date = sprintf('%s-%s-%s',$t_explode[2],$t_explode[1],$t_explode[0] );
+		}else{
+			$stats_date = null;
+		}
+		$this->_stats_date = $stats_date;
 	}
 
 	function getPlayerStatsHeaders($stats_date = null){
@@ -100,12 +109,14 @@ class ClubRegModelStats extends JModel
 		if(preg_match("/px/",$t_style)){
 			$t_style =" style='".$t_style."'";
 		}else{
+			
 			if(isset($t_style) && strlen($t_style) > 0){
 				$t_style =" class='".$t_style."'";
 			}else{
-				$t_style =" style='width:40px;'";
+				$t_style =" style='width:50px;'";
 			}
 		}
+		
 		
 		switch($control_params["control_type"]){
 				case "select":
@@ -172,7 +183,11 @@ class ClubRegModelStats extends JModel
 		
 		$db		=& JFactory::getDBO();
 			
-		$where_[] = sprintf(" member_id = %d",$player_data->member_id) ;
+		$where_[] = sprintf(" member_id = %d",$player_data->member_id) ;		
+		
+		if($this->_stats_date){
+			$where_[] = sprintf(" stats_date = '%s'",$this->_stats_date) ;
+		}
 		
 		$where_str = "where ". implode(" and ", $where_);
 		
