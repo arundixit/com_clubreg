@@ -225,7 +225,7 @@ for($i = 1 ; $i <= $div_counter; $i++,$j++){
 <input class="button validate" name='normal_save' id="normal_save" type="submit"  value='<?php echo JText::_('Update Details'); ?>' />
 </div>
 	
-	<input type="<?= $in_type ?>" name="member_id" value="<?php echo $member_data->member_id; ?>" />	
+	<input type="<?= $in_type ?>" name="member_id" id="member_id" value="<?php echo $member_data->member_id; ?>" />	
 	<input type="<?= $in_type ?>" name="g_playertype" value="guardian" />	
 	<input type="<?= $in_type ?>" name="option" id="option" value="<?php echo $option ?>" />	
 	<input type="<?= $in_type ?>" name="Itemid" id="Itemid" value="<?php echo $Itemid ?>" />

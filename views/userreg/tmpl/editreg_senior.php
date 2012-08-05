@@ -166,7 +166,7 @@ echo $pane->startPanel($title, "detail-page1");
 	<input class="button validate" name='saveNnew' id="normal_save" type="submit"  value='<?php echo JText::_('Save and Add Another'); ?>' />
 	<?php } ?>
 </div>
-	<input type="<?= $in_type ?>" name="member_id" value="<?php echo $member_data->member_id; ?>" />	
+	<input type="<?= $in_type ?>" name="member_id" id="member_id" value="<?php echo $member_data->member_id; ?>" />	
 	<input type="<?= $in_type ?>" name="g_playertype" value="senior" />	
 	<input type="<?= $in_type ?>" name="option" id="option" value="<?php echo $option ?>" />	
 	<input type="<?= $in_type ?>" name="Itemid" id="Itemid" value="<?php echo $Itemid ?>" />

@@ -211,6 +211,38 @@ function process_delete(id,ttoken){
 	}
 	
 }
+function process_stats(id,ttoken){
+	
+	$next_action =  confirm('Are you sure want to delete this item?');
+		
+	if($next_action){
+		
+		$row_ = $("stats_"+id);
+		
+		if($row_){			
+			var toption = $('option').get('value');
+			var Itemid = $('Itemid').get('value');	
+			var memeber_id = $('member_id').get('value');	
+			
+			var a = new Ajax('index2.php?option='+toption+'&Itemid='+Itemid+'&c=stats&task=deletestats&no_html=1&stats='+id+'&'+ttoken+'=1&member_id='+memeber_id, {
+				method: 'get',
+				onRequest: function(){	},
+				onComplete: function(){				
+					
+						var next_action = Json.decode(this.response.text);	
+						
+						if(next_action){
+							$row_.setStyle('display', 'none');
+						}else{
+							alert("Items Not deleted");
+						}
+					}
+				}).request();			
+			
+		}
+	}
+	
+}
 function process_tag(rel_value,ttoken){
 	
 	$next_action =  confirm('Are you sure want to delete this '+tagWord+'?');

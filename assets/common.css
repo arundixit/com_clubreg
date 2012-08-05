@@ -306,8 +306,8 @@ div.left_buttons{
 .button:hover { background-position: 0 -25px; }
 .button:active { background-position: 0 -50px; }
 .overflow{
-	min-width:800px;
-	overflow:auto;	
+	/*min-width:800px;
+	overflow:auto;	*/
 }
 .center{
 	text-align:center !important;

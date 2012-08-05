@@ -34,6 +34,7 @@ class ClubRegControllerStats extends JController
 		$this->registerTask("savestats","savestats");
 		$this->registerTask("editstats","editstats");
 		$this->registerTask("saveastats","saveastats");
+		$this->registerTask("deletestats","deletestats");
 	}
 	
 	
@@ -200,6 +201,48 @@ class ClubRegControllerStats extends JController
 		
 		}
 		
+	}
+	function deletestats(){
+		$user		= &JFactory::getUser();
+			
+		$next_action = true;
+		
+		if(	JRequest::checkToken('get') ){
+			
+			$stats_date = trim(JRequest::getVar('stats_date','', 'get', 'string'));
+			$member_id = intval(JRequest::getVar('member_id',0, 'get', 'int'));
+			
+			$db		=& JFactory::getDBO();
+			
+			if(strlen(stats_date) > 0 && $member_id > 0){
+				
+				$t_explode = explode('.',$stats_date);
+				$nstats_date = sprintf('%s-%s-%s',$t_explode[2],$t_explode[1],$t_explode[0] );
+					
+				$d_qry = sprintf("select * from %s where stats_date = %s and member_id = '%d'",
+						CLUB_STATS_TABLE,$db->Quote($nstats_date),$member_id);
+				$db->setQuery($d_qry);
+				$all_stats["old_data"] = $db->loadAssocList();		
+				
+				$final_data = (object)$all_stats;
+				
+				$other_details["primary_id"] = $member_id;
+				$other_details["short_desc"] = "delete_stats";				
+				
+				$d_qry = sprintf("delete from %s where stats_date = %s and member_id = '%d'",
+						CLUB_STATS_TABLE,$db->Quote($nstats_date),$member_id);
+				$db->setQuery($d_qry);
+				$db->query();
+				
+				if($db->getErrorNum() > 0){
+					$next_action = false;
+				}else{
+					$next_action = true;
+					ClubregHelper::save_old_data($final_data,$other_details);
+				}				
+			}
+		}
+		echo json_encode( $next_action );
 	}
 
 }

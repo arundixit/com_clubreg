@@ -209,7 +209,7 @@ echo $pane->startPanel($title, "detail-page1");
 <?php } ?>
 </div>
 	
-	<input type="<?= $in_type ?>" name="member_id" value="<?php echo $member_data->member_id; ?>" />	
+	<input type="<?= $in_type ?>" name="member_id" id="member_id" value="<?php echo $member_data->member_id; ?>" />	
 	<input type="<?= $in_type ?>" name="g_playertype" value="junior" />
 	<input type="<?= $in_type ?>" name="option" id="option" value="<?= $option ?>" />	
 	<input type="<?= $in_type ?>" name="Itemid" id="Itemid" value="<?= $Itemid ?>" />	

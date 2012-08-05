@@ -130,11 +130,12 @@ class ClubStatsHelper{
 		$stats_headings = $stats_data["headings"];
 		global $option,$Itemid;	?>
 	<table class="smaller_table" width="100%" border=0 cellspacing=2  cellpadding=2>
-		<tr>
+		<tr>			
 			<th width=150><?php echo STATS; ?> Date</th>
 				<?php foreach($stats_headings as $a_key => $a_value) {?>
 						<th width="10%"><?php echo $a_value; ?></th>
 				<?php } ?>
+				
 		</tr>
 		<?php 
 		$stats_url = sprintf("index2.php?option=%s&c=stats&task=editstats&Itemid=%s&member_id=%s&no_html=0&path=1&%s=1",$option,$Itemid,$player_data->member_id,JUtility::getToken());
@@ -142,11 +143,14 @@ class ClubStatsHelper{
 				$k= $i = 1; $cl_ = array("row0","row1"); $col_count = count($stats_headings);
 			if(count($stats_data["stats_list"]) > 0 ){ 
 				$heading_obj = $stats_data["headings_obj"];
-				foreach($stats_data["stats_list"] as $a_stats){	
+				foreach($stats_data["stats_list"] as $a_stats){
 					$a_stats->key_var = sprintf("&stats_date=%s",str_replace("/", ".", $a_stats->stats_date));
 					?>
-				<tr>
+				<tr class="<?php echo $cl_[$k];?>" id="stats_<?php echo $a_stats->key_var; ?>">					
 					<td class="<?php echo $cl_[$k];?>">
+					<a href="javascript:void(0);" onclick="process_stats('<?php echo $a_stats->key_var; ?>','<?php echo JUtility::getToken()?>')">
+						<?php echo JHTML::_('image', 'components/com_clubreg/assets/images/delete.png', JText::_( 'Delete' ), array('align' => 'right')); ?>
+						</a>
 					<a href="<?php echo $stats_url.$a_stats->key_var;?>" class="modal-button" rel="{handler: 'iframe', size: {x: 400, y: 400}}" style="font-weight:normal">
 						<?php echo $a_stats->stats_date?>
 					</a>	
@@ -159,7 +163,7 @@ class ClubStatsHelper{
 						}					
 					?>
 				</tr>
-		<?php }
+		<?php  $i++; $k= 1- $k; }
 				}else{  ?>
 			<tr>
 				<td align="center" colspan="<?= $col_count+1; ?>" class="center isReq"><h3>No <?php echo STATS; ?> Results</h3></td>
