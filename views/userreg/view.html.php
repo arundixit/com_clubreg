@@ -444,9 +444,9 @@ class ClubRegViewuserreg extends JView
 						$this->assign("parent_data",$parent_data);
 					}
 						$d_qry = sprintf("select -1 as value, '- Select Guardian -' as text union 
-						(select member_id as value, concat(`surname`,' ' ,`givenname`) as text from %s 
+						select member_id as value, concat(`surname`,' ' ,`givenname`) as text from %s 
 						where playertype ='guardian' order by 
-						surname asc) ",CLUB_REGISTEREDMEMBERS_TABLE);
+						surname asc ",CLUB_REGISTEREDMEMBERS_TABLE);
 						$db->setQuery($d_qry);
 						$all_parents = $db->loadObjectList();						
 						
@@ -472,9 +472,8 @@ class ClubRegViewuserreg extends JView
 			/**
 				get allowed groups
 			 */
-			$query = sprintf("select -1 as value, '-Select ".GROUPS."-' as text union  (select  `group_id` as value,`group_name` as text
-												from %s as a where %s
-												 order by text asc ) 
+			$query = sprintf("select -1 as value, '-Select ".GROUPS."-' as text union  select  `group_id` as value,`group_name` as text
+												from %s as a where %s												
 												order by text asc ",CLUB_GROUPS_TABLE,implode(" and ", $group_where));
 		
 			$db->setQuery( $query );

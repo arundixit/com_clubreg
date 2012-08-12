@@ -41,7 +41,7 @@ if(count($group_data->team_members) > 0){
 	
 if(count($group_data->group_members) > 0){
 	?>
-	<div class="taghd">Players of <?php echo $group_data->group_data->group_name; ?></div>
+	<div class="taghd"><?php echo PLAYERS?> of <?php echo $group_data->group_data->group_name; ?></div>
 	<div>
 	<ol>	
 		<?php  foreach($group_data->group_members as $a_member){?>

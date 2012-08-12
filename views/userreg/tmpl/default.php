@@ -18,6 +18,8 @@ $in_type = "hidden";
 $page_title = "Registered ".PLAYERS;
 $document->setTitle($page_title );
 
+
+
 $member_params = $this->all_headings["member_params"];
 $filter_heading = $this->all_headings["filters"];
 ClubregHelper::generate_menu_tabs($member_params,$page_title );

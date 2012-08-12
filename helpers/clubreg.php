@@ -257,8 +257,8 @@ class ClubregHelper{
 		$filter_heading["t_created_date"] = array("label"=>"Date Rng","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`created`");
 		$filter_heading["year_registered"] = array("label"=>SEASON,"control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`year_registered`");
 				
-		$query = sprintf("select -1 as value, '-".PLAYER." Level -' as text union  (select  `config_short` as value,`config_name` as text
-				from %s as a where which_config = '%s' and publish = 1 order by text asc ) order by text asc ",
+		$query = sprintf("select -1 as value, '-".PLAYER." Level -' as text union  select  `config_short` as value,`config_name` as text
+				from %s as a where which_config = '%s' and publish = 1  order by text asc ",
 				CLUB_TEMPLATE_CONFIG_TABLE,CLUB_PLAYER_LEVEL);
 		
 		$db->setQuery( $query );
@@ -272,8 +272,8 @@ class ClubregHelper{
 		
 		$group_where_str = "where ".implode(" and ", $group_where);
 		
-		$query = sprintf("select -1 as value, '-".GROUPS."-' as text union  (select  `group_id` as value,`group_name` as text
-							from %s as a %s  order by text asc ) order by text asc ",CLUB_GROUPS_TABLE,$group_where_str);
+		$query = sprintf("select -1 as value, '-".GROUPS."-' as text union  select  `group_id` as value,`group_name` as text
+							from %s as a %s  order by text asc ",CLUB_GROUPS_TABLE,$group_where_str);
 		
 		$db->setQuery( $query );
 		$tmp_list = $db->loadObjectList();
@@ -288,8 +288,8 @@ class ClubregHelper{
 		
 		$group_where_str = "where ".implode(" and ", $group_where);
 		
-		$query = sprintf("select -1 as value, '-".SUBGROUPS."-' as text union  (select  `group_id` as value,`group_name` as text
-									from %s as a %s  order by text asc ) order by text asc ",CLUB_GROUPS_TABLE,$group_where_str);
+		$query = sprintf("select -1 as value, '-".SUBGROUPS."-' as text union  select  `group_id` as value,`group_name` as text
+									from %s as a %s  order by text asc  ",CLUB_GROUPS_TABLE,$group_where_str);
 		
 		$db->setQuery( $query );
 		$tmp_list = $db->loadObjectList();

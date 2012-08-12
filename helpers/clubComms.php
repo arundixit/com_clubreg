@@ -71,8 +71,8 @@ class ClubCommsHelper{
 		
 		$group_where_str = "where ".implode(" and ", $group_where);
 		
-		$query = sprintf("select -1 as value, '-".GROUPS."-' as text union  (select  `group_id` as value,`group_name` as text
-				from %s as a %s  order by text asc ) order by text asc ",CLUB_GROUPS_TABLE,$group_where_str);
+		$query = sprintf("select -1 as value, '-".GROUPS."-' as text union  select  `group_id` as value,`group_name` as text
+				from %s as a %s  order by text asc ",CLUB_GROUPS_TABLE,$group_where_str);
 		
 		$db->setQuery( $query );
 		$tmp_list = $db->loadObjectList();

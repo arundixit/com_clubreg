@@ -49,13 +49,13 @@ class ClubRegVieweoi extends JView
 		
 		switch($tpl_){
 			case "seniorplayer":
-				$query = sprintf("select -1 as value, '-Select ".GROUPS."-' as text union  (select  `group_id` as value,`group_name` as text
+				$query = sprintf("select -1 as value, '-Select ".GROUPS."-' as text union  select  `group_id` as value,`group_name` as text
 						from %s as a where publish=1 and group_parent = 0  and 
-						(params not like '%%grouptype=junior%%' or params  like '%%grouptype=senior%%') order by text asc ) order by text asc ",CLUB_GROUPS_TABLE);
+						(params not like '%%grouptype=junior%%' or params  like '%%grouptype=senior%%')   order by text asc ",CLUB_GROUPS_TABLE);
 			break;
 			default:
-				$query = sprintf("select -1 as value, '-Select ".GROUPS."-' as text union  (select  `group_id` as value,`group_name` as text
-						from %s as a where publish=1 and group_parent = 0 and params like '%%grouptype=junior%%'  order by text asc ) order by text asc ",CLUB_GROUPS_TABLE);
+				$query = sprintf("select -1 as value, '-Select ".GROUPS."-' as text union  select  `group_id` as value,`group_name` as text
+						from %s as a where publish=1 and group_parent = 0 and params like '%%grouptype=junior%%'  order by text asc ",CLUB_GROUPS_TABLE);
 			break;
 		}
 		

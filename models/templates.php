@@ -37,7 +37,8 @@ class ClubRegModelTemplates extends JModel
 		$where_[] = " published = 1 ";
 		
 		$where_str = sprintf(" where %s", implode(" and ", $where_));
-		$d_qry = sprintf("select '0' as template_id, 'New Message' as template_name  union (select template_id, template_name from %s %s order by template_name);",CLUB_TEMPLATE_TABLE, $where_str);
+		$d_qry = sprintf("select '0' as template_id, 'New Message' as template_name  union  
+				select template_id, template_name from %s %s order by template_name ;",CLUB_TEMPLATE_TABLE, $where_str);
 		$db->setQuery($d_qry);
 		$this->template_list = $db->loadObjectList();	
 		
