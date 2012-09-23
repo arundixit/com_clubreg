@@ -85,8 +85,6 @@ class ClubRegModelGroups extends JModel
 		CLUB_GROUPS_TABLE, $group_id);
 		$db->setQuery($d_qry);
 		$subgroups = $db->loadObjectList();
-		
-		//write_debug($db);
 			
 		return $subgroups;
 		

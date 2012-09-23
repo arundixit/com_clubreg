@@ -17,10 +17,6 @@ jimport( 'joomla.application.component.view');
 
 class ClubRegViewstats extends JView
 {
-	
-	function display_(){
-		
-	}
 	function display($tpl = null){
 		
 		global $mainframe,$append,$option,$Itemid;	

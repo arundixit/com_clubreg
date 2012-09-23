@@ -63,13 +63,13 @@ class ClubHiddenHelper{
 					$t_str = "Guardian";
 					w_td($t_str, $lprop);						
 					$t_str = $a_result->guardian;
-					w_td($t_str);						
+					w_td($t_str,$tprop);						
 				?>	
 			</tr>
 			<tr>
 				<?php 
 					$t_str = "Address";
-					w_td($t_str, $lprop);
+					w_td($t_str, $lprop); $c_ = array();
 					if($a_result->gaddress)		$c_[] = $a_result->gaddress;
 					if($a_result->gsuburb)		$c_[] = $a_result->gsuburb;
 					if($a_result->gpostcode) 	$c_[] = $a_result->gpostcode;
@@ -82,7 +82,7 @@ class ClubHiddenHelper{
 				<tr>
 					<?php 
 					$t_str = "Address";
-					w_td($t_str, $lprop);
+					w_td($t_str, $lprop);$c_ = array();
 					if($a_result->address)		$c_[] = $a_result->address;
 					if($a_result->suburb)		$c_[] = $a_result->suburb;
 					if($a_result->postcode)		$c_[] = $a_result->postcode;
@@ -174,45 +174,7 @@ class ClubHiddenHelper{
 			echo $t_string;
 			return $t_string;
 		}
-		
-		static function renderUser_(&$a_result,&$sex_list){
-			global $option,$Itemid;
-			ob_start();
-			$edit_url = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=",$option,$Itemid);
-		
-			//write_debug($a_result->playertype);
-			//JUNIOR
-			//GUARDIAN
-			//SENIOR
-			$w_email = in_array($a_result->playertype, array("GUARDIAN","SENIOR"));
-			$w_season = in_array($a_result->playertype, array("JUNIOR","SENIOR"));
-			?>
-					<div class="<?php echo $a_result->class; ?>">
-					<span class="fline"><?php echo $a_result->offset ;?><?php echo $a_result->show_check;?><a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>" ><?php echo $a_result->surname ;?></a></span> <br />
-					<?php 
-					if($w_email){?><label>Email</label> : <?php echo $a_result->emailaddress; ?><br /><?php }
-					if($a_result->guardian){?>
-					<label>Guardian</label> : <?php echo $a_result->guardian; ?><br />
-					<label>Address</label> : <?php echo $a_result->gaddress; ?> , <?php echo $a_result->gsuburb; ?> , <?php echo $a_result->gpostcode; ?><br />
-					<?php }else{ ?>
-					<label>Address</label> : <?php echo $a_result->address; ?> , <?php echo $a_result->suburb; ?> , <?php echo $a_result->postcode; ?><br />
-					<?php } 			
-					if($w_season){	?>			
-					<label>Gender</label> : <?php echo $sex_list[$a_result->gender]->text; if($a_result->playertype == "JUNIOR"){ ?> <label class="mv_left">DOB</label> : <?php echo $a_result->dob;  ?><?php } ?> <br />
-					<label ><?php echo SEASON; ?></label> : <?php echo $a_result->year_registered ;?>
-					<label class="mv_left"><?php echo GROUP ?></label> : <?php echo $a_result->group;  ?> <label class="mv_left"><?php echo SUBGROUP ?></label> : <?php echo $a_result->sgroup;  ?><br />
-					<label><?php echo TAGS ?></label>: <?php echo ucwords($a_result->member_tags);  ?><br />
-					<?php }else{ ?>
-					<label style="text-decoration:underline">Juniors</label> <?php echo $a_result->my_children; ?>
-					<?php }?>
-					<div class="reg">Date Registered : <?php echo $a_result->t_created_date ?> Registered By :<?php echo $a_result->t_created_by?></div>
-					</div> 
-					<?php 
-					$t_string = ob_get_contents();
-					ob_end_clean();
-					echo $t_string;
-					return $t_string;
-		}
+
 }
 
 ?>
