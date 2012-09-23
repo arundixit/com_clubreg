@@ -17,6 +17,10 @@ jimport( 'joomla.application.component.view');
 
 class ClubRegViewstats extends JView
 {
+	
+	function display_(){
+		
+	}
 	function display($tpl = null){
 		
 		global $mainframe,$append,$option,$Itemid;	
@@ -28,7 +32,7 @@ class ClubRegViewstats extends JView
 		
 		$layout	= $this->getLayout();
 		
-		if( $layout == 'editmemberstats') {
+		if( $layout == 'memberstats') {
 			$this->_editmemberstats($tpl);
 			return;
 		}
@@ -219,11 +223,44 @@ class ClubRegViewstats extends JView
 		JError::raiseWarning( 500, "You are not authorised to view the stats" );
 		return;
 	}
-	function _editmemberstats(){
+	function _editmemberstats($tpl){
 		
+		$tpl = "edit";
 		
-		write_debug($_REQUEST);
+		JRequest::checkToken("get") or jexit( 'Invalid Token' );	
+		
+		JHTML::_('script', 'astats.js?'.time(), 'components/com_clubreg/assets/js/');
+		
+		$return_data['member_id'] = intval(JRequest::getVar('member_id','0', 'request', 'int'));
+		$return_data['stats_date'] = trim(JRequest::getVar('stats_date','0', 'request', 'string'));
+		$return_data['stats_date'] =  str_replace(".", "/", $return_data['stats_date']);
+		
+		$row	=& JTable::getInstance('clubregmembers', 'Table');
+		if($return_data['member_id'] > 0){
+			$row->load($return_data['member_id']);
+		}else{
+			JError::raiseWarning( 500, "Invalid Stats Data" );
+			return;
+		}		
+			
+		$stats_list	=  & JModel::getInstance('stats', 'ClubRegModel');
+		$stats_list->setDate($return_data['stats_date']);
+		$stat_headings =  $stats_list->getPlayerStatsList($row);
+		
+		$result = current($stat_headings["stats_list"]);
+		$heading_obj = $stat_headings["headings_obj"];
+		
+		$this->assign("return_data",$return_data);
+		$this->assign("stat_headings",$stat_headings);
+		$this->assign("result",$result);
+		$this->assign("heading_obj",$heading_obj);
+		$this->assign("row",$row);		
+		
 		parent::display($tpl);
+	}
+	function editstats(){
+		
+		
 	}
 	
 }	

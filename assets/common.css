@@ -77,8 +77,8 @@ fieldset{
 	border:solid #999966 1px;
 }
 .intext{	
-	width:170px;
-	padding:3px 2px 3px 1px;
+	width:300px;
+	padding:2px 2px 2px 2px;
 	font-size:110%;
 }
 .wide{	
@@ -95,9 +95,11 @@ label.lbcls{
 }
 p.cl{
 	 clear:left; 
+	 margin:0px;
+	 padding:2px;
 }
 div.n{
-	padding:5px;
+	padding:1px 2px 1px 2px;
 }
 div.player_address{
 	display:none;
@@ -122,6 +124,7 @@ ol.intable li{
 label.invalid {
     color: #FF0000;
 }
+
 .loading{
 	background: transparent url(images/bigrotation2.gif ) no-repeat;	
 	padding:10px 15px 10px 10px;
@@ -277,12 +280,12 @@ div.left_buttons{
 
 .gud div.tset{	
 	float:left;
-	padding:5px 3px 5px 3px;
+	padding:2px 2px 2px 2px;
 	min-width:350px;
 }
 
 .gud div.tset .intext{	
-	width:200px;
+	width:300px;
 }
 
 .gud div.tset .half, div.n .half{	

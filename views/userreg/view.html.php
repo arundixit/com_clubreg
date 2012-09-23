@@ -446,7 +446,7 @@ class ClubRegViewuserreg extends JView
 						$d_qry = sprintf("select -1 as value, '- Select Guardian -' as text union 
 						select member_id as value, concat(`surname`,' ' ,`givenname`) as text from %s 
 						where playertype ='guardian' order by 
-						surname asc ",CLUB_REGISTEREDMEMBERS_TABLE);
+						text asc ",CLUB_REGISTEREDMEMBERS_TABLE);
 						$db->setQuery($d_qry);
 						$all_parents = $db->loadObjectList();						
 						

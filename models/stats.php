@@ -115,8 +115,7 @@ class ClubRegModelStats extends JModel
 			}else{
 				$t_style =" style='width:50px;'";
 			}
-		}
-		
+		}		
 		
 		switch($control_params["control_type"]){
 				case "select":
@@ -132,23 +131,18 @@ class ClubRegModelStats extends JModel
 						}
 					}
 					echo JHTML::_('select.genericlist',  $t_array, $ctrlname, $t_style.' id="'.$ctrlname.'"  size="1" ', 'value', 'text', $t_value);
-					break;
-				case "textarea":?>
-					<textarea <?php echo $t_style; ?> rows=5 name="<?php echo $ctrlname; ?>" ><?php echo $t_value; ?></textarea>					
+				break;
+				case "textarea":?><textarea <?php echo $t_style; ?> rows=5 name="<?php echo $ctrlname; ?>" ><?php echo $t_value; ?></textarea>					
 			<?php 
 				break;
-				case "date":
-				$format = '%d/%m/%Y';
-				echo JHTML::_('calendar', $t_value, $ctrlname, $ctrlname, $format, array('class' => 'intext half','readonly'=>'readonly'));
+				case "date":$format = '%d/%m/%Y';echo JHTML::_('calendar', $t_value, $ctrlname, $ctrlname, $format, array('class' => 'intext half','readonly'=>'readonly'));
 				break;
 				case "monthyear":
 					echo 'N/A';
 				break;
 
 				case "email":
-				default:?>				
-				<input type="text" <?php echo $t_style; ?> value="<?php echo $t_value; ?>" name="<?php echo $ctrlname ;?>" />
-				<?php 					
+				default:?><input type="text" <?php echo $t_style; ?> value="<?php echo $t_value; ?>" name="<?php echo $ctrlname ;?>" /><?php 					
 				break;				
 			}?>			
 

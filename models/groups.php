@@ -81,10 +81,12 @@ class ClubRegModelGroups extends JModel
 		$subgroups = array();
 		
 		$d_qry = sprintf("select -1 as value, '- Select ".SUBGROUP." -' as text union 
-		 select group_id as value, group_name as text from %s where group_parent = %d  and  group_parent != 0 and publish = 1 order by group_name ",
+		 select group_id as value, group_name as text from %s where group_parent = %d  and  group_parent != 0 and publish = 1 order by text ",
 		CLUB_GROUPS_TABLE, $group_id);
 		$db->setQuery($d_qry);
 		$subgroups = $db->loadObjectList();
+		
+		//write_debug($db);
 			
 		return $subgroups;
 		

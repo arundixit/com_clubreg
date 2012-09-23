@@ -450,6 +450,7 @@ class ClubRegControllerUserReg extends JController
 		
 		JHTML::_('behavior.formvalidation');
 		
+		
 		$document =& JFactory::getDocument();
 		
 		JRequest::checkToken("get") or jexit( 'Invalid Token' );
@@ -477,7 +478,7 @@ class ClubRegControllerUserReg extends JController
 		$t_array = array();
 		$t_array = ClubPaymentsHelper::getPaymentMethods();
 		
-		$t_prop=" ";
+		$t_prop=" style='width:170px;'";
 		$name = "payment_method";
 		$id= "payment_method";	
 		
@@ -486,11 +487,11 @@ class ClubRegControllerUserReg extends JController
 		$year_registered_list = ClubregHelper::generate_seasonList();		
 	?>
 		<form action="index2.php" method="post"  style="text-align:left;" name="payment_admin" id="payment_admin" class="form-validate">			
-			<div class="h3">Payment Details :: <?php echo ucwords($row->surname." ".$row->givenname); ?></div>
+			<div class="h3"><?php  ClubHtmlHelper::renderIcon(array('img'=>'payment.png','text'=>'Payments'));?>Payment Details :: <?php echo ucwords($row->surname." ".$row->givenname); ?></div>
 			<div class="fieldset">
 			<div class="n"><label class="lbcls" for="payment_season"><?php echo SEASON ?> <span class="isReq">*</span></label><?php echo $colon; 	echo JHTML::_('select.genericlist',  $year_registered_list, "payment_season", 'class="intext required" id="payment_season"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_season);?></div>			
 			<div class="n"><label class="lbcls" for="payment_method">Payment Method <span class="isReq">*</span></label><?php echo $colon; 	echo JHTML::_('select.genericlist',  $t_array, $name, 'class="intext required" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_method);?></div>
-			<div class="n"><label class="lbcls" for="payment_transact_no" >Transaction # <span class="isReq">*</span></label><?php echo $colon; ?><input type="text" name="payment_transact_no" id="payment_transact_no" value="<?php echo $payment_row->payment_transact_no; ?>" class="intext required"/></div>
+			<div class="n"><label class="lbcls" for="payment_transact_no" >Transaction # <span class="isReq">*</span></label><?php echo $colon; ?><input type="text" name="payment_transact_no" id="payment_transact_no" value="<?php echo $payment_row->payment_transact_no; ?>" class="intext required" <?php echo $t_prop; ?>/></div>
 			<?php 		
 			$t_array = array();
 			$t_array = ClubPaymentsHelper::getPaymentStatus();
@@ -524,8 +525,7 @@ class ClubRegControllerUserReg extends JController
 			?>		
 			<div class="n"><label class="lbcls" for="payment_desc">Description <span class="isReq">*</span></label><?php echo $colon; echo JHTML::_('select.genericlist',  $t_array, $name, 'class="intext" id="'.$id.'"  size="1" '.$t_prop, 'value', 'text', $payment_row->payment_desc); ?></div>
 			<div class="n" style="vertical-align:top"><label class="lbcls" style="vertical-align:top" for="payment_notes">Notes</label><?php echo $colon; ?><textarea class="intext" rows=3 id="payment_notes" name="payment_notes" style="width:200px"><?php echo stripslashes($payment_row->payment_notes); ?></textarea></div>
-			<div class="n"><label class="lbcls" for="payment_amount">Amount(<?php echo CURRENCY; ?>) <span class="isReq">*</span></label><?php echo $colon; ?>
-			<input type="text" name="payment_amount" value="<?php echo sprintf("%.2f",($payment_row->payment_amount* 0.01)); ?>" id="payment_amount" class="intext required validate-numeric" style="text-align:right;width:70px;"/></div>
+			<div class="n"><label class="lbcls" for="payment_amount">Amount(<?php echo CURRENCY; ?>) <span class="isReq">*</span></label><?php echo $colon; ?><input type="text" name="payment_amount" value="<?php echo sprintf("%.2f",($payment_row->payment_amount* 0.01)); ?>" id="payment_amount" class="intext required validate-numeric" style="text-align:right;width:70px;"/></div>
 			
 			<div style="text-align:center;padding:3px;">
 			<input class="button validate" name='normal_save' id="normal_save" type="submit" value='Save Details' />
@@ -614,9 +614,8 @@ class ClubRegControllerUserReg extends JController
 	}
 	
 	
-	function editnote(){
-	
-	
+	function editnote(){		
+		
 		global $option, $Itemid,$colon;
 	
 		JHTML::_('behavior.formvalidation');
@@ -644,11 +643,10 @@ class ClubRegControllerUserReg extends JController
 			//return;
 		}		
 	
-		JHTML::_('script', 'notes.js?'.time(), 'components/com_clubreg/assets/js/');		
-		
+		JHTML::_('script', 'notes.js?'.time(), 'components/com_clubreg/assets/js/');			
 		?>
 			<form action="index2.php" method="post"  style="margin:2px;text-align:left;" name="note_admin" id="note_admin" class="form-validate">				
-				<div class="h3">Notes :: <?php echo ucwords($row->surname." ".$row->givenname); ?></div>
+				<div class="h3"><?php  ClubHtmlHelper::renderIcon(array('img'=>'notes.png','text'=>'Notes'));?> Notes :: <?php echo ucwords($row->surname." ".$row->givenname); ?></div>
 				<div class="fieldset">				
 				<div class="n"><label class="lbcls" for="note_status">Make Private </label><?php echo $colon; ?><input type="checkbox" name="note_status" id="note_status" <?php echo isset($note_row->note_status) && ($note_row->note_status == 1)?"checked":""?> value="1" /></div>				
 				

@@ -18,6 +18,7 @@ require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.DS.'constants.php');
 
 require_once (JPATH_COMPONENT.DS.'controller.php');
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubreg.php');
+require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubHtml.php');
 
 // Set the table directory
 JTable::addIncludePath(JPATH_COMPONENT.DS.'tables');
@@ -36,6 +37,7 @@ JHTML::_('stylesheet', 'tabs.css', $append .'components/com_clubreg/assets/');
 JHTML::_('stylesheet', 'menu.css', $append .'components/com_clubreg/assets/');
 JHTML::_('stylesheet', 'small_table.css', $append .'components/com_clubreg/assets/');
 JHTML::_('stylesheet', 'common.css', $append .'components/com_clubreg/assets/');
+JHTML::_('stylesheet', 'payments.css', $append .'components/com_clubreg/assets/css/');
 
 jimport( 'joomla.cache.cache' );
 
@@ -147,6 +149,8 @@ function getMonths(){
 	}
 		
 	return $t_array;
-
-
+}
+function w_td($t_str, $tprop ){
+	?><td <?php echo $tprop; ?>><?php echo $t_str; ?></td>
+<?php 
 }

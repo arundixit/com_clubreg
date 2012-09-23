@@ -90,10 +90,16 @@ class ClubRegControllerStats extends JController
 	}
 	function editstats(){
 		
-		global $option, $Itemid,$colon;
+		global $option, $Itemid,$colon;		
 	
 		JHTML::_('behavior.formvalidation');
+		
+		JRequest::setVar('layout', 'memberstats');
+		JRequest::setVar('view','stats');
+		parent::display($tpl);
+		return;
 	
+		/*
 		JRequest::checkToken("get") or jexit( 'Invalid Token' );
 		
 		$in_type = "hidden";
@@ -109,6 +115,7 @@ class ClubRegControllerStats extends JController
 			JError::raiseWarning( 500, "Invalid Stats Data" );
 			return;
 		}
+
 			
 		$stats_list	=  & JModel::getInstance('stats', 'ClubRegModel');
 		$stats_list->setDate($return_data['stats_date']);
@@ -149,7 +156,7 @@ class ClubRegControllerStats extends JController
 				<?php echo JHTML::_( 'form.token' ); ?>				
 			</form>
 		
-		<?php 
+		<?php */
 	}
 	function saveastats(){
 		

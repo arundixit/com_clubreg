@@ -17,7 +17,7 @@ JHTML::_('behavior.modal', 'a.modal-button');
 global $option,$Itemid;
 $payment_url = sprintf("index2.php?option=%s&c=userreg&task=editpayment&Itemid=%s&member_id=%s&no_html=0&path=&%s=1",$option,$Itemid,$this->member_data->member_id,JUtility::getToken());
 ?>
-<div class="h3">Payments</div>
+<div class="h3"><?php  ClubHtmlHelper::renderIcon(array('img'=>'payment.png','text'=>'Payments'));?>Payments</div>
 <div class="fieldset" >
 <div class="right_buttons"><a href="<?php echo $payment_url;?>" class="modal-button" rel="{handler: 'iframe', size: {x: 400, y: 400}}" style="font-weight:normal">Add Payment</a></div>
 <p class="cl"></p>

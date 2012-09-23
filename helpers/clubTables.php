@@ -182,7 +182,8 @@ class clubTables{
 		
 			global $option,$Itemid,$append;
 		
-			JHTML::_('stylesheet', 'div.css', $append .'components/com_clubreg/assets/');
+			//JHTML::_('stylesheet', 'div.css', $append .'components/com_clubreg/assets/');
+			JHTML::_('stylesheet', 'tbl.css', $append .'components/com_clubreg/assets/');
 			$player_row	=& JModel::getInstance('eoimembers', 'ClubRegModel'); ?>
 					
 					<?php			
@@ -261,9 +262,7 @@ class clubTables{
 							</table>
 					</td>
 					<td valign=top class="listing">													
-						<?php 		
-
-						
+						<?php						
 						if(isset($all_headings["sorting"]) && count($all_headings["sorting"]) > 0 ){							
 							$sorting_heading =  $all_headings["sorting"];
 							echo "<div class=\"f_div\"><span class=\"f_label\">Sort By:</span>";

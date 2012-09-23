@@ -1,0 +1,4 @@
+@CHARSET "ISO-8859-1";
+#payment_status,  #payment_desc , #payment_status, #payment_transact_no{
+	width:170px;
+}
