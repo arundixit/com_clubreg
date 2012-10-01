@@ -15,7 +15,7 @@ $member_data = $this->member_data;
 $page_title = (intval($member_data->member_id) > 0)?($member_data->surname." ".$member_data->givenname):"Registering New Details";
 
 $member_params = $this->all_headings["member_params"];
-ClubregHelper::generate_menu_tabs($member_params,$page_title );
+ClubMenuHelper::generate_menu_tabs($member_params,$page_title );
 
 JHTML::_('behavior.formvalidation');
 JHTML::_('behavior.calendar');

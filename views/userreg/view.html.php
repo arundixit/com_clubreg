@@ -33,6 +33,7 @@ class ClubRegViewuserreg extends JView
 				$this->_editregistered($tpl);
 				return;
 			}
+			
 		
 		
 		$member_data 	=& JModel::getInstance('member', 'ClubRegModel');
@@ -493,6 +494,7 @@ class ClubRegViewuserreg extends JView
 				$stats_list	=  & JModel::getInstance('stats', 'ClubRegModel');
 				$this->assign("stats_list", $stats_list->getPlayerStatsList($row));			
 			}
+			
 			
 			parent::display($tpl);
 		}else{		

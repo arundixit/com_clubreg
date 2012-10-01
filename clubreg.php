@@ -19,6 +19,7 @@ require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.DS.'constants.php');
 require_once (JPATH_COMPONENT.DS.'controller.php');
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubreg.php');
 require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubHtml.php');
+require_once (JPATH_COMPONENT.DS.'helpers'.DS.'clubMenu.php');
 
 // Set the table directory
 JTable::addIncludePath(JPATH_COMPONENT.DS.'tables');

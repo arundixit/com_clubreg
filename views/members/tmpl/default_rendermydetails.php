@@ -18,7 +18,7 @@ if ( $this->params->get( 'show_page_title' ) ) :
  endif; 
 
  $member_params = $this->member_params;
-ClubregHelper::generate_menu_tabs($this->member_params,$page_title );
+ClubMenuHelper::generate_menu_tabs($this->member_params,$page_title );
 
 
 
@@ -26,10 +26,11 @@ ClubregHelper::generate_menu_tabs($this->member_params,$page_title );
 $member_details = $this->lists["member"] ;
 $user_data = $member_details->user_data;
 $my_details = $member_details->member_details;
+
 $in_type = "hidden";?>
 <table>
 <tr>
-<td>
+<td valign=top>
 <?php
 if(count($this->headings)> 0){?>
 <form action="index.php" method="post" name="adminForm"  class="form-validate">
@@ -133,9 +134,6 @@ if(count($this->headings)> 0){?>
 <?php 
 		
 	}
-
-
-
 		$my_groups = $member_details->group_leaders;
 		$d_url = sprintf("index.php?option=%s&c=userreg&task=loadregistered&Itemid=%s&limit=20&playertype=[playertype]&filter_group=",$option,$Itemid);
 		
@@ -170,9 +168,7 @@ if(count($this->headings)> 0){?>
 		$my_groups = array();
 		$my_groups = $member_details->group_members;
 		
-		if(count($my_groups) > 0){ 	?>
-			
-			
+		if(count($my_groups) > 0){ 	?>			
 			<div class="h3"><img alt="" src="components/<?php echo $option; ?>/assets/images/groups.png" align=middle hspace=2  width="24">My <?php echo GROUPS; ?></div>
 			<div class="fieldset">
 			<?php 
@@ -200,6 +196,19 @@ if(count($this->headings)> 0){?>
 			}
 		echo "</ul>";
 		?></div><?php
+		}
+		$activity = $this->activity;
+		if(count($activity) > 0){?>
+		<div class="h3"><img alt="" src="components/<?php echo $option; ?>/assets/images/groups.png" align=middle hspace=2  width="24">My Recent Activities</div>
+			<div class="fieldset">
+				<ul class="activity">
+					<?php foreach($activity as $an_activity){ ?>
+						<li><p><span class="activity_label"><?php echo ucwords(str_replace("_", " ", $an_activity->activity_label)); ?></span>
+						<br /><span class='tcreated1'><?php echo ucwords($an_activity->activity_item); ?></span> <span class='tcreated'><?php echo $an_activity->activity_created; ?></span></p></li>
+					<?php } ?>
+				</ul>
+			</div>
+		<?php 			
 		}
 ?>
 </td>

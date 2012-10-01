@@ -87,15 +87,14 @@ class ClubRegViewmembers extends JView
 	}
 	function renderMyDetails($tpl){
 		
-		$db		=& JFactory::getDBO();
+		$db		=	&JFactory::getDBO();
+		$user	= 	&JFactory::getUser();
 		
 		$d_qry = sprintf("select config_short,config_name,params,config_text from %s 
 					where which_config = '%s' and publish = 1 order by ordering",
 					CLUB_TEMPLATE_CONFIG_TABLE,	CLUB_MEMBER_WHICH);
 					$db->setQuery($d_qry);
-					$tmp_hd = $db->loadObjectList('config_short');
-						
-		
+					$tmp_hd = $db->loadObjectList('config_short');	
 					
 		$this->assignRef('headings', $tmp_hd);
 		
@@ -122,6 +121,11 @@ class ClubRegViewmembers extends JView
 		}
 		$this->assign("howmany_senior", $howmany_senior);
 		$this->assign("howmany_guardian", $howmany_guardian);
+		
+		$activities	=  & JModel::getInstance('activity', 'ClubRegModel');
+		$activity = $activities->getActivityList($user->id);		
+		
+		$this->assign("activity",$activity);
 		
 		$tpl = "renderMyDetails" ;		
 		parent::display($tpl);

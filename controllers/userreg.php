@@ -37,6 +37,7 @@ class ClubRegControllerUserReg extends JController
 		
 		// Register Extra tasks
 		$this->registerTask("editreg","editreg");
+		$this->registerTask("renderreg","renderreg");
 		$this->registerTask("deletereg","deletereg");
 		$this->registerTask("save_details","save_details");
 		$this->registerTask("jparent","jparent");
@@ -76,6 +77,14 @@ class ClubRegControllerUserReg extends JController
 		JRequest::setVar('view','userreg');
 		parent::display();
 	}
+	
+	function renderreg(){	
+		JRequest::setVar('layout', 'displayreg');
+		JRequest::setVar('view','renderreg');
+		parent::display();
+	}
+	
+	
 	function save_details(){	
 		
 		global $mainframe;

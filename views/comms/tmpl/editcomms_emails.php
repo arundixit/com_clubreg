@@ -24,7 +24,7 @@ JHTML::_('behavior.formvalidation');
 
 $member_params = $this->all_headings["member_params"];
 $filter_heading = $this->all_headings["filters"];
-ClubregHelper::generate_menu_tabs($member_params,$page_title );
+ClubMenuHelper::generate_menu_tabs($member_params,$page_title );
 $templateDetails = $this->templates->templateDetails;
 
 $comm_groups = array();

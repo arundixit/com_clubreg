@@ -324,3 +324,26 @@ div.left_buttons{
 #em_address, #em_emailaddress{
 	width:300px;
 }
+span.tcreated{
+	font-size:0.8em;
+	font-style: italic;
+	float:right;
+
+}
+ul.activity li{
+	
+}
+ul.activity li p{
+	margin:0px;
+	padding:1px;
+	border-bottom: 1px dashed #999999;
+}
+span.tcreated1{	
+/*	float:right;*/
+
+}
+
+ul.activity li p span.activity_label{
+	font-weight:bold;
+	font-size:0.9em;
+}

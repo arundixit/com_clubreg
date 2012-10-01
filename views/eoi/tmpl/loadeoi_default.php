@@ -16,7 +16,7 @@ $in_type = "hidden";
 $page_title = "Submitted Expression of Interests";
 $member_params = $this->all_headings["member_params"];
 
-ClubregHelper::generate_menu_tabs($member_params,$page_title );
+ClubMenuHelper::generate_menu_tabs($member_params,$page_title );
 ?>
 <form action="index.php?option=<?= $option; ?>&Itemid=<?=$Itemid ?>" method="post" name="adminForm">
 <table>
