@@ -1,0 +1,12 @@
+td.render_label{
+	width:180px;		
+}
+td.reg_colon{
+	width:10px;
+}
+div.div_table{
+	padding:2px 5px 5px 10px;	
+}
+table.reg_details{
+	border:solid 1px #999999;	
+}

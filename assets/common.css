@@ -101,6 +101,9 @@ p.cl{
 div.n{
 	padding:1px 2px 1px 2px;
 }
+div.n_{
+	padding:2px;	
+}
 div.player_address{
 	display:none;
 	visibility:hidden;
