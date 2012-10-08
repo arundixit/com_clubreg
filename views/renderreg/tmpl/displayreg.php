@@ -45,18 +45,37 @@ echo $pane->startPanel($title, "detail-page1");
 ?>
 <div class="h3"><?php echo $reg_details->playertype; ?> <?= PLAYER ?> Details</div>
 <div class="fieldset">
+	<?php if(in_array($reg_details->playertype, array("senior"))){ 
+		$show_key = array("emailaddress"=>"Email Address","mobile"=>"Mobile #",
+				"phoneno"=>"Phone #","faddress"=>"Address"); // guardian
+	?>
+	<div class="n">
+		<div class="taghd">Contact Details</div>
+		<div class="div_table">
+		<table class="reg_details" >		
+		<?php foreach($show_key as $tkey => $t_value){?>
+			<tr>
+				<td class="render_label" ><?php echo ucwords($show_key[$tkey]); ?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo isset($reg_details->$tkey)?trim($reg_details->$tkey):""; ?></td>
+			</tr>
+		<?php } ?>
+		</table>
+		</div>
+	
+	</div>
+
+	<?php } ?>
 	<div class="n">
 	<div class="taghd"><?php echo GROUP; ?> Details</div>
 		<div class="div_table">
-			<table class="reg_details" width="100%">
+			<table class="reg_details" >
 				<tr>	
-					<td class="render_label" valign=top><?php echo GROUP; ?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo $reg_details->group_name ?></td>
+					<td class="render_label" ><?php echo GROUP; ?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo $reg_details->group_name ?></td>
 				</tr>
 				<tr>
-					<td class="render_label" valign=top><?php echo SUBGROUP;?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo $reg_details->s_group_name ?></td>
+					<td class="render_label" ><?php echo SUBGROUP;?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo $reg_details->s_group_name ?></td>
 				</tr>
 				<tr>
-					<td class="render_label" valign=top><?php echo SEASON; ?></td><td class="reg_colon"><?php echo $colon ;?></td><td ><?php echo $reg_details->year_registered ?></td>
+					<td class="render_label" ><?php echo SEASON; ?></td><td class="reg_colon"><?php echo $colon ;?></td><td ><?php echo $reg_details->year_registered ?></td>
 				</tr>
 		</table>
 		</div>
@@ -69,10 +88,10 @@ echo $pane->startPanel($title, "detail-page1");
 	<div class="n" >	
 		<div class="taghd">Guardian Details</div>		
 		<div class="div_table">
-		<table class="reg_details" width="100%">		
+		<table class="reg_details" >		
 		<?php foreach($show_key as $tkey => $t_value){?>
 			<tr>
-				<td class="render_label" valign=top><?php echo ucwords($show_key[$tkey]); ?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo isset($this->parent_details->$tkey)?trim($this->parent_details->$tkey):""; ?></td>
+				<td class="render_label" ><?php echo ucwords($show_key[$tkey]); ?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo isset($this->parent_details->$tkey)?trim($this->parent_details->$tkey):""; ?></td>
 			</tr>
 		<?php } ?>
 		</table>

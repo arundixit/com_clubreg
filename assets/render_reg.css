@@ -1,12 +1,24 @@
 td.render_label{
-	width:180px;		
+	width:180px;	
+	vertical-align:top;	
+	padding-left:5px;
+	background-color:#7db9e8;
+	font-weight:bold;
 }
 td.reg_colon{
 	width:10px;
+	vertical-align:top;
+	background-color:#7db9e8;
+	font-weight:bold;
 }
 div.div_table{
 	padding:2px 5px 5px 10px;	
 }
 table.reg_details{
 	border:solid 1px #999999;	
+	width:100%;
+	border-collapse: separate;   
+	border-spacing: 1px; 
+	
+	
 }
