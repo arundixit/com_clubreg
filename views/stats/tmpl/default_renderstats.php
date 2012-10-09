@@ -19,7 +19,7 @@ $page_title = "Manage ".STATS;
 $document->setTitle($page_title );
 
 $member_params = $this->all_headings["member_params"];
-ClubregHelper::generate_menu_tabs($member_params,$page_title );
+ClubMenuHelper::generate_menu_tabs($member_params,$page_title );
 
 ob_start();	
 ?>

@@ -14,10 +14,12 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 $member_data = $this->member_data;
 $reg_details = $member_data->reg_details;
 
-$page_title = (intval($reg_details->member_id) > 0)?ucwords($reg_details->fullname):"No Profile";
+$page_title = (intval($reg_details->member_id) > 0)?ucwords($reg_details->fullname)." Details":"No Profile";
 
 $member_params = $this->all_headings["member_params"];
 ClubMenuHelper::generate_menu_tabs($member_params,$page_title );
+$document =& JFactory::getDocument();
+$document->setTitle($page_title );
 
 $lists = $this->lists;
 
@@ -42,12 +44,21 @@ $title = tryUseCookies($title ,0,$tab_id);
 
 echo $pane->startPane("player-pane");
 echo $pane->startPanel($title, "detail-page1");
+$playertype_title = ucwords($reg_details->playertype);
 ?>
-<div class="h3"><?php echo $reg_details->playertype; ?> <?= PLAYER ?> Details</div>
+<div class="h3"><?php echo $playertype_title; ?> <?= PLAYER ?> Details</div>
 <div class="fieldset">
-	<?php if(in_array($reg_details->playertype, array("senior"))){ 
-		$show_key = array("emailaddress"=>"Email Address","mobile"=>"Mobile #",
+	<?php 		
+		$show_key_["guardian"]  = array("fullname"=>"Guardian Name","emailaddress"=>"Email Address","mobile"=>"Mobile #",
 				"phoneno"=>"Phone #","faddress"=>"Address"); // guardian
+		
+		$show_key_["senior"] = $show_key_["junior"] = array("member_id"=>"Primary Key","memberid"=>PLAYER." Id","memberlevel"=>PLAYER." Level","fullname"=>PLAYER." Name");
+		
+		$show_key_["senior"] = array_merge($show_key_["senior"],array("emailaddress"=>"Email Address","mobile"=>"Mobile #",
+				"phoneno"=>"Phone #","faddress"=>"Address"));	
+		
+		if(isset($show_key_[$reg_details->playertype])){
+			$show_key = $show_key_[$reg_details->playertype];
 	?>
 	<div class="n">
 		<div class="taghd">Contact Details</div>
@@ -59,30 +70,11 @@ echo $pane->startPanel($title, "detail-page1");
 			</tr>
 		<?php } ?>
 		</table>
-		</div>
-	
+		</div>	
 	</div>
-
-	<?php } ?>
-	<div class="n">
-	<div class="taghd"><?php echo GROUP; ?> Details</div>
-		<div class="div_table">
-			<table class="reg_details" >
-				<tr>	
-					<td class="render_label" ><?php echo GROUP; ?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo $reg_details->group_name ?></td>
-				</tr>
-				<tr>
-					<td class="render_label" ><?php echo SUBGROUP;?></td><td class="reg_colon"><?php echo $colon ;?></td><td><?php echo $reg_details->s_group_name ?></td>
-				</tr>
-				<tr>
-					<td class="render_label" ><?php echo SEASON; ?></td><td class="reg_colon"><?php echo $colon ;?></td><td ><?php echo $reg_details->year_registered ?></td>
-				</tr>
-		</table>
-		</div>
-	</div>	
-	<p class="cl"></p>
-
-<?php 
+	<?php } if(in_array($reg_details->playertype, array('senior','junior'))){ 
+				echo $this->loadTemplate("group");		
+			}
 	if($this->parent_details){ $show_key = array("fullname"=>"Guardian Name","emailaddress"=>"Email Address","mobile"=>"Mobile #",
 				"phoneno"=>"Phone #","faddress"=>"Address","reg_created"=>"Created On"); // guardian?>
 	<div class="n" >	
@@ -99,11 +91,18 @@ echo $pane->startPanel($title, "detail-page1");
 	</div>
 	<?php 
 	}
-	?>
-	<div class="taghd"><?php echo EMERGENCY; ?> Details</div>
-		<?php 	
-		$this->contact_details->contact_key = "em_" ;
-		echo $this->loadTemplate("emcontact");
+	if(in_array($reg_details->playertype,array("senior","junior"))){
+			if($reg_details->playertype == "senior"){
+			?>
+			<div class="taghd"><?php echo NEXTOFKIN; ?></div>
+				<?php $this->contact_details->contact_key = "next_" ; 
+				echo $this->loadTemplate("emcontact");
+			}?>
+		<div class="taghd"><?php echo EMERGENCY; ?> Details</div>
+			<?php 	
+			$this->contact_details->contact_key = "em_" ;
+			echo $this->loadTemplate("emcontact");
+	}
 ?>
 </div>
 <?php 
