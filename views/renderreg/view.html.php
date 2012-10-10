@@ -20,7 +20,7 @@ class ClubRegViewrenderreg extends JView
 	function display($tpl = null){			
 	
 		global $mainframe,$option,$Itemid;
-		error_reporting(-1);
+	
 		
 		$edit_url = array();
 		
@@ -119,7 +119,8 @@ class ClubRegViewrenderreg extends JView
 		$all_headings["member_params"] =  new JParameter( $member_data->user_data->params );
 		
 		$this->assign("all_headings",$all_headings);
-		$this->assign("member_data",$member_details);	
+		$this->assign("member_data",$member_details);
+		
 
 		
 		
@@ -163,9 +164,11 @@ class ClubRegViewrenderreg extends JView
 				$this->assign("note_list", ClubNotesHelper::getNoteList($member_details->reg_details));
 		
 				$stats_list	=  & JModel::getInstance('stats', 'ClubRegModel');
-				$this->assign("stats_list", $stats_list->getPlayerStatsList($member_details->reg_details));
-			}
+				$this->assign("stats_list", $stats_list->getPlayerStatsList($member_details->reg_details));				
+				
+			}		
 		
+			
 		parent::display($tpl);
 		}
 		

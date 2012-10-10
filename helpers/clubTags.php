@@ -29,14 +29,12 @@ class ClubTagsHelper{
 	}
 	
 	static function renderTagList($member_data){
-		$tagModel	=& JModel::getInstance('tags', 'ClubRegModel');
-		?>
-		
+		$tagModel	=& JModel::getInstance('tags', 'ClubRegModel');		
+		?>		
 		<div class="taghd"><?php echo TAGS ;?></div>
 		<div id="tagList_<?php echo $member_data->member_id; ?>" style="padding:1px 0px 1px 5px;">
-			<?php foreach($member_data->tag_list as $a_tag){$tagModel->renderTag($a_tag);} ?>
-		</div>
-		
+			<?php foreach($member_data->tag_list as $a_tag){ (isset($member_data->viewonly)&&$member_data->viewonly)?$tagModel->renderTagView($a_tag):$tagModel->renderTag($a_tag);} ?>
+		</div>		
 		<?php 	
 		}
 	

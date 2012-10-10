@@ -13,7 +13,6 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 jimport( 'joomla.application.component.view');
 
-//error_reporting(-1);
 
 class ClubRegViewstats extends JView
 {

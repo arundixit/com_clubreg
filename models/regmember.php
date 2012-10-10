@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.application.component.model');
 
 /**
- * Club Reg Component Communication Model
+ * Club Reg Component registered member Model
  *
  */
 class ClubRegModelRegmember extends JModel
@@ -23,6 +23,8 @@ class ClubRegModelRegmember extends JModel
 	var $reg_details = null;
 	var $parent_details = null;
 	var $tag_list = null;
+	var $viewonly = null;
+	var $member_id = null;
 	
 	function __construct()
 	{
@@ -32,7 +34,8 @@ class ClubRegModelRegmember extends JModel
 	function getData($in_data){
 	
 		$db		=& JFactory::getDBO();
-		$member_id = $in_data['member_id'];
+		
+		$this->member_id = $member_id = $in_data['member_id'];
 		
 		if($member_id > 0){
 			$var_str[] = "member_id";
@@ -94,13 +97,15 @@ class ClubRegModelRegmember extends JModel
 					from %s as a
 					where member_id = %d",CLUB_CONTACT_TABLE,$member_id);
 			$db->setQuery( $d_qry );
-			$this->contact_details = $db->loadObjectList('contact_detail');	
+			$this->contact_details = $db->loadObjectList('contact_detail');			
 			
 			$d_qry = sprintf("select a.tag_id, a.tag_text,member_id from %s as a left join %s as b on (a.tag_id = b.tag_id)
 					where member_id = %d order by a.tag_text asc",
 					CLUB_TAG_TABLE,CLUB_TAGPLAYER_TABLE,$member_id);
 			$db->setQuery($d_qry);
 			$this->tag_list = $db->loadObjectList();
+			
+			$this->viewonly = true;
 			
 		}
 		

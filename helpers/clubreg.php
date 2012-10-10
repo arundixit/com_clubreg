@@ -494,5 +494,20 @@ class ClubContactHelper{
 		$control_array["special"] = $special;
 		return $control_array;
 	}
+	
+	static function getContactArrayRenderer(){
+	
+		$control_array["contact_items"] =  array("contact"=>"Contact","emailaddress"=>"Email-Address",
+				"phoneno"=>"Phone #","mobile"=>"Mobile #","address"=>"Address");
+		$special["em_"] = array("medical"=>"Special Medical<br />/Allergies");
+		$special["next_"] = array();
+		$control_array["special"] = $special;
+		
+		
+		$control_array["property"] = array("contact"=>array("surname","givenname"),
+				"address" => array("address","suburb","postcode"));
+		
+		return $control_array;
+	}
 }
 ?>

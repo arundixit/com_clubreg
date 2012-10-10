@@ -23,3 +23,6 @@ table.reg_details{
 table.reg_details td{
 	padding:3px 5px 3px 5px;
 }
+table.reg_details tr:nth-child(2n+1) {
+  background-color: #DEDEDE;
+}

@@ -45,6 +45,12 @@ class ClubRegModelTags extends JModel
 			</span>
 	<?php
 	}
+	function renderTagView($a_tag){ ?>
+			<span class="spn_tag">
+				<?php echo $a_tag->tag_text; ?>
+			</span>
+		<?php
+	}
 	function getNotTag($member_id){ // get tags that have not been added to this member
 		
 		$db		=& JFactory::getDBO();		

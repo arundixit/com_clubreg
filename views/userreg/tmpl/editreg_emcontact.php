@@ -10,7 +10,6 @@
 -------------------------------------------------------------------------*/
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
-error_reporting(0);
 global $colon;
 
 $emcontact_array = $this->contact_details->contact_details;
