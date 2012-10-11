@@ -43,7 +43,7 @@ class ClubHiddenHelper{
 		//GUARDIAN
 		//SENIOR
 		$w_email = in_array($a_result->playertype, array("GUARDIAN","SENIOR"));
-		$w_season = in_array($a_result->playertype, array("JUNIOR","SENIOR"));	$lprop = "class=\"tbl_label\"";
+		$w_season = in_array($a_result->playertype, array("JUNIOR","SENIOR"));	$lprop = "class=\"tbl_label\"";$tprop="";
 		?>		
 		<table cellpadding=0 cellspacing=2 width=100% class="<?php echo $a_result->class; ?>">
 			<tr>				

@@ -118,9 +118,12 @@ class ClubregHelper{
 		switch($player_type){
 			case "guardian":
 				unset($all_headings["memberid"]);
-				$all_headings["address"] = "Address";
+				
+				$all_headings["full_address"] = "Address";
+				
+				/*$all_headings["address"] = "Address";
 				$all_headings["suburb"] = "Suburb";
-				$all_headings["postcode"] = "Postcode";
+				$all_headings["postcode"] = "Postcode";*/
 				$all_headings["emailaddress"] = "Email";
 				$all_headings["phoneno"] = "Phone #";
 				$all_headings["send_news"] = "Send Emails";
@@ -133,9 +136,12 @@ class ClubregHelper{
 				
 				$all_headings["guardian"] = "Guardian";
 				
+				$all_headings["full_gaddress"] = "Address";
+				
+				/*
 				$all_headings["gaddress"] = "Address";
 				$all_headings["gsuburb"] = "Suburb";
-				$all_headings["gpostcode"] = "Postcode";
+				$all_headings["gpostcode"] = "Postcode";*/
 				
 				
 				$all_headings["gender"] = "Gender";
@@ -147,9 +153,11 @@ class ClubregHelper{
 				break;
 			case "senior":
 				
+				$all_headings["full_address"] = "Address";
+				/*
 				$all_headings["address"] = "Address";
 				$all_headings["suburb"] = "Suburb";
-				$all_headings["postcode"] = "Postcode";
+				$all_headings["postcode"] = "Postcode";*/
 				$all_headings["emailaddress"] = "Email";
 				$all_headings["phoneno"] = "Phone #";
 				$all_headings["gender"] = "Gender";
@@ -173,9 +181,10 @@ class ClubregHelper{
 		
 		$all_headings["year_registered"] = SEASON;
 	
-		$all_headings["t_created_date"] = "Date Registered";
-		$all_headings["t_created_by"] = "Registered By";
-	
+		//$all_headings["t_created_date"] = "Date Registered";
+		//$all_headings["t_created_by"] = "Registered By";
+		
+		$all_headings["t_created_date"] = "Registered";
 	
 		$sorting_heading["surname"]  	= array("control"=>"grid.sort","sort_col"=>"a.surname");
 		$sorting_heading["t_created_date"]  = array("control"=>"grid.sort","sort_col"=>"a.created");

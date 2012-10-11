@@ -74,7 +74,7 @@ $playertype_title = ucwords($reg_details->playertype);
 	if(in_array($reg_details->playertype, array('senior','junior'))){ 
 				echo $this->loadTemplate("group");		
 			}
-	if($this->parent_details){ $show_key = array("fullname"=>"Guardian Name","emailaddress"=>"Email Address","mobile"=>"Mobile #",
+	if(isset($this->parent_details)){ $show_key = array("fullname"=>"Guardian Name","emailaddress"=>"Email Address","mobile"=>"Mobile #",
 				"phoneno"=>"Phone #","faddress"=>"Address","reg_created"=>"Created On"); // guardian?>
 	<div class="n" >	
 		<div class="taghd">Guardian Details</div>		

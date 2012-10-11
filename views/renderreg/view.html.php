@@ -19,7 +19,7 @@ class ClubRegViewrenderreg extends JView
 
 	function display($tpl = null){			
 	
-		global $mainframe,$option,$Itemid;
+		global $mainframe,$option,$Itemid,$append;
 	
 		
 		$edit_url = array();
@@ -33,6 +33,8 @@ class ClubRegViewrenderreg extends JView
 		
 		$session =& JFactory::getSession();
 		$d_url_ = $session->get("com_clubreg.back_url");
+		
+		$lists = array();
 		
 		$back_url = sprintf("index.php?option=%s&c=userreg&task=loadregistered&Itemid=%d&%s",$option,$Itemid,@implode("&",$d_url_));
 		
@@ -79,10 +81,12 @@ class ClubRegViewrenderreg extends JView
 					$a_record = $recordset[0]; // there is no next
 					$edit_url["prev"] =sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=%d&ordinal=%d",$option,$Itemid,$a_record->member_id,$a_record->ordinal);
 				}else{
-					$a_record = $recordset[0];
+					$a_record = @$recordset[0];
 					$edit_url["prev"] = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=%d&ordinal=%d",$option,$Itemid,$a_record->member_id,$a_record->ordinal);
-					$a_record = $recordset[2];
-					$edit_url["next"] = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=%d&ordinal=%d",$option,$Itemid,$a_record->member_id,$a_record->ordinal);
+					if(isset($recordset[2])){
+						$a_record = $recordset[2];
+						$edit_url["next"] = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=%d&ordinal=%d",$option,$Itemid,$a_record->member_id,$a_record->ordinal);
+					}
 				}
 			}else{
 				$a_record = $recordset[1]; // there is no previous

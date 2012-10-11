@@ -261,23 +261,33 @@ class clubTables{
 										</tr>							
 							</table>
 					</td>
-					<td valign=top class="listing">													
+					<td valign=top class="listing">	
+																	
 						<?php						
-						if(isset($all_headings["sorting"]) && count($all_headings["sorting"]) > 0 ){							
+						if(isset($all_headings["sorting"]) && count($all_headings["sorting"]) > 0 ){ 
+							echo "<table width='100%' class='art-data'>
+									<thead>
+										<tr>";
+							
 							$sorting_heading =  $all_headings["sorting"];
-							echo "<div class=\"f_div\"><span class=\"f_label\">Sort By:</span>";
+							echo "<th class='title'>Sort By:</th>";
+						//	echo "<div class=\"f_div\"><span class=\"f_label\">Sort By:</span>";
 							foreach($list_headings as $t_key => $t_value){
 								$t_style = isset($style_heading[$t_key])?$style_heading[$t_key]:"";
 																
 								if(isset($sorting_heading[$t_key])){?>
-									<span class="filters" <?php echo $t_style; ?>>
+									<th class="filters" <?php echo $t_style; ?>>
 									<?php echo JHTML::_('grid.sort',   $t_value, $sorting_heading[$t_key]["sort_col"], @$lists['order_Dir'], @$lists['order'] );?>
-									</span><?php 													
+									</th><?php 													
 								}
 												
-							}
-							echo "</div>";	
+							}						
+							
+							echo "	</tr>
+								</thead>
+							</table><br />";	
 						}
+						
 														
 						if($howmany > 0){		
 						

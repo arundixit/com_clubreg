@@ -12,7 +12,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 global $colon;
 
-$emcontact_array = $this->contact_details->contact_details;
+$emcontact_array = isset($this->contact_details->contact_details)?$this->contact_details->contact_details:array();
 $contact_key = $this->contact_details->contact_key ;// "em_";
 ?>
 		<input type="hidden" name="contact_key[]" value="<?php echo $contact_key ?>" id="contact_key_<?php echo  $contact_key ?>"/>

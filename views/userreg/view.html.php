@@ -167,7 +167,7 @@ class ClubRegViewuserreg extends JView
 		$all_string["memberlevel"] = "a.memberlevel";
 		$all_string["playertype"] = "ucase(a.playertype) as playertype";
 		$all_string["member_name"] = "concat(a.`surname`,' ' ,a.`givenname`) as surname";		
-		$all_string["t_created_date"] = "date_format(a.created,'%d/%m/%Y') as t_created_date";
+		$all_string["t_created_date"] = " concat(date_format(a.created,'%d/%m/%Y'),'<br />',e.name) as t_created_date";
 		$all_string["t_created_by"] = "e.name as t_created_by";
 		$all_string["t_group"] = "b.group_name as `group`";
 		$all_string["t_sgroup"] = "sg.group_name as `sgroup`";
@@ -176,12 +176,13 @@ class ClubRegViewuserreg extends JView
 		$all_string["year_registered"] = " a.year_registered ";	
 		$all_string["my_children"] = " concat('<ol class=\"intable\">',group_concat(concat('<li>',c.`surname`,' ' ,c.`givenname`,'</li>') ORDER BY c.`surname` ASC SEPARATOR '' ),'</ol>')  as `my_children`";
 		$all_string["member_tag"] = $tag_vars;
+		$all_string["full_address"] = "concat(a.address ,'<br /> ', a.suburb,' ',a.postcode) as full_address";
 		
 		
 		$table_join ="";
 		if($return_data['playertype'] == "junior"){
-			$all_string["guardian"] = "concat(d.`surname`,' ' ,d.`givenname`) as guardian";
-			
+			$all_string["guardian"] = "concat(d.`surname`,' ' ,d.`givenname`) as guardian";			
+			$all_string["full_gaddress"] = "concat(d.address ,'<br />', d.suburb,'',d.postcode) as full_gaddress";
 			$all_string["gaddress"] = "d.address as gaddress";
 			$all_string["gsuburb"] = "d.suburb as gsuburb";
 			$all_string["gpostcode"] = "d.postcode as gpostcode";
