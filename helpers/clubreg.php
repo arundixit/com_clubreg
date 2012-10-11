@@ -290,7 +290,7 @@ class ClubregHelper{
 		$tmp_list['month'] = JHTML::_('select.option',  'month', JText::_( 'This Month' ) );
 		$tmp_list['lastmonth'] = JHTML::_('select.option',  'lastmonth', JText::_( 'Last Month' ) );
 		
-		$filter_heading["t_created_date"]["values"] = $tmp_list;
+		$filter_heading["f_created_date"]["values"] = $filter_heading["t_created_date"]["values"] = $tmp_list;
 		
 		$filter_heading["year_registered"]["values"] = self::generate_seasonList();
 		
