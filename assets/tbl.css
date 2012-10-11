@@ -43,7 +43,7 @@ span.f_label{
 }
 #filter_table_1 .inputbox, .smallinput{
 	padding:1px;
-	font-size:90%;
+	font-size:90%; 
 	width:150px;
 }
 span.fltlbl1{
@@ -52,4 +52,25 @@ span.fltlbl1{
 }
 td.listing{
 	border:solid 1px #999999;
+}
+table.userTable{
+	border-collapse: separate;   
+	border-spacing: 1px; 	
+}
+table.userTable th{
+	background-color: #acf;
+    border-bottom: 1px solid #cef;
+}
+table.userTable td.tbl_label{
+	background-color:#7db9e8;
+	font-weight:bold;
+}
+table.userTable td{
+	padding:3px 5px 3px 5px;
+}
+table.userTable tr:nth-child(2n+1) {
+  background-color: #DEDEDE;
+}
+.userTableOdd {
+  background-color: #DEDEDE;
 }

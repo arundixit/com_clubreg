@@ -184,10 +184,10 @@ class ClubregHelper{
 		//$all_headings["t_created_date"] = "Date Registered";
 		//$all_headings["t_created_by"] = "Registered By";
 		
-		$all_headings["t_created_date"] = "Registered";
+		$all_headings["f_created_date"] = "Registered";
 	
 		$sorting_heading["surname"]  	= array("control"=>"grid.sort","sort_col"=>"a.surname");
-		$sorting_heading["t_created_date"]  = array("control"=>"grid.sort","sort_col"=>"a.created");
+		$sorting_heading["f_created_date"]  = $sorting_heading["t_created_date"]  = array("control"=>"grid.sort","sort_col"=>"a.created");
 		$sorting_heading["playertype"]  = array("control"=>"grid.sort","sort_col"=>"a.playertype");		
 		$sorting_heading["guardian"]  = array("control"=>"grid.sort","sort_col"=>"d.surname");		
 	
@@ -230,7 +230,7 @@ class ClubregHelper{
 		
 		$filter_heading["gender"] = array("label"=>"Gender","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`gender`");
 				
-		$filter_heading["t_created_date"] = array("label"=>"Date Rng","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`created`");
+		$filter_heading["f_created_date"] = $filter_heading["t_created_date"] = array("label"=>"Date Rng","control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`created`");
 		$filter_heading["year_registered"] = array("label"=>SEASON,"control"=>"select.genericlist","other"=>"style='width:100px'","filter_col"=>"a.`year_registered`");
 				
 		$query = sprintf("select -1 as value, '-".PLAYER." Level -' as text union  select  `config_short` as value,`config_name` as text

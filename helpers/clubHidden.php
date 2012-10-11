@@ -45,15 +45,17 @@ class ClubHiddenHelper{
 		$w_email = in_array($a_result->playertype, array("GUARDIAN","SENIOR"));
 		$w_season = in_array($a_result->playertype, array("JUNIOR","SENIOR"));	$lprop = "class=\"tbl_label\"";$tprop="";
 		?>		
-		<table cellpadding=0 cellspacing=2 width=100% class="<?php echo $a_result->class; ?>">
+		<table cellpadding=0 cellspacing=0 width=100% class="userTable">
+		<thead>
 			<tr>				
-				<td colspan=2 class="fline" >
+				<th colspan=2 >
 					<?php echo $a_result->offset ;?>
 					<?php echo $a_result->show_check;?>
 					<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>" >
 						<?php echo $a_result->surname ;?></a>
-				</td>								
+				</th>								
 			</tr>
+		</thead>
 			<?php if($w_email) {?>
 			<tr><?php w_td("Email", $lprop); w_td($a_result->emailaddress, $tprop) ?></tr>	
 			<?php } 
@@ -70,10 +72,10 @@ class ClubHiddenHelper{
 				<?php 
 					$t_str = "Address";
 					w_td($t_str, $lprop); $c_ = array();
-					if($a_result->gaddress)		$c_[] = $a_result->gaddress;
+					if($a_result->gaddress)		{$c_[] = $a_result->gaddress; $c_[] = ", <br />";}
 					if($a_result->gsuburb)		$c_[] = $a_result->gsuburb;
 					if($a_result->gpostcode) 	$c_[] = $a_result->gpostcode;
-					$t_str = implode(", ", $c_);
+					$t_str = implode(" ", $c_);
 					w_td($t_str, $tprop);
 				?>	
 			</tr>
@@ -83,10 +85,10 @@ class ClubHiddenHelper{
 					<?php 
 					$t_str = "Address";
 					w_td($t_str, $lprop);$c_ = array();
-					if($a_result->address)		$c_[] = $a_result->address;
+					if($a_result->address)		{$c_[] = $a_result->address;  $c_[] = ", <br />";}
 					if($a_result->suburb)		$c_[] = $a_result->suburb;
 					if($a_result->postcode)		$c_[] = $a_result->postcode;
-					$t_str = implode(", ", $c_);
+					$t_str = implode(" ", $c_);
 					w_td($t_str, $tprop);
 				?>				
 				</tr>		

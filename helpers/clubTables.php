@@ -265,7 +265,7 @@ class clubTables{
 																	
 						<?php						
 						if(isset($all_headings["sorting"]) && count($all_headings["sorting"]) > 0 ){ 
-							echo "<table width='100%' class='art-data'>
+							echo "<table width='100%' class='art-data' cellspacing='0'>
 									<thead>
 										<tr>";
 							
@@ -285,14 +285,13 @@ class clubTables{
 							
 							echo "	</tr>
 								</thead>
-							</table><br />";	
+							</table>";	
 						}
 						
 														
 						if($howmany > 0){		
 						
 							$k = 0;$i = 0;
-							$cl_ = array("row0","row1");		
 							
 							if(isset($all_headings["page_type"]) && $all_headings["page_type"] == "registered" ){
 								$primary_key = "reg_members";
@@ -305,7 +304,7 @@ class clubTables{
 								$a_result->offset = $page->getRowOffset( $i );	
 								
 								 if($show_check){ $a_result->show_check = JHTML::_('grid.id', $i, $a_result->member_id,false,$primary_key );   }else { $a_result->show_check ="";} ;								
-								 $a_result->class= $cl_[$k];
+								 
 								 ClubHiddenHelper::renderUser($a_result,$sex_list); 
 							
 								$k = 1 - $k; $i++;
