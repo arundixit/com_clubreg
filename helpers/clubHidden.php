@@ -48,7 +48,7 @@ class ClubHiddenHelper{
 		<table cellpadding=0 cellspacing=0 width=100% class="userTable">
 		<thead>
 			<tr>				
-				<th colspan=2 >
+				<th colspan=2 align="left" >
 					<?php echo $a_result->offset ;?>
 					<?php echo $a_result->show_check;?>
 					<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>" >
@@ -59,7 +59,7 @@ class ClubHiddenHelper{
 			<?php if($w_email) {?>
 			<tr><?php w_td("Email", $lprop); w_td($a_result->emailaddress, $tprop) ?></tr>	
 			<?php } 
-			if($a_result->guardian){ ?>		
+			if(isset($a_result->guardian)){ ?>		
 			<tr>
 				<?php 	
 					$t_str = "Guardian";

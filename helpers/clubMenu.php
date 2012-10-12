@@ -19,7 +19,12 @@ static function generate_menu_tabs($member_params,$page_title){
 	global $option,$Itemid;
 	$c= trim(JRequest::getVar('c','', 'request', 'string'));
 	?>
-		<div style="font-weight:bold;font-size:1.5em;padding-left:4px;float:left;"><?php echo $page_title; ?></div><p class="cl"></p>
+	<div style="padding:1px 2px 10px 1px;">
+		<div style="font-weight:bold;font-size:1.5em;padding-left:4px;float:left;"><?php echo $page_title; ?></div>
+		<div style="float:right;font-weight:bold;font-size:1.2em;">Search: <input type="text" style="width:200px;"/></div>
+		<br />
+	</div>
+		<p class="cl"></p>
 		<div  id="userNav_clubreg">		
 			<ol>
 			<?php 

@@ -60,6 +60,9 @@ table.userTable{
 table.userTable th{
 	background-color: #acf;
     border-bottom: 1px solid #cef;
+    text-algin:left !important;
+   	padding:5px 5px 5px 3px;
+   	font-size:1.2em;
 }
 table.userTable td.tbl_label{
 	background-color:#7db9e8;
