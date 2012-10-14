@@ -129,6 +129,7 @@ class clubTables{
 					}
 					
 					$edit_url = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=",$option,$Itemid);
+					$render_url = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=",$option,$Itemid);
 					foreach($all_results as $a_result){ ?>
 					<tr class="<?= $cl_[$k]; ?>">
 						<td><? $t_offset =  $page->getRowOffset( $i ); echo $t_offset; ?></td>
@@ -149,12 +150,23 @@ class clubTables{
 										case "surname":
 											if(isset($all_headings["page_type"]) && $all_headings["page_type"] == "registered" && strlen($return_data["playertype"]) > 2 ){
 												?>
-												<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $t_offset; ?>"><?php echo ($a_result->$t_key == -1)?"-":$a_result->$t_key ;?></a>
+												<?php echo ($a_result->$t_key == -1)?"-":ucwords($a_result->$t_key) ;?><br />
+												<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $t_offset; ?>">
+													<?php  ClubHtmlHelper::renderIcon16(array('img'=>'edit1.png','text'=>'edit'));?></a>
+												<a href="<?php echo $render_url.$a_result->member_id ; ?>&ordinal=<?php echo $t_offset; ?>">
+													<?php  ClubHtmlHelper::renderIcon16(array('img'=>'preview.png','text'=>'preview'));?></a>
 												<?php 
 											}else{
 												echo ($a_result->$t_key == -1)?"-":$a_result->$t_key;
 											}
 										break;
+										case "icons":?>
+											<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>">
+											<?php  ClubHtmlHelper::renderIcon16(array('img'=>'edit1.png','text'=>'edit'));?></a>
+											<a href="<?php echo $render_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>">
+											<?php  ClubHtmlHelper::renderIcon16(array('img'=>'preview.png','text'=>'preview'));?></a>
+									
+									<?php 	break;
 										default:																				
 											echo ($a_result->$t_key == -1)?"-":$a_result->$t_key;											
 										break;

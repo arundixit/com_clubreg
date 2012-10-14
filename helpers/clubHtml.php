@@ -17,6 +17,11 @@ class ClubHtmlHelper{
 		echo JHTML::_('image', "components/com_clubreg/assets/images/".$icon_['img'], JText::_( $icon_["text"] ), array('align' => 'right', 'align'=>'bottom','width'=>'24','hspace'=>'2','style'=>'vertical-align:middle'));
 		
 	}
+	static function renderIcon16($icon_){
+	
+		echo JHTML::_('image', "components/com_clubreg/assets/images/".$icon_['img'], JText::_( $icon_["text"] ), array('align' => 'right', 'align'=>'bottom','width'=>'16','hspace'=>'2','style'=>'vertical-align:middle'));
+	
+	}
 	
 }
 	

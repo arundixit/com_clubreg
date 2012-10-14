@@ -127,7 +127,7 @@ Window.onDomReady(function(){
 		var userTableRows = $$("table.userTable tr");
 		var i = 0;
 		Array.each(userTableRows, function (e){				
-			if((i%2) == 0){
+			if((i%2) == 1){
 				e.addClass('userTableOdd');		
 			}
 			i++;

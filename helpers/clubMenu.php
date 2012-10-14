@@ -18,11 +18,14 @@ class ClubMenuHelper{
 static function generate_menu_tabs($member_params,$page_title){
 	global $option,$Itemid;
 	$c= trim(JRequest::getVar('c','', 'request', 'string'));
+	$in_type = "hidden";
 	?>
 	<div style="padding:1px 2px 10px 1px;">
 		<div style="font-weight:bold;font-size:1.5em;padding-left:4px;float:left;"><?php echo $page_title; ?></div>
-		<div style="float:right;font-weight:bold;font-size:1.2em;">Search: <input type="text" style="width:200px;"/></div>
+		<div style="float:right;font-weight:bold;font-size:1.2em;">Search: <input type="text" style="width:200px;" id="searchMembers"/></div>
 		<br />
+		<input type="<?= $in_type; ?>" name="search_option" id="search_option" value="<?= $option;?>" />		
+		<input type="<?= $in_type; ?>" name="search_Itemid" id="search_Itemid" value="<?= $Itemid;?>" />
 	</div>
 		<p class="cl"></p>
 		<div  id="userNav_clubreg">		

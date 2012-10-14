@@ -40,6 +40,17 @@ JHTML::_('stylesheet', 'small_table.css', $append .'components/com_clubreg/asset
 JHTML::_('stylesheet', 'common.css', $append .'components/com_clubreg/assets/');
 JHTML::_('stylesheet', 'payments.css', $append .'components/com_clubreg/assets/css/');
 
+/**
+ * auto complete style and javascript files
+ */
+JHTML::_('script', 'clubregautocomplete.js?'.time(), 'components/com_clubreg/assets/js/');
+JHTML::_('script', 'Autocompleter.js', 'components/com_clubreg/assets/autocomplete/js/');
+JHTML::_('script', 'Observer.js', 'components/com_clubreg/assets/autocomplete/js/');
+
+/*mootools-autocompleter-1.2.js */
+JHTML::_('stylesheet', 'autocompleter.css', $append .'components/com_clubreg/assets/autocomplete/css/');
+
+
 jimport( 'joomla.cache.cache' );
 
 $is_default = false;

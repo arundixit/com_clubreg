@@ -56,6 +56,7 @@ class ClubRegControllerUserReg extends JController
 		$this->registerTask("gettags","gettags");
 		
 		$this->registerTask("save_extradetails", "save_extradetails");
+		$this->registerTask("usersearch", "usersearch");
 		
 		
 		
@@ -988,6 +989,43 @@ class ClubRegControllerUserReg extends JController
 			//-->
 			</script>
 				<?php 	
+			
+		}
+		
+		function usersearch(){
+			global $option,$Itemid;
+			$db		=& JFactory::getDBO();
+				
+			$searhstring = trim(JRequest::getVar('searhstring','', 'post', 'string'));			
+					
+			$d_str[] = " member_id";
+			$d_str[] = " concat(givenname,' ',surname) as fname";
+			
+			$where_str = "";
+			$where_[] = sprintf(" givenname  like '%%%s%%'", $searhstring);
+			$where_[] = sprintf(" surname  like '%%%s%%'", $searhstring);			
+			
+			if(count($where_) > 0){
+				$where_str = " where ".implode(" or ",$where_ );
+			}	
+
+			$var_string = implode(",",$d_str);
+			
+			$d_qry = sprintf("select %s from %s %s ", 
+					$var_string,
+					CLUB_REGISTEREDMEMBERS_TABLE,
+					$where_str
+					);			
+			
+			$db->setQuery($d_qry,0, 30);
+			$all_results = $db->loadObjectList();
+			$fresult = array();
+			$render_url = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=",$option,$Itemid);
+			foreach($all_results as $a_reg){
+				$fresult[] = sprintf("<a href='%s%d'>%s</a>",$render_url,$a_reg->member_id,$a_reg->fname);
+			}
+			
+			echo json_encode($fresult);
 			
 		}
 	

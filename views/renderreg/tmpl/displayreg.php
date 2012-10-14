@@ -11,6 +11,8 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+
+
 $member_data = $this->member_data;
 $reg_details = $member_data->reg_details;
 
@@ -33,6 +35,9 @@ $pane_offset = isset($_COOKIE[$cookie_key])?$_COOKIE[$cookie_key]:0;
  
 jimport('joomla.html.pane');
 $pane	= &JPane::getInstance('tabs', array('useCookies'=>true,'startOffset'=>$pane_offset));
+
+$in_type = "hidden";
+
 ?>
 <div class="top_buttons">
 <div class="left_buttons"><input class="button" name='back_' id="back_url" type="button" onclick="document.location='<?php echo $this->back_url; ?>'"  value='<?php echo JText::_('Back To List'); ?>' /></div>

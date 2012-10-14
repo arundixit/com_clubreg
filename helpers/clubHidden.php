@@ -37,6 +37,8 @@ class ClubHiddenHelper{
 		global $option,$Itemid;
 		ob_start();
 		$edit_url = sprintf("index.php?option=%s&c=userreg&task=editreg&Itemid=%s&member_id=",$option,$Itemid);
+		$render_url = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=",$option,$Itemid);
+		
 		
 		//write_debug($a_result->playertype);
 		//JUNIOR
@@ -51,8 +53,14 @@ class ClubHiddenHelper{
 				<th colspan=2 align="left" >
 					<?php echo $a_result->offset ;?>
 					<?php echo $a_result->show_check;?>
-					<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>" >
-						<?php echo $a_result->surname ;?></a>
+					<?php /* <a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>" >
+						</a>*/ ?>
+						<?php echo $a_result->surname ;?>
+					
+					<a href="<?php echo $edit_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>">
+					<?php  ClubHtmlHelper::renderIcon16(array('img'=>'edit1.png','text'=>'edit'));?></a>
+					<a href="<?php echo $render_url.$a_result->member_id ; ?>&ordinal=<?php echo $a_result->offset; ?>">
+					<?php  ClubHtmlHelper::renderIcon16(array('img'=>'preview.png','text'=>'preview'));?></a>
 				</th>								
 			</tr>
 		</thead>
