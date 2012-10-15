@@ -13,4 +13,16 @@ Window.onDomReady(function(){
 		'postVar': 'searhstring'
 	});	
 	
+	$$(".regLink").each(function(e){
+		
+		e.addEvent('click',function(ev){			
+			ev.stop();			
+		});
+		
+	});
+	
+	/*	$$(".regLink").addEvent('click',function(ev){
+			alert(1);		
+		});	
+	*/	
 })

@@ -1022,7 +1022,7 @@ class ClubRegControllerUserReg extends JController
 			$fresult = array();
 			$render_url = sprintf("index.php?option=%s&c=userreg&task=renderreg&Itemid=%s&member_id=",$option,$Itemid);
 			foreach($all_results as $a_reg){
-				$fresult[] = sprintf("<a href='%s%d'>%s</a>",$render_url,$a_reg->member_id,$a_reg->fname);
+				$fresult[] = sprintf("<a href='%s%d' class='regLink'>%s</a>",$render_url,$a_reg->member_id,$a_reg->fname);
 			}
 			
 			echo json_encode($fresult);
