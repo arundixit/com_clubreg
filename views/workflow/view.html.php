@@ -16,11 +16,7 @@ jimport( 'joomla.application.component.view');
 class ClubRegViewworkflow extends JView
 {
 
-	function display($tpl = null){
-			
-		global $mainframe,$option,$Itemid;
-		
-		
+	function display($tpl = null){	
 			
 		parent::display($tpl);
 		
@@ -28,9 +24,8 @@ class ClubRegViewworkflow extends JView
 	}
 	
 	
-	function _editflow($tpl){
-				
-		global $mainframe,$option,$Itemid;			
+	function _editflow($tpl){	
+		
 		parent::display($tpl);
 		
 		return;

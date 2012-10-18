@@ -109,10 +109,10 @@ function get_a_list($d_qry,$t_key=null){
     
     if ( empty( $result ) ) {
     	// find the id to remove data for
-        $id = $cache->_makeId( $function, $d_qry,$t_key);
+        $cache_id = $cache->_makeId( $function, $d_qry,$t_key);
 
         // invalidate this entry in the cache
-        $cache->remove( $id, $group_id );
+        $cache->remove( $cache_id, $group_id );
 
        // call our function again knowing the cache has been fixed
        $result = $cache->call( $function, $d_qry,$t_key);  
